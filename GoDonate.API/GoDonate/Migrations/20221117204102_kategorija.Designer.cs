@@ -3,6 +3,7 @@ using GoDonate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoDonate.Migrations
 {
     [DbContext(typeof(GoDonateDbContext))]
-    partial class GoDonateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221117204102_kategorija")]
+    partial class kategorija
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,43 +90,6 @@ namespace GoDonate.Migrations
                     b.ToTable("Kategorije");
                 });
 
-            modelBuilder.Entity("GoDonate.Modul.Models.Prica", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Lokacija")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Naslov")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NovcaniCilj")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Opis")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("Slika")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("kategorijaID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("kategorijaID");
-
-                    b.ToTable("Price");
-                });
-
             modelBuilder.Entity("GoDonate.Modul.Models.Grad", b =>
                 {
                     b.HasOne("GoDonate.Modul.Models.Drzava", "Drzava")
@@ -133,17 +99,6 @@ namespace GoDonate.Migrations
                         .IsRequired();
 
                     b.Navigation("Drzava");
-                });
-
-            modelBuilder.Entity("GoDonate.Modul.Models.Prica", b =>
-                {
-                    b.HasOne("GoDonate.Modul.Models.Kategorija", "Kategorija")
-                        .WithMany()
-                        .HasForeignKey("kategorijaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kategorija");
                 });
 #pragma warning restore 612, 618
         }
