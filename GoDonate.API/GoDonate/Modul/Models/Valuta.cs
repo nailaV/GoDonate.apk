@@ -9,8 +9,6 @@ namespace GoDonate.Modul.Models
         public int Id { get; set; }
         public string Naziv { get; set; }
         public string Skracenica { get; set; }
-        [ForeignKey(nameof(korisnikID))]
-        public Korisnik Korisnik { get; set; }
-        public int korisnikID { get; set; }
+        
     }
 }
