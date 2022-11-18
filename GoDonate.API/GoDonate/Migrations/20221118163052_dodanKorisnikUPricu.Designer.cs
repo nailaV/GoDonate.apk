@@ -4,6 +4,7 @@ using GoDonate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoDonate.Migrations
 {
     [DbContext(typeof(GoDonateDbContext))]
-    partial class GoDonateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221118163052_dodanKorisnikUPricu")]
+    partial class dodanKorisnikUPricu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -456,7 +459,7 @@ namespace GoDonate.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoDonate.Modul.Models.Korisnik", "Korisnik")
+                    b.HasOne("GoDonate.Modul.Models.Kategorija", "Korisnik")
                         .WithMany()
                         .HasForeignKey("korisnikID")
                         .OnDelete(DeleteBehavior.Cascade)

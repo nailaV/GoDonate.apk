@@ -14,5 +14,15 @@ namespace GoDonate.Data
         public DbSet<Grad> Gradovi { get; set; }
         public DbSet<Kategorija> Kategorije { get; set; }
         public DbSet<Prica> Price { get; set; }
+        public DbSet<KorisnickiNalog> KorisnickiNalozi { get; set; }
+        public DbSet<Korisnik> Korisnici { get; set; }
+        public DbSet<Administrator> Administratori { get; set; }
+        public DbSet<Kartica> Kartice { get; set; }
+        public DbSet<Donacija> Donacije { get; set; }
+        public DbSet<Valuta> Valute { get; set; }
+        public DbSet<Jezik> Jezici { get; set; }
+        public DbSet<Komentar> Komentari { get; set; }
+        public DbSet<Obavijest> Obavijesti { get; set; }
+        public DbSet<Poruka> Poruke { get; set; }
     }
 }

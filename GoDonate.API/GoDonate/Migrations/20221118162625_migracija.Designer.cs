@@ -4,6 +4,7 @@ using GoDonate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoDonate.Migrations
 {
     [DbContext(typeof(GoDonateDbContext))]
-    partial class GoDonateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221118162625_migracija")]
+    partial class migracija
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -298,14 +301,9 @@ namespace GoDonate.Migrations
                     b.Property<int>("kategorijaID")
                         .HasColumnType("int");
 
-                    b.Property<int>("korisnikID")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("kategorijaID");
-
-                    b.HasIndex("korisnikID");
 
                     b.ToTable("Price");
                 });
@@ -456,15 +454,7 @@ namespace GoDonate.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoDonate.Modul.Models.Korisnik", "Korisnik")
-                        .WithMany()
-                        .HasForeignKey("korisnikID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Kategorija");
-
-                    b.Navigation("Korisnik");
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Valuta", b =>
