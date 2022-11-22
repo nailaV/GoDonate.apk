@@ -23,7 +23,8 @@ namespace GoDonate.Modul.Controllers
             var novaDrzava = new Drzava
             {
                 NazivDrzave = x.naziv,
-                Skracenica = x.skracenica
+                Skracenica = x.skracenica,
+                valutaID = x.valutaID,
             };
 
             _dbContext.Add(novaDrzava);

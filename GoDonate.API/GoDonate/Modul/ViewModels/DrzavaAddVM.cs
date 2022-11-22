@@ -4,5 +4,7 @@
     {
         public string naziv { get; set; }
         public string? skracenica { get; set; }
+
+        public int valutaID { get; set; }
     }
 }

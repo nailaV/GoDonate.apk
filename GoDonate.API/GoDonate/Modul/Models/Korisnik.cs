@@ -14,6 +14,10 @@ namespace GoDonate.Modul.Models
         [ForeignKey(nameof(gradID))]
         public Grad Grad { get; set; }
         public int gradID { get; set; }
-      
+
+        [ForeignKey(nameof(valutaID))]
+        public Valuta Valuta { get; set; }
+        public int valutaID { get; set; }
+
     }
 }
