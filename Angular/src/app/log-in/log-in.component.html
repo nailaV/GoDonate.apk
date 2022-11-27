@@ -1,0 +1,27 @@
+<h1> Log in</h1>
+
+<form [formGroup]="LogInForma" (ngSubmit)="onSubmit()">
+
+<h5 *ngIf="success"> Forma je validna! </h5>
+
+  <label>
+    Username:
+    <input type="text" formControlName="username">
+    <div *ngIf="submitted && LogInForma.controls.username.errors" class="error">
+      <div *ngIf="LogInForma.controls.username.errors?.['required']"> Morate unijeti username! </div>
+    </div>
+  </label>
+
+  <label>
+    Password:
+    <input type="text" formControlName="password">
+    <div *ngIf="submitted && LogInForma.controls.password.errors" class="error">
+      <div *ngIf="LogInForma.controls.password.errors?.['required']"> Morate unijeti password! </div>
+    </div>
+  </label>
+
+  <button (click)="onSubmit()" class="cta">Log in </button>
+</form>
+
+
+
