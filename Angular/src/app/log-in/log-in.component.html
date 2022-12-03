@@ -8,7 +8,7 @@
     Username:
     <input type="text" formControlName="username">
     <div *ngIf="submitted && LogInForma.controls.username.errors" class="error">
-      <div *ngIf="LogInForma.controls.username.errors?.['required']"> Morate unijeti username! </div>
+      <div *ngIf="LogInForma.controls.username.errors?.['required']"> You have to enter username! </div>
     </div>
   </label>
 
@@ -16,7 +16,7 @@
     Password:
     <input type="text" formControlName="password">
     <div *ngIf="submitted && LogInForma.controls.password.errors" class="error">
-      <div *ngIf="LogInForma.controls.password.errors?.['required']"> Morate unijeti password! </div>
+      <div *ngIf="LogInForma.controls.password.errors?.['required']"> You have to enter password! </div>
     </div>
   </label>
 
