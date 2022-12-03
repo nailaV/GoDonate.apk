@@ -2,7 +2,7 @@
 
 <form [formGroup]="LogInForma" (ngSubmit)="onSubmit()">
 
-<h5 *ngIf="success"> Forma je validna! </h5>
+<a *ngIf="success" routerLink="/about"> tekst</a>
 
   <label>
     Username:
@@ -20,7 +20,7 @@
     </div>
   </label>
 
-  <button (click)="onSubmit()" class="cta">Log in </button>
+  <button type="click" routerLink="/stories" class="cta">Log in </button>
 </form>
 
 
