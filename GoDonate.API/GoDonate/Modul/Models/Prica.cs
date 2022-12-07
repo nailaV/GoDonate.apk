@@ -9,7 +9,7 @@ namespace GoDonate.Modul.Models
         public int Id { get; set; }
         public string Naslov { get; set; }
         public string Opis { get; set; }
-        public byte[] Slika { get; set; }
+        public string Slika { get; set; }
         public int NovcaniCilj { get; set; }
         public string Lokacija { get; set; }
 

@@ -4,6 +4,7 @@ using GoDonate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoDonate.Migrations
 {
     [DbContext(typeof(GoDonateDbContext))]
-    partial class GoDonateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221205123355_goDonate")]
+    partial class goDonate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,35 +24,6 @@ namespace GoDonate.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GoDonate.Modul.Autentifikacija.AutentifikacijaToken", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
-
-                    b.Property<string>("ipAdresa")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("korisnickinalogID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("vrijednost")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("vrijemeEvidencije")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("korisnickinalogID");
-
-                    b.ToTable("AutentifikacijaToken");
-                });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Donacija", b =>
                 {
@@ -243,6 +217,10 @@ namespace GoDonate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Slika")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -331,9 +309,9 @@ namespace GoDonate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Slika")
+                    b.Property<byte[]>("Slika")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("kategorijaID")
                         .HasColumnType("int");
@@ -412,17 +390,6 @@ namespace GoDonate.Migrations
                     b.HasIndex("valutaID");
 
                     b.ToTable("Korisnici");
-                });
-
-            modelBuilder.Entity("GoDonate.Modul.Autentifikacija.AutentifikacijaToken", b =>
-                {
-                    b.HasOne("GoDonate.Modul.Models.KorisnickiNalog", "korisnickinalog")
-                        .WithMany()
-                        .HasForeignKey("korisnickinalogID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("korisnickinalog");
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Donacija", b =>

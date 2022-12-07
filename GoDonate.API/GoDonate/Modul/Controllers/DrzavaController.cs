@@ -1,4 +1,5 @@
 ﻿using GoDonate.Data;
+using GoDonate.Helpers;
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,8 @@ namespace GoDonate.Modul.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
+    
+    [AutorizacijaAtributte(true, true )]
     public class DrzavaController:ControllerBase
     {
         private readonly GoDonateDbContext _dbContext;

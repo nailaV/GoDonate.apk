@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

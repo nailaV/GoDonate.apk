@@ -7,5 +7,7 @@
         public DateTime datum_rodjenja { get; set; }
         public int grad_id { get; set; }
         public int valuta_id { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
     }
 }

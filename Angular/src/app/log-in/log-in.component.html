@@ -2,11 +2,11 @@
 
 <form [formGroup]="LogInForma" (ngSubmit)="onSubmit()">
 
-<a *ngIf="success" routerLink="/about"> tekst</a>
+
 
   <label>
     Username:
-    <input type="text" formControlName="username">
+    <input type="text" [(ngModel)]="this.username "formControlName="username">
     <div *ngIf="submitted && LogInForma.controls.username.errors" class="error">
       <div *ngIf="LogInForma.controls.username.errors?.['required']"> You have to enter username! </div>
     </div>
@@ -14,13 +14,13 @@
 
   <label>
     Password:
-    <input type="text" formControlName="password">
+    <input type="password" [(ngModel)]="this.password" formControlName="password">
     <div *ngIf="submitted && LogInForma.controls.password.errors" class="error">
       <div *ngIf="LogInForma.controls.password.errors?.['required']"> You have to enter password! </div>
     </div>
   </label>
 
-  <button type="click" routerLink="/stories" class="cta">Log in </button>
+  <button type="click" class="cta" (click)="onSubmit()">Log in </button>
 </form>
 
 

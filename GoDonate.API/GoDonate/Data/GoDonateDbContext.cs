@@ -1,4 +1,5 @@
-﻿using GoDonate.Modul.Models;
+﻿using GoDonate.Modul.Autentifikacija;
+using GoDonate.Modul.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoDonate.Data
@@ -24,5 +25,6 @@ namespace GoDonate.Data
         public DbSet<Komentar> Komentari { get; set; }
         public DbSet<Obavijest> Obavijesti { get; set; }
         public DbSet<Poruka> Poruke { get; set; }
+        public DbSet<AutentifikacijaToken> AutentifikacijaToken { get; set; }
     }
 }

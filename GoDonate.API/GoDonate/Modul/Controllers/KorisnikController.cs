@@ -26,7 +26,9 @@ namespace GoDonate.Modul.Controllers
                 Prezime = x.prezime,
                 DatumRodjenja = x.datum_rodjenja,
                 gradID = x.grad_id,
-                valutaID = x.valuta_id
+                valutaID = x.valuta_id,
+                Username= x.username,
+                Password=x.password
                 
             };
 

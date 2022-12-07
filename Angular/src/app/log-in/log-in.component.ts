@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
 import {FormControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
+import {LoginInformacije} from "../helperi/login-informacije";
+import {Konfiguracija} from "../../Config";
+import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
+
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 
 @Component({
   selector: 'app-log-in',
@@ -14,7 +22,8 @@ export class LogInComponent {
   password:any;
 
 
-  constructor(private formBuilder:FormBuilder) {
+
+  constructor(private formBuilder:FormBuilder, private router : Router, private httpKlijent:HttpClient) {
 
     this.LogInForma=this.formBuilder.group({
       username:new FormControl('', Validators.required),
@@ -30,7 +39,29 @@ export class LogInComponent {
     {
       return;
     }
-      this.success=true;
+
+    let saljemo = {
+      username:this.username,
+      password: this.password
+    };
+    this.httpKlijent.post<LoginInformacije>(Konfiguracija.adresaServera+ "/Autentifikacija/Login/", saljemo)
+      .subscribe((x:LoginInformacije) =>{
+        if (x.isLogiran) {
+          alert("LogIn successfull");
+          AutentifikacijaHelper.setLoginInfo(x)
+          this.router.navigateByUrl("/stories");
+
+
+        }
+        else
+        {
+          AutentifikacijaHelper.setLoginInfo(null)
+          alert("LogIn unsuccessfull");
+        }
+      });
+
+
+
 
   }
 
