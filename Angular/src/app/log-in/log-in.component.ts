@@ -6,9 +6,6 @@ import {LoginInformacije} from "../helperi/login-informacije";
 import {Konfiguracija} from "../../Config";
 import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
 
-declare function porukaSuccess(a: string):any;
-declare function porukaError(a: string):any;
-
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
@@ -20,7 +17,8 @@ export class LogInComponent {
   success=false;
   username:any;
   password:any;
-
+  porukaUspjesno:boolean=false;
+  porukaNeuspjesno:boolean=false;
 
 
   constructor(private formBuilder:FormBuilder, private router : Router, private httpKlijent:HttpClient) {
@@ -47,22 +45,16 @@ export class LogInComponent {
     this.httpKlijent.post<LoginInformacije>(Konfiguracija.adresaServera+ "/Autentifikacija/Login/", saljemo)
       .subscribe((x:LoginInformacije) =>{
         if (x.isLogiran) {
-          alert("LogIn successfull");
           AutentifikacijaHelper.setLoginInfo(x)
           this.router.navigateByUrl("/stories");
-
-
+          this.porukaUspjesno=true;
         }
         else
         {
           AutentifikacijaHelper.setLoginInfo(null)
-          alert("LogIn unsuccessfull");
+          this.porukaNeuspjesno=true;
         }
       });
-
-
-
-
   }
 
   ngOnInit()

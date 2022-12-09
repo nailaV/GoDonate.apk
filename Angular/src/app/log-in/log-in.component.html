@@ -1,11 +1,16 @@
-<h1> Log in</h1>
+<h2> Log in</h2>
+
+<div *ngIf="porukaUspjesno" class="alert alert-success" role="alert">
+  A simple success alert—check it out!
+</div>
+
+<div *ngIf="porukaNeuspjesno" class="alert alert-danger" role="alert">
+  LogIn unsuccessful!
+</div>
 
 <form [formGroup]="LogInForma" (ngSubmit)="onSubmit()">
-
-
-
   <label>
-    Username:
+    <h6> Username: </h6>
     <input type="text" [(ngModel)]="this.username "formControlName="username">
     <div *ngIf="submitted && LogInForma.controls.username.errors" class="error">
       <div *ngIf="LogInForma.controls.username.errors?.['required']"> You have to enter username! </div>
@@ -13,7 +18,7 @@
   </label>
 
   <label>
-    Password:
+    <h6> Password: </h6>
     <input type="password" [(ngModel)]="this.password" formControlName="password">
     <div *ngIf="submitted && LogInForma.controls.password.errors" class="error">
       <div *ngIf="LogInForma.controls.password.errors?.['required']"> You have to enter password! </div>
@@ -22,6 +27,9 @@
 
   <button type="click" class="cta" (click)="onSubmit()">Log in </button>
 </form>
+
+
+
 
 
 
