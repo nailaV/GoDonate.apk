@@ -33,17 +33,18 @@ namespace GoDonate.Modul.Controllers
         }
 
         [HttpGet]
-        public List<KategorijaAddVM> GetSveKategorije()
+        public ActionResult GetSveKategorije()
         {
             var kategorije = _dbContext.Kategorije
                 .OrderBy(s => s.Naziv)
-                .Select(s => new KategorijaAddVM()
+                .Select(s => new GetKategorijeVM()
                 {
-                    naziv=s.Naziv,
-                    opis=s.Opis
+                    id=s.Id,
+                    naziv = s.Naziv,
+                    opis = s.Opis
                 })
-                .AsQueryable();
-            return kategorije.Take(100).ToList();
+                .ToList();
+            return Ok(kategorije);
         }
     }
 }

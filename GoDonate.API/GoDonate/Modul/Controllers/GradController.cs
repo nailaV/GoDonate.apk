@@ -2,6 +2,7 @@
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoDonate.Modul.Controllers
 {
@@ -35,18 +36,19 @@ namespace GoDonate.Modul.Controllers
         }
 
         [HttpGet]
-        public List<GradAddVM> GetSviGradovi()
+        public ActionResult GetSviGradovi()
         {
             var gradovi = _dbContext.Gradovi
                 .OrderBy(s => s.Naziv)
-                .Select(s => new GradAddVM()
+                .Select(s => new GradoviVM()
                 {
+                    id = s.GradID,
                     naziv = s.Naziv,
-                    postanskibroj = s.PostanskiBroj,
-                    drzavaID = s.drzavaID
+                    postanskiBroj = s.PostanskiBroj,
+                    drzava = s.Drzava.NazivDrzave
                 })
-                .AsQueryable();
-            return gradovi.Take(100).ToList();
+                .ToList();
+            return Ok(gradovi);
         }
     }
 }

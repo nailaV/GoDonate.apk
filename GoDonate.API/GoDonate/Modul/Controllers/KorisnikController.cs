@@ -2,6 +2,7 @@
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoDonate.Modul.Controllers
 {
@@ -39,21 +40,22 @@ namespace GoDonate.Modul.Controllers
         }
 
         [HttpGet]
-        public List<KorisnikAddVM> GetSveKorisnike()
+        public ActionResult GetSveKorisnike()
         {
             var korisnici = _dbContext.Korisnici
                 .OrderBy(s => s.Ime)
-                .Select(s => new KorisnikAddVM()
+                .Select(s => new KorisnikGetAllVM()
                 {
+                    id=s.ID,
                     ime = s.Ime,
                     prezime = s.Prezime,
-                    datum_rodjenja = s.DatumRodjenja,
-                    grad_id = s.gradID,
-                    valuta_id = s.valutaID
-                    
+                    datum_rodj = s.DatumRodjenja,
+                    opstina_rodjenja_id = s.gradID,
+                    opstina_rodjenja_opis=s.Grad.Naziv,
+                    drzava_rodjenja_opis=s.Grad.Drzava.NazivDrzave
                 })
-                .AsQueryable();
-            return korisnici.Take(100).ToList();
+                .ToList();
+            return Ok(korisnici);
         }
 
     }

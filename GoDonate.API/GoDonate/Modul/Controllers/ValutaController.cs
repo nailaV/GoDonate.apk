@@ -40,7 +40,8 @@ namespace GoDonate.Modul.Controllers
                 .Select(s => new ValutaAddVM()
                 {
                     naziv = s.Naziv,
-                    skracenica = s.Skracenica
+                    skracenica = s.Skracenica,
+                    id=s.Id
                 })
                 .AsQueryable();
             return valute.Take(100).ToList();
