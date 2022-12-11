@@ -1,5 +1,5 @@
 header {
-  background: #7700FF;
+  background: #080300;
 
   .logo {
     font-weight: bold;
@@ -21,7 +21,8 @@ header {
           font-size: .8em;
 
           &:hover {
-            background: #8E2BFF;
+            border: 1px solid white;
+
           }
         }
       }
