@@ -7,16 +7,12 @@
   <div class="card-body">
     <h5 class="card-title">{{x.naslov}}</h5>
     <p class="card-text">{{x.opis}}</p>
-    <a href="#" class="btn btn-dark">Details</a>
+    <a href="" class="btn btn-dark">Details</a>
   </div>
 </div>
 </div>
 
 <button class="btn btn-dark" (click)="otvoriFormu=true">Add your story</button>
-<br> <br> <br>
-<div *ngIf="porukaUspjesno" class="alert alert-success" role="alert">
-  A simple success alert—check it out!</div>
-
 
 <div *ngIf="otvoriFormu" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">

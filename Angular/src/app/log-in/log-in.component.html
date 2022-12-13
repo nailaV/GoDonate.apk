@@ -1,13 +1,5 @@
 <p style="font-weight: bold; font-size: 50px"> Log in</p>
 
-<div *ngIf="porukaUspjesno" class="alert alert-success" role="alert">
-  A simple success alert—check it out!
-</div>
-
-<div *ngIf="porukaNeuspjesno" class="alert alert-danger" role="alert">
-  LogIn unsuccessful!
-</div>
-
 <form [formGroup]="LogInForma" (ngSubmit)="onSubmit()">
   <label>
     <p style="font-weight: bold; font-size: 17px;"> Username: </p>

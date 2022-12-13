@@ -1,5 +1,5 @@
 <header>
-  <div class="container">
+  <div class="container" *ngIf="!loginInfo().isLogiran">
     <a routerLink="/" class="logo">GoDonate</a>
     <nav>
       <ul>
@@ -11,7 +11,7 @@
   </div>
 
 
-  <!--<div class="container" *ngIf="loginInfo().isLogiran">
+  <div class="container" *ngIf="loginInfo().isLogiran">
     <a routerLink="/" class="logo">GoDonate</a>
     <nav>
       <ul>
@@ -19,7 +19,7 @@
         <li> <a routerLink="/about">About</a></li>
       </ul>
     </nav>
-  </div>-->
+  </div>
 </header>
 
 
