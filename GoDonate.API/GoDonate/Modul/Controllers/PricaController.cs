@@ -1,4 +1,5 @@
 ﻿using GoDonate.Data;
+using GoDonate.Helpers;
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace GoDonate.Modul.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    public class PricaController:ControllerBase
+    public class PricaController : ControllerBase
     {
         private readonly GoDonateDbContext _dbContext;
 
@@ -24,11 +25,12 @@ namespace GoDonate.Modul.Controllers
             {
                 Naslov = x.naslov,
                 Opis = x.opis,
-                Slika= x.slika,
-                NovcaniCilj=x.novcani_cilj,
-                Lokacija=x.lokacija,
+                NovcaniCilj = x.novcani_cilj,
+                Lokacija = x.lokacija,
                 kategorijaID = x.kategorija_id,
-                korisnikID=x.korisnik_id
+                korisnikID = x.korisnik_id,
+                Slika = HelperSlike.ParsirajUbase(x.slika)
+
             };
 
             _dbContext.Add(novaPrica);
@@ -44,16 +46,24 @@ namespace GoDonate.Modul.Controllers
                 .OrderBy(s => s.Naslov)
                 .Select(s => new PricaAddVM()
                 {
+                    id=s.Id,
                     naslov = s.Naslov,
                     opis = s.Opis,
-                    slika=s.Slika,
-                    novcani_cilj=s.NovcaniCilj,
-                    lokacija=s.Lokacija,
+                    novcani_cilj = s.NovcaniCilj,
+                    lokacija = s.Lokacija,
                     kategorija_id = s.kategorijaID,
-                    korisnik_id=s.korisnikID
+                    korisnik_id = s.korisnikID
                 })
                 .AsQueryable();
             return price.Take(100).ToList();
+        }
+
+        [HttpGet("{pricaid}")]
+        public ActionResult GetSlikaPrice(int pricaid)
+        {
+            byte[] prica = _dbContext.Price.Find(pricaid).Slika;
+
+            return File(prica, "image/png");
         }
     }
 }

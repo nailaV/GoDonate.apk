@@ -12,11 +12,12 @@
 
 
   <div class="container" *ngIf="loginInfo().isLogiran">
-    <a routerLink="/" class="logo">GoDonate</a>
+    <a class="logo">GoDonate</a>
     <nav>
       <ul>
-        <li> <a routerLink="/">Home</a></li>
-        <li> <a routerLink="/about">About</a></li>
+       <!-- <li> <a routerLink="/">Home</a></li>
+        <li> <a routerLink="/about">About</a></li>-->
+        <li><a style="color: white" (click)="logOut()">Log Out</a></li>
       </ul>
     </nav>
   </div>

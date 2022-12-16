@@ -49,4 +49,7 @@ export class StoriesComponent implements OnInit {
     }
   }
 
+  getSliku(x: any) {
+    return `${Konfiguracija.adresaServera}/Prica/GetSlikaPrice/${x.id}`;
+  }
 }
