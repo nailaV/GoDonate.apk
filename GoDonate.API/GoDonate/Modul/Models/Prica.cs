@@ -15,6 +15,7 @@ namespace GoDonate.Modul.Models
         [ForeignKey(nameof(kategorijaID))]
         public Kategorija Kategorija { get; set; }
         public int kategorijaID { get; set; }
+
         [ForeignKey(nameof(korisnikID))]
         public Korisnik Korisnik { get; set; }
         public int korisnikID { get; set; }

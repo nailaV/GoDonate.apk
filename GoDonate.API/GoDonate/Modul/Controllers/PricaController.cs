@@ -19,23 +19,33 @@ namespace GoDonate.Modul.Controllers
 
 
         [HttpPost]
-        public Prica Add([FromBody] PricaAddVM x)
+        public ActionResult Add([FromBody] PricaAddVM x)
         {
-            var novaPrica = new Prica
+            Prica prica;
+            if (x.id == 0)
             {
-                Naslov = x.naslov,
-                Opis = x.opis,
-                NovcaniCilj = x.novcani_cilj,
-                Lokacija = x.lokacija,
-                kategorijaID = x.kategorija_id,
-                korisnikID = x.korisnik_id,
-                Slika = HelperSlike.ParsirajUbase(x.slika)
+                prica = new Prica();
+                _dbContext.Add(prica);
+            }
+            else
+                prica = _dbContext.Price.FirstOrDefault(s => s.Id == x.id);
+            prica.Naslov = x.naslov;
+            prica.Opis = x.opis;
+            if (x.slika != "")
+            {
+                byte[] slikaBajtovi = x.slika.ParsirajUbase();
+                prica.Slika = slikaBajtovi;
 
-            };
+            }
+            
+            prica.NovcaniCilj = x.novcani_cilj;
+            prica.Lokacija = x.lokacija;
+            prica.kategorijaID = x.kategorija_id;
+            prica.korisnikID = x.korisnik_id;
 
-            _dbContext.Add(novaPrica);
             _dbContext.SaveChanges();
-            return novaPrica;
+            return Ok();
+
 
         }
 
@@ -46,7 +56,7 @@ namespace GoDonate.Modul.Controllers
                 .OrderBy(s => s.Naslov)
                 .Select(s => new PricaAddVM()
                 {
-                    id=s.Id,
+                    id = s.Id,
                     naslov = s.Naslov,
                     opis = s.Opis,
                     novcani_cilj = s.NovcaniCilj,
@@ -63,7 +73,8 @@ namespace GoDonate.Modul.Controllers
         {
             byte[] prica = _dbContext.Price.Find(pricaid).Slika;
 
-            return File(prica, "image/png");
+            return File(prica, "image/*");
         }
+
     }
 }

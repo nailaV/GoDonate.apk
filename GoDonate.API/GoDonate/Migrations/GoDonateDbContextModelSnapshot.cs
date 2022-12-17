@@ -48,7 +48,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("korisnickinalogID");
 
-                    b.ToTable("AutentifikacijaToken");
+                    b.ToTable("AutentifikacijaToken", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Donacija", b =>
@@ -82,7 +82,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("pricaID");
 
-                    b.ToTable("Donacije");
+                    b.ToTable("Donacije", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Drzava", b =>
@@ -107,7 +107,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("valutaID");
 
-                    b.ToTable("Drzave");
+                    b.ToTable("Drzave", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Grad", b =>
@@ -132,7 +132,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("drzavaID");
 
-                    b.ToTable("Gradovi");
+                    b.ToTable("Gradovi", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Jezik", b =>
@@ -154,7 +154,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("korisnikID");
 
-                    b.ToTable("Jezici");
+                    b.ToTable("Jezici", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Kartica", b =>
@@ -185,7 +185,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("KorisnikID");
 
-                    b.ToTable("Kartice");
+                    b.ToTable("Kartice", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Kategorija", b =>
@@ -206,7 +206,7 @@ namespace GoDonate.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Kategorije");
+                    b.ToTable("Kategorije", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Komentar", b =>
@@ -228,7 +228,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("pricaID");
 
-                    b.ToTable("Komentari");
+                    b.ToTable("Komentari", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.KorisnickiNalog", b =>
@@ -249,7 +249,7 @@ namespace GoDonate.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("KorisnickiNalozi");
+                    b.ToTable("KorisnickiNalozi", (string)null);
 
                     b.UseTptMappingStrategy();
                 });
@@ -280,7 +280,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("korisnikID");
 
-                    b.ToTable("Obavijesti");
+                    b.ToTable("Obavijesti", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Poruka", b =>
@@ -305,7 +305,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("korisnikID");
 
-                    b.ToTable("Poruke");
+                    b.ToTable("Poruke", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Prica", b =>
@@ -347,7 +347,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("korisnikID");
 
-                    b.ToTable("Price");
+                    b.ToTable("Price", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Valuta", b =>
@@ -368,7 +368,7 @@ namespace GoDonate.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Valute");
+                    b.ToTable("Valute", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Administrator", b =>
@@ -383,7 +383,7 @@ namespace GoDonate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Administratori");
+                    b.ToTable("Administratori", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Models.Korisnik", b =>
@@ -411,7 +411,7 @@ namespace GoDonate.Migrations
 
                     b.HasIndex("valutaID");
 
-                    b.ToTable("Korisnici");
+                    b.ToTable("Korisnici", (string)null);
                 });
 
             modelBuilder.Entity("GoDonate.Modul.Autentifikacija.AutentifikacijaToken", b =>
