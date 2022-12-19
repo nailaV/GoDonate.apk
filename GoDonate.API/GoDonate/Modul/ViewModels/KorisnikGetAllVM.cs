@@ -9,5 +9,8 @@
         public string opstina_rodjenja_opis { get; set; }
         public string drzava_rodjenja_opis { get; set; }
         public DateTime datum_rodj { get; set; }
+        public string email { get; set; }
+        public string brojTelefona { get; set; }
+        public string slikaKorisnika { get; set; }
     }
 }

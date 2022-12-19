@@ -20,5 +20,9 @@ namespace GoDonate.Modul.Models
         public bool isKorisnik => korisnik != null;
 
         public bool isAdmin => administrator != null;
+        public string Email { get; set; }
+        public string BrojTelefona { get; set; }
+        public byte[] SlikaKorisnika { get; set; }
+
     }
 }

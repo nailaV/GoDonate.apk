@@ -1,0 +1,60 @@
+<!--
+
+<div class="pozadina">
+  <form class="row g-3">
+    <h1 style="text-align: center; color: white; font-weight: bold">Registration</h1>
+    <br>
+    <h4 style="color: white">Enter all of your personal information to became our member and donate!</h4>
+    <div class="col-md-6">
+      <label for="nameInput"  class="form-label" style="color: white" required>First Name</label>
+      <input type="text" class="form-control" id="nameInput" [(ngModel)]="korisnik.ime">
+    </div>
+    <div class="col-md-6">
+      <label for="lNameInput" class="form-label" style="color: white">Last Name</label>
+      <input type="text" class="form-control" id="lNameInput" [(ngModel)]="korisnik.prezime">
+    </div>
+   &lt;!&ndash; <div class="col-md-6">
+      <label for="dateInput" class="form-label" style="color: white" required>Date of birth</label>
+      <input type="datetime-local" class="form-control" id="dateInput" placeholder="02.12.2001" [(ngModel)]="korisnik.datum_rodjenja">
+    </div>&ndash;&gt;
+    <div class="col-md-6">
+      <label for="emailInput" class="form-label" style="color: white" required>Email</label>
+      <input type="email" class="form-control" id="emailInput" placeholder="name.lname@gmail.com" [(ngModel)]="korisnik.email">
+    </div>
+    <div class="col-md-6">
+      <label for="username" class="form-label" style="color: white" required>Username</label>
+      <input type="text" class="form-control" id="username" [(ngModel)]="korisnik.username">
+    </div>
+    <div class="col-md-6">
+      <label for="password" class="form-label" style="color: white" required>Password</label>
+      <input type="password" class="form-control" id="password" [(ngModel)]="korisnik.password">
+    </div>
+    <div class="col-md-6">
+      <label for="number" class="form-label" style="color: white" required>Phone number</label>
+      <input type="number" class="form-control" id="number" placeholder="067890654" [(ngModel)]="korisnik.brojTelefona">
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label" style="color: white">City</label>
+      <select class="form-control" [(ngModel)]="korisnik.grad_id" >
+        <option *ngFor="let x of gradoviPodaci" [value]="x.id">{{x.naziv + "-" + x.drzava}}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="formFile" class="form-label" style="color: white">Upload your picture</label>
+      <input class="form-control" type="file" id="formFile" accept="image/*" (change)="generisiPreview()">
+      <img style="width: 50%; height: 70%; display: block;
+  margin-left: auto;
+  margin-right: auto; margin-top: 10px" src="{{korisnik.slikaKorisnika}}">
+    </div>
+    <br>
+    <br>
+    <div class="dugme">
+      <button type="submit" style="font-weight: bold; font-size: 20px; color: white; background-color: black; padding: 20px; margin-left: 75%; width:20%;" (click)="RegisterDugme()"> Register </button>
+    </div>
+
+  </form>
+</div>
+
+-->

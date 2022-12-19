@@ -1,4 +1,5 @@
 ﻿using GoDonate.Data;
+using GoDonate.Helpers;
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -19,24 +20,44 @@ namespace GoDonate.Modul.Controllers
 
 
         [HttpPost]
-        public Korisnik Add([FromBody] KorisnikAddVM x)
+        public ActionResult Add([FromBody] KorisnikAddVM x)
         {
-            var noviKorisnik = new Korisnik
+            Korisnik korisnik;
+            if (x.id == 0)
             {
-                Ime = x.ime,
-                Prezime = x.prezime,
-                DatumRodjenja = x.datum_rodjenja,
-                gradID = x.grad_id,
-                valutaID = x.valuta_id,
-                Username= x.username,
-                Password=x.password
-                
-            };
+                korisnik = new Korisnik();
+                _dbContext.Add(korisnik);
+            }
+            else
+                korisnik = _dbContext.Korisnici.FirstOrDefault(s => s.ID == x.id);
 
-            _dbContext.Add(noviKorisnik);
+            korisnik.Ime = x.ime;
+            korisnik.Prezime = x.prezime;
+            korisnik.DatumRodjenja = x.datum_rodjenja;
+            korisnik.gradID = x.grad_id;
+            korisnik.valutaID = x.valuta_id;
+            korisnik.Username= x.username;
+            korisnik.Password = x.password;
+            korisnik.Email = x.email;
+            korisnik.BrojTelefona = x.brojTelefona;
+
+            if(x.slikaKorisnika!="")
+            {
+                byte[] slikaBajtovi = x.slikaKorisnika.ParsirajUbase();
+                korisnik.SlikaKorisnika = slikaBajtovi;
+            }
+
             _dbContext.SaveChanges();
-            return noviKorisnik;
+            return Ok();
 
+        }
+
+        [HttpGet("{korisnikid}")]
+        public ActionResult GetSlikuKorisnika(int korisnikid)
+        {
+            byte[] korisnik = _dbContext.KorisnickiNalozi.Find(korisnikid).SlikaKorisnika;
+
+            return File(korisnik, "image/*");
         }
 
         [HttpGet]
@@ -52,7 +73,9 @@ namespace GoDonate.Modul.Controllers
                     datum_rodj = s.DatumRodjenja,
                     opstina_rodjenja_id = s.gradID,
                     opstina_rodjenja_opis=s.Grad.Naziv,
-                    drzava_rodjenja_opis=s.Grad.Drzava.NazivDrzave
+                    drzava_rodjenja_opis=s.Grad.Drzava.NazivDrzave,
+                    email=s.Email,
+                    brojTelefona=s.BrojTelefona
                 })
                 .ToList();
             return Ok(korisnici);

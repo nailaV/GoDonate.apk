@@ -4,7 +4,8 @@
     {
         public static byte[] ParsirajUbase(this string slika)
         {
-            slika = slika.Split(',')[1];
+            if(slika.Contains(','))
+                slika = slika.Split(',')[1];
             return System.Convert.FromBase64String( slika);
         }
     }
