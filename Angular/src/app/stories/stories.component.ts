@@ -51,8 +51,7 @@ export class StoriesComponent implements OnInit {
       slika:"",
       novcani_cilj:"",
       lokacija:"",
-      kategorija_id:"",
-      korisnik_id:1
+      kategorija_id:""
     };
   }
 

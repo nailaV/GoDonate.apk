@@ -64,7 +64,7 @@ namespace GoDonate.Modul.Controllers
         public ActionResult GetSveKorisnike()
         {
             var korisnici = _dbContext.Korisnici
-                .OrderBy(s => s.Ime)
+                .OrderBy(s =>s.ID)
                 .Select(s => new KorisnikGetAllVM()
                 {
                     id=s.ID,

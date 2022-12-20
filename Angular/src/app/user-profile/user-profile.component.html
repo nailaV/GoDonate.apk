@@ -1,1 +1,6 @@
-<p>user-profile works!</p>
+<div class="kontejner">
+  <div class="slika">
+    <h1>{{loginInfo().autentifikacijaToken.korisnickiNalog.korisnickoIme}}</h1>
+    <img class="profilna-slika" src="{{getSlikuKorisnika(loginInfo().autentifikacijaToken.korisnickiNalog.id)}}">
+  </div>
+</div>

@@ -9,6 +9,6 @@
         public int novcani_cilj { get; set; }
         public string lokacija { get; set; }
         public int kategorija_id { get; set; }
-        public int korisnik_id { get; set; }
+        public int? korisnik_id { get; internal set; }
     }
 }

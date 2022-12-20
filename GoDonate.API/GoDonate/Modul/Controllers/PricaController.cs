@@ -21,6 +21,11 @@ namespace GoDonate.Modul.Controllers
         [HttpPost]
         public ActionResult Add([FromBody] PricaAddVM x)
         {
+
+            int? id_logirani_korisnik = HttpContext.GetAuthToken()?.korisnickinalogID;
+
+            if (id_logirani_korisnik == null)
+                return BadRequest();
             Prica prica;
             if (x.id == 0)
             {
@@ -31,6 +36,7 @@ namespace GoDonate.Modul.Controllers
                 prica = _dbContext.Price.FirstOrDefault(s => s.Id == x.id);
             prica.Naslov = x.naslov;
             prica.Opis = x.opis;
+            prica.korisnikID = id_logirani_korisnik.Value;
             if (x.slika != "")
             {
                 byte[] slikaBajtovi = x.slika.ParsirajUbase();
@@ -41,12 +47,10 @@ namespace GoDonate.Modul.Controllers
             prica.NovcaniCilj = x.novcani_cilj;
             prica.Lokacija = x.lokacija;
             prica.kategorijaID = x.kategorija_id;
-            prica.korisnikID = x.korisnik_id;
+
 
             _dbContext.SaveChanges();
             return Ok();
-
-
         }
 
         [HttpGet]
@@ -71,7 +75,10 @@ namespace GoDonate.Modul.Controllers
         [HttpGet("{pricaid}")]
         public ActionResult GetSlikaPrice(int pricaid)
         {
-            byte[] prica = _dbContext.Price.Find(pricaid).Slika;
+            byte[]? prica = _dbContext.Price.Find(pricaid)?.Slika;
+
+            if (prica == null)
+                return BadRequest();
 
             return File(prica, "image/*");
         }
