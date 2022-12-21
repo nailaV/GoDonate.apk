@@ -1,7 +1,25 @@
+h1{
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-family: Montserrat;
+}
+h2{
+  font-weight: bold;
+}
+h3{
+  background-color: lightgrey;
+}
 .kontejner{
   background-color: rgba(0,0,0,0.567);
+  margin:50px;
+  padding: 20px;
 }
 
-.profilna-slika{
-  width: 30px;
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
 }
+

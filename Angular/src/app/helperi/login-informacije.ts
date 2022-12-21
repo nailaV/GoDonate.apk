@@ -3,7 +3,7 @@ export interface AutentifikacijaToken {
   id : number;
   vrijednost : string;
   korisnickiNalogId:    number;
-  korisnickiNalog:      KorisnickiNalog;
+  korisnickinalog:      KorisnickiNalog;
   vrijemeEvidentiranja: Date;
   ipAdresa:             string;
 }
@@ -15,8 +15,10 @@ export class LoginInformacije{
 
 export interface KorisnickiNalog{
   id:                 number;
-  korisnickoIme:      string;
-  slika_korisnika:    string;
+  username:      string;
+  slikaKorisnika:    string;
   isAdmin:            boolean;
+  brojTelefona:string;
+  email:string;
   isKorisnik: boolean;
 }

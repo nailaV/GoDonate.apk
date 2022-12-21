@@ -3,7 +3,7 @@
 <form [formGroup]="LogInForma" (ngSubmit)="onSubmit()">
   <label>
     <p style="font-weight: bold; font-size: 17px;"> Username: </p>
-    <input type="text" [(ngModel)]="this.username "formControlName="username" placeholder="username">
+    <input type="text" [(ngModel)]="this.username " formControlName="username" placeholder="username">
     <div *ngIf="submitted && LogInForma.controls.username.errors" class="error">
       <div *ngIf="LogInForma.controls.username.errors?.['required']"> You have to enter username! </div>
     </div>

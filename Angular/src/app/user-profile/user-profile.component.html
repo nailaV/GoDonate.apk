@@ -1,6 +1,14 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="kontejner">
-  <div class="slika">
-    <h1>{{loginInfo().autentifikacijaToken.korisnickiNalog.korisnickoIme}}</h1>
-    <img class="profilna-slika" src="{{getSlikuKorisnika(loginInfo().autentifikacijaToken.korisnickiNalog.id)}}">
-  </div>
+  <h1>Your profile</h1> <br>
+<div class="card">
+  <img src="{{getSlikuKorisnika(loginInfo().autentifikacijaToken.korisnickinalog.id)}}" alt="No profile picture!" style="width:100%">
+  <h2> Username:</h2>
+  <h3>{{loginInfo().autentifikacijaToken!.korisnickinalog!.username}}</h3>
+  <h2> Phone number:</h2>
+  <h3>{{loginInfo().autentifikacijaToken.korisnickinalog.brojTelefona}}</h3>
+  <h2> Email:</h2>
+  <h3>{{loginInfo().autentifikacijaToken!.korisnickinalog!.email}}</h3>
 </div>
+</div>
+

@@ -1,55 +1,53 @@
-
-
-<div class ="container">
-<div *ngFor="let x of prica_podaci" class="card" style="width: 18rem;">
-  <img src="{{getSliku(x)}}"
-       class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{x.naslov}}</h5>
-    <p class="card-text">{{x.opis}}</p>
-    <a href="" class="btn btn-dark">Details</a>
+<div class="kontejner">
+<h1>Stories opened for donations</h1>
+  <div *ngFor="let x of prica_podaci" class="kartica">
+    <img src="{{getSliku(x)}}">
+    <h3>{{x.naslov}}</h3>
+    <h4>{{x.opis}}</h4>
+   <a class="btn btn-dark" routerLink="/storyDetails"> Details</a>
   </div>
-</div>
+  <br> <br> <br>
+  <button type="button" class="btn btn-dark btn-lg" style="margin-left: 80%" (click)="novaPrica()" >Add your story</button>
 </div>
 
-<button class="btn btn-dark" (click)="novaPrica()">Add your story</button>
+
 
 <div *ngIf="odabranaPrica!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">New story</h5>
+        <h5 class="modal-title" id="exampleModalLiveLabel" style="font-weight: bold">New story</h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="odabranaPrica=null"></button>
       </div>
 
       <div class="modal-body">
         <div class="mb-3">
-          <label class="form-label">Title</label>
+          <label class="form-label" style="font-weight: bold">Title</label>
           <input class="form-control" placeholder="Title" [(ngModel)]="odabranaPrica.naslov" >
         </div>
         <div class="mb-3">
-          <label class="form-label">Description</label>
+          <label class="form-label" style="font-weight: bold">Description</label>
           <textarea class="form-control" rows="4" placeholder="Description" [(ngModel)]="odabranaPrica.opis">
             </textarea>
         </div>
         <div class="mb-3">
-          <label for="formFile" class="form-label">Upload your picture</label>
+          <label for="formFile" class="form-label" style="font-weight: bold">Upload your picture</label>
           <input class="form-control" type="file" id="formFile" accept="image/*" (change)="generisiPreview()">
           <img style="width: 100%; height: 100%" src="{{odabranaPrica.slika}}">
         </div>
 
           <div class="mb-3">
-            <label class="form-label">Money goal</label>
+            <label class="form-label" style="font-weight: bold">Money goal</label>
             <input type="number" class="form-control" placeholder="500" [(ngModel)]="odabranaPrica.novcani_cilj" >
           </div>
 
         <div class="mb-3">
-          <label class="form-label">Location</label>
+          <label class="form-label" style="font-weight: bold">Location</label>
           <input class="form-control" placeholder="Enter your adress" [(ngModel)]="odabranaPrica.lokacija"  >
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Category</label>
+          <label class="form-label" style="font-weight: bold">Category</label>
           <select class="form-control" [(ngModel)]="odabranaPrica.kategorija_id"  >
             <option *ngFor="let x of kategorijaPodaci" [value]="x.id">{{x.naziv}}</option>
           </select>
@@ -57,8 +55,8 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="odabranaPrica=null">Close</button>
-        <button type="button" class="btn btn-dark" (click)="SaveDugme()">Save </button>
+        <button type="button" class="btn btn-secondary btn-lg" (click)="odabranaPrica=null">Close</button>
+        <button type="button" class="btn btn-dark btn-lg" (click)="SaveDugme()">Save </button>
       </div>
 
     </div>

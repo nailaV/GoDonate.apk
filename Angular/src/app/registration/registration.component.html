@@ -1,50 +1,51 @@
-
-
 <div class="pozadina">
-  <form class="row g-3">
+  <form [formGroup]="register" class="row g-3" (ngSubmit)="RegisterDugme()" >
     <h1 style="text-align: center; color: white; font-weight: bold">Registration</h1>
     <br>
     <h4 style="color: white">Enter all of your personal information to became our member and donate!</h4>
+
     <div class="col-md-6">
       <label for="nameInput"  class="form-label" style="color: white">First Name</label>
-      <input type="text" [ngModelOptions]="
-             {standalone: true}" class="form-control" id="nameInput" [(ngModel)]="korisnik.ime" required>
+      <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" id="nameInput"
+             [(ngModel)]="korisnik.ime" placeholder="Enter first name">
+      <!--<div class="form-text text-danger" *ngIf="ime.errors?.['required'] && (ime.dirty || ime.touched)">
+        You have to enter your first name.
+      </div>-->
     </div>
+
     <div class="col-md-6">
       <label for="lNameInput" class="form-label" style="color: white">Last Name</label>
-      <input type="text" [ngModelOptions]="
-             {standalone: true}" class="form-control" id="lNameInput" [(ngModel)]="korisnik.prezime" required>
+      <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" id="lNameInput" [(ngModel)]="korisnik.prezime" required>
     </div>
+
   <div class="col-md-6">
       <label for="dateInput" class="form-label" style="color: white" >Date of birth</label>
-      <input type="datetime-local" [ngModelOptions]="
-             {standalone: true}" class="form-control" id="dateInput" placeholder="02.12.2001" [(ngModel)]="korisnik.datum_rodjenja" required>
+      <input type="datetime-local" [ngModelOptions]="{standalone: true}" class="form-control" id="dateInput" placeholder="02.12.2001" [(ngModel)]="korisnik.datum_rodjenja" required>
     </div>
+
     <div class="col-md-6">
       <label for="emailInput" class="form-label" style="color: white" >Email</label>
-      <input type="email" [ngModelOptions]="
-             {standalone: true}" class="form-control" id="emailInput" placeholder="name.lname@gmail.com" [(ngModel)]="korisnik.email" required>
+      <input type="email" [ngModelOptions]="{standalone: true}" class="form-control" id="emailInput" placeholder="name.lname@gmail.com" [(ngModel)]="korisnik.email" required>
     </div>
+
     <div class="col-md-6">
       <label for="username" class="form-label" style="color: white" >Username</label>
-      <input type="text" [ngModelOptions]="
-             {standalone: true}" class="form-control" id="username" [(ngModel)]="korisnik.username" required>
+      <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" id="username" [(ngModel)]="korisnik.username" required>
     </div>
+
     <div class="col-md-6">
       <label for="password" class="form-label" style="color: white" >Password</label>
-      <input type="password" [ngModelOptions]="
-             {standalone: true}" class="form-control" id="password" [(ngModel)]="korisnik.password" required>
+      <input type="password" [ngModelOptions]="{standalone: true}" class="form-control" id="password" [(ngModel)]="korisnik.password" required>
     </div>
+
     <div class="col-md-6">
       <label for="number" class="form-label" style="color: white" >Phone number</label>
-      <input type="text" [ngModelOptions]="
-             {standalone: true}" class="form-control" id="number" placeholder="067890654" [(ngModel)]="korisnik.brojTelefona" required>
+      <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" id="number" placeholder="067890654" [(ngModel)]="korisnik.brojTelefona" required>
     </div>
 
     <div class="col-md-6">
       <label class="form-label" style="color: white">City</label>
-      <select class="form-control" [ngModelOptions]="
-             {standalone: true}" [(ngModel)]="korisnik.grad_id" >
+      <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="korisnik.grad_id" >
         <option *ngFor="let x of gradoviPodaci" [value]="x.id">{{x.naziv + "-" + x.drzava}}</option>
       </select>
     </div>
