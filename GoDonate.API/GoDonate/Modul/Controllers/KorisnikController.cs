@@ -81,5 +81,38 @@ namespace GoDonate.Modul.Controllers
             return Ok(korisnici);
         }
 
+        [HttpPost]
+        public ActionResult PromjeniSliku([FromBody] PromjenaSlikeVM x)
+        {
+            var korisnik = _dbContext.Korisnici.Find(x.id);
+            if (korisnik == null)
+                return BadRequest();
+            else
+            {
+                korisnik.SlikaKorisnika = x.slikaKorisnika.ParsirajUbase();
+                _dbContext.SaveChanges();
+            }
+            return Ok();
+        }
+
+
+        [HttpPost]
+        public ActionResult PromjeniPassword([FromBody] PromjenaPasswordaVM x)
+        {
+            var korisnik = _dbContext.Korisnici.Find(x.id);
+            if (korisnik == null)
+                return BadRequest();
+            else if (korisnik.Password != x.stariPassword)
+                return BadRequest();
+            else
+            {
+                korisnik.Password = x.noviPassword;
+                _dbContext.SaveChanges();
+            }
+            
+            return Ok();
+        }
+
+
     }
 }

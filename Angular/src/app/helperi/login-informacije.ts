@@ -1,4 +1,3 @@
-
 export interface AutentifikacijaToken {
   id : number;
   vrijednost : string;

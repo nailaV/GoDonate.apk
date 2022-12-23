@@ -1,7 +1,7 @@
 <div class="kontejner">
 <h1>Stories opened for donations</h1>
   <div *ngFor="let x of prica_podaci" class="kartica">
-    <img src="{{getSliku(x)}}">
+    <img src="{{getSliku(x)}}" style="height: 50%; width: 50%;">
     <h3>{{x.naslov}}</h3>
     <h4>{{x.opis}}</h4>
    <a class="btn btn-dark" routerLink="/storyDetails"> Details</a>

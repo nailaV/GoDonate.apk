@@ -1,14 +1,73 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="kontejner">
-  <h1>Your profile</h1> <br>
-<div class="card">
-  <img src="{{getSlikuKorisnika(loginInfo().autentifikacijaToken.korisnickinalog.id)}}" alt="No profile picture!" style="width:100%">
-  <h2> Username:</h2>
-  <h3>{{loginInfo().autentifikacijaToken!.korisnickinalog!.username}}</h3>
-  <h2> Phone number:</h2>
-  <h3>{{loginInfo().autentifikacijaToken.korisnickinalog.brojTelefona}}</h3>
-  <h2> Email:</h2>
-  <h3>{{loginInfo().autentifikacijaToken!.korisnickinalog!.email}}</h3>
-</div>
+  <div class="kontejner">
+    <h1>Your profile</h1> <br>
+    <div class="card">
+      <img src="{{getSlikuKorisnika(loginInfo().autentifikacijaToken.korisnickinalog.id)}}" alt="No profile picture!" style="width:100%">
+      <h2> Username:</h2>
+      <h3>{{loginInfo().autentifikacijaToken!.korisnickinalog!.username}}</h3>
+      <h2> Phone number:</h2>
+      <h3>{{loginInfo().autentifikacijaToken.korisnickinalog.brojTelefona}}</h3>
+      <h2> Email:</h2>
+      <h3>{{loginInfo().autentifikacijaToken!.korisnickinalog!.email}}</h3>
+    </div>
+    <button type="submit" (click)="otvoriFormu=true"> Change photo </button>
+    <br> <br>
+    <button type="submit" (click)="otvoriFormu2=true"> Change password</button>
+  </div>
+
+  <div *ngIf="otvoriFormu==true" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLiveLabel" style="font-weight: bold">New profile picture</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="otvoriFormu=false"></button>
+        </div>
+
+        <div class="mb-3">
+          <h2>Current picture</h2>
+          <img src="{{getSlikuKorisnika(loginInfo().autentifikacijaToken.korisnickinalog.id)}}" style="height: 50%; width: 50%">
+        </div>
+
+        <div class="mb-3">
+          <label for="formFile" class="form-label" style="font-weight: bold">Upload new picture</label>
+          <input class="form-control" type="file" id="formFile" accept="image/*" (change)="generisiPreview()">
+          <img style="width: 100%; height: 100%" src="{{novaSlika.slikaKorisnika}}">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-lg" (click)="otvoriFormu=false">Close</button>
+          <button type="button" class="btn btn-dark btn-lg" (click)="SaveDugme()">Save </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<div *ngIf="otvoriFormu2==true" class="modal fade show" id="exampleModalLive2" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel2" style="font-weight: bold">New profile picture</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="otvoriFormu2=false"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label" style="font-weight: bold">Current password</label>
+          <input class="form-control" [(ngModel)]="novaSifra.stariPassword">
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label" style="font-weight: bold">New password</label>
+            <input class="form-control" [(ngModel)]="novaSifra.noviPassword">
+          </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-lg" (click)="otvoriFormu2=false">Close</button>
+        <button type="button" class="btn btn-dark btn-lg" (click)="PromijeniPassword()">Save </button>
+      </div>
+    </div>
+  </div>
 </div>
 

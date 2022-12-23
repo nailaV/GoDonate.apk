@@ -48,6 +48,10 @@ export class RegistrationComponent implements OnInit{
   gradoviPodaci:any;
   register:FormGroup;
 
+  get ime() : FormControl{
+    return this.register.get("ime") as FormControl;
+  }
+
   ngOnInit(): void {
     this.korisnik={
       id:0,
