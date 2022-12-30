@@ -4,7 +4,7 @@
     <img src="{{getSliku(x)}}" style="height: 50%; width: 50%;">
     <h3>{{x.naslov}}</h3>
     <h4>{{x.opis}}</h4>
-   <a class="btn btn-dark" routerLink="/storyDetails"> Details</a>
+   <a class="btn btn-dark" (click)="openDetails(x)"> Details</a>
   </div>
   <br> <br> <br>
   <button type="button" class="btn btn-dark btn-lg" style="margin-left: 80%" (click)="novaPrica()" >Add your story</button>

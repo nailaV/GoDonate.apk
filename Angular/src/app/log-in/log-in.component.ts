@@ -26,8 +26,8 @@ export class LogInComponent {
   constructor(private formBuilder:FormBuilder, private router : Router, private httpKlijent:HttpClient) {
 
     this.LogInForma=this.formBuilder.group({
-      username:new FormControl('', Validators.required),
-      password:new FormControl('', Validators.required)
+      username:new FormControl('',[ Validators.required, Validators.minLength(2)]),
+      password:new FormControl('', [Validators.required, Validators.minLength(2)])
       })
   }
 

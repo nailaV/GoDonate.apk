@@ -3,6 +3,7 @@ using GoDonate.Helpers;
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoDonate.Modul.Controllers
 {
@@ -83,5 +84,22 @@ namespace GoDonate.Modul.Controllers
             return File(prica, "image/*");
         }
 
+        [HttpGet("{id}")]
+        public ActionResult GetByPricaId (int id)
+        {
+            var prica = _dbContext.Price.Where(x => x.Id == id)
+                .Select(p => new 
+                {
+                    id=p.Id,
+                    naslov = p.Naslov,
+                    opis = p.Opis,
+                    novcaniCilj = p.NovcaniCilj,
+                    kategorija = p.Kategorija.Naziv,
+                    lokacija = p.Lokacija
+                }).AsQueryable();
+
+            return Ok(prica.ToList());
+
+        }
     }
 }

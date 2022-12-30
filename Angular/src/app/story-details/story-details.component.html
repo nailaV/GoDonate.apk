@@ -1,1 +1,5 @@
-<p>story-details works!</p>
+<div *ngFor="let x of podaciPrica">
+  <p>{{x.naslov}}</p>
+  <p>{{x.opis}}</p>
+  <img src="{{getSliku(x.id)}}" style="height: 60%; width: 60%">
+</div>

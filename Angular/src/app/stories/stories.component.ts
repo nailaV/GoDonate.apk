@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Konfiguracija} from "../../Config";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-stories',
@@ -16,7 +17,7 @@ export class StoriesComponent implements OnInit {
   odabranaPrica: any;
 
 
-  constructor(private httpKlijent: HttpClient) {
+  constructor(private httpKlijent: HttpClient, private  router : Router) {
   }
 
   ngOnInit(): void {
@@ -81,5 +82,9 @@ export class StoriesComponent implements OnInit {
         this.odabranaPrica=null;
       });
 
+  }
+
+  openDetails(x: any) {
+    this.router.navigate(['/storyDetails', x.id]);
   }
 }

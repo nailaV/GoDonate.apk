@@ -90,7 +90,7 @@ export class RegistrationComponent implements OnInit{
   }
 
   RegisterDugme() {
-    this.httpKlijent.post(`${Konfiguracija.adresaServera}/Korisnik/Add`, this.register.valid, Konfiguracija.http_opcije()).subscribe(x=>{
+    this.httpKlijent.post(`${Konfiguracija.adresaServera}/Korisnik/Add`, this.korisnik, Konfiguracija.http_opcije()).subscribe(x=>{
       this.router.navigateByUrl('/logIn');
     });
   }
