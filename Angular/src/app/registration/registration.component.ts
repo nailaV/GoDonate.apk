@@ -47,6 +47,7 @@ export class RegistrationComponent implements OnInit{
   korisnik: any;
   gradoviPodaci:any;
   register:FormGroup;
+  klik=false;
 
   get ime() : FormControl{
     return this.register.get("ime") as FormControl;
@@ -90,6 +91,11 @@ export class RegistrationComponent implements OnInit{
   }
 
   RegisterDugme() {
+/*    this.klik=true;
+    if(this.register.invalid)
+    {
+      return;
+    }*/
     this.httpKlijent.post(`${Konfiguracija.adresaServera}/Korisnik/Add`, this.korisnik, Konfiguracija.http_opcije()).subscribe(x=>{
       this.router.navigateByUrl('/logIn');
     });

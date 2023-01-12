@@ -13,6 +13,7 @@ import { StoriesComponent } from './stories/stories.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { StoryDetailsComponent } from './story-details/story-details.component';
+import { DonationComponent } from './donation/donation.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { StoryDetailsComponent } from './story-details/story-details.component';
     StoriesComponent,
     UserProfileComponent,
     RegistrationComponent,
-    StoryDetailsComponent
+    StoryDetailsComponent,
+    DonationComponent
   ],
     imports: [
         BrowserModule,

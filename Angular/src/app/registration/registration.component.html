@@ -5,12 +5,15 @@
     <h4 style="color: white">Enter all of your personal information to became our member and donate!</h4>
 
     <div class="col-md-6">
-      <label for="nameInput"  class="form-label" style="color: white">First Name</label>
-      <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" id="nameInput"
-             [(ngModel)]="korisnik.ime" placeholder="Enter first name" this.formControlName="ime">
-      <div class="form-text text-danger" *ngIf="ime.errors?.['required'] && (ime.dirty || ime.touched)">
-        You have to enter your first name.
-      </div>
+      <label class="form-label" style="color: white">First Name</label>
+      <input type="text" class="form-control" formControlName="ime"
+             [(ngModel)]="korisnik.ime" placeholder="First name">
+      <div *ngIf="klik && register.controls.ime.errors" class="error">
+      <div *ngIf="ime.errors?.['required'] && (ime.dirty || ime.touched)">
+        First name is required. </div>
+      <div *ngIf="ime.errors?.['minLength'] && (ime.dirty || ime.touched)">
+        Minimum two characters. </div>
+    </div>
     </div>
 
     <div class="col-md-6">
@@ -60,7 +63,7 @@
     <br>
     <br>
     <div class="dugme">
-      <button type="submit" style="font-weight: bold; font-size: 20px; color: white; background-color: black; padding: 20px; margin-left: 75%; width:20%;" (click)="RegisterDugme()"> Register </button>
+      <button type="click" style="font-weight: bold; font-size: 20px; color: white; background-color: black; padding: 20px; margin-left: 75%; width:20%;" (click)="RegisterDugme()"> Register </button>
     </div>
 
   </form>

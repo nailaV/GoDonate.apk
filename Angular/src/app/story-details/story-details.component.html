@@ -1,5 +1,25 @@
 <div *ngFor="let x of podaciPrica">
-  <p>{{x.naslov}}</p>
-  <p>{{x.opis}}</p>
-  <img src="{{getSliku(x.id)}}" style="height: 60%; width: 60%">
+  <div class="back">
+    <div class="gornjiDio">
+      <h1>{{x.naslov}}</h1>
+    </div>
+    <h3> Read our full story </h3>
+    <div class="pomjeri">
+    <div class="opis">
+      <img src="{{getSliku(x.id)}}" style="height: 50%; width: 100%">
+      <p>{{x.opis}}</p>
+    </div>
+    <div class="detalji">
+      <h4>We will need <b>{{x.novcaniCilj}}$</b>  to make our story happen.</h4>
+      <div class="progress" style="height: 5%">
+        <div class="progress-bar" role="progressbar" style="width: 25%; background-color: black" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+      </div>
+      <br>
+      <h4>You can find us in <b>{{x.lokacija}}</b></h4>
+      <img src="https://joomly.net/frontend/web/images/googlemap/map.png" style="height: 50%; width: 100%">
+      <br> <br>
+      <button type="submit" class="dugme" routerLink="/donation"> DONATE NOW!</button>
+    </div>
+    </div>
+  </div>
 </div>

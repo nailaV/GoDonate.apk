@@ -1,0 +1,52 @@
+body{
+  display: flex;
+}
+.back{
+  background-color: rgba(0,0,0,0.567);
+  margin:5px;
+  padding: 20px;
+}
+h1{
+  color: white;
+  font-weight: bold;
+  font-family: Montserrat;
+  text-align: center;
+}
+h3{
+  font-weight: bold;
+  color: white;
+  font-family: Montserrat;
+}
+.opis{
+  color: white;
+  font-family: Montserrat;
+  max-width: 40%;
+  background-color: rgba(0,0,0,0.567);
+  padding: 2%;
+}
+.opis p{
+  text-align: center;
+}
+.detalji{
+  background-color: rgba(0,0,0,0.567);
+  max-width: 60%;
+  margin-left: 3%;
+  padding: 2%;
+}
+.detalji h4{
+  color: white;
+  font-family: Montserrat;
+}
+.pomjeri{
+  display: flex;
+}
+.dugme{
+  background-color: black;
+  font-weight: bold;
+  color: white;
+  margin-left: 70%;
+  padding: 2%;
+}
+
+
+

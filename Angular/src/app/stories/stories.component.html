@@ -3,7 +3,7 @@
   <div *ngFor="let x of prica_podaci" class="kartica">
     <img src="{{getSliku(x)}}" style="height: 50%; width: 50%;">
     <h3>{{x.naslov}}</h3>
-    <h4>{{x.opis}}</h4>
+    <h4>GOAL: {{x.novcani_cilj}} $</h4>
    <a class="btn btn-dark" (click)="openDetails(x)"> Details</a>
   </div>
   <br> <br> <br>
