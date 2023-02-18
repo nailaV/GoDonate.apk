@@ -12,13 +12,25 @@
   </div>
 
 
-  <div class="container" *ngIf="loginInfo().isLogiran">
+  <div class="container" *ngIf="loginInfo().isLogiran && !loginInfo().autentifikacijaToken.korisnickinalog.isAdmin">
     <a class="logo">GoDonate</a>
     <nav>
       <ul>
         <li><a style="color: white" routerLink="/stories">Stories</a></li>
         <li><a style="color: white" routerLink="/userProfile" >User profile</a></li>
         <li><a style="color: white" (click)="logOut()">Log Out</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container" *ngIf="loginInfo().autentifikacijaToken.korisnickinalog.isAdmin">
+    <a class="logo">GoDonate</a>
+    <nav>
+      <ul>
+        <li><a style="color: white" routerLink="/stories">Stories</a></li>
+        <li><a style="color: white" routerLink="/userProfile" >User profile</a></li>
+        <li><a style="color: white" (click)="logOut()">Log Out</a></li>
+        <li><a style="color: white">Admin</a></li>
       </ul>
     </nav>
   </div>

@@ -84,6 +84,17 @@ namespace GoDonate.Modul.Controllers
             return File(prica, "image/*");
         }
 
+        [HttpGet("{pricaid}")]
+        public ActionResult ObrisiPricu(int pricaid)
+        {
+            var prica = _dbContext.Price.FirstOrDefault(p=>p.Id== pricaid);
+            _dbContext.Remove(prica);
+            _dbContext.SaveChanges();
+            return Ok();
+        }
+
+
+
         [HttpGet("{id}")]
         public ActionResult GetByPricaId (int id)
         {

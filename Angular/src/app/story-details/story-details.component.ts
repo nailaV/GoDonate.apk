@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Konfiguracija} from "../../Config";
-
+import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
+import {LoginInformacije} from "../helperi/login-informacije";
+declare function porukaSuccess(a: string):any;
 @Component({
   selector: 'app-story-details',
   templateUrl: './story-details.component.html',
@@ -11,8 +13,11 @@ import {Konfiguracija} from "../../Config";
 export class StoryDetailsComponent implements OnInit{
   pricaId : number;
   podaciPrica : any;
+  informacije():LoginInformacije{
+    return AutentifikacijaHelper.getLoginInfo();
+  }
 
-  constructor(private httpKlijent : HttpClient, private router : ActivatedRoute) {
+  constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router) {
   }
 
 
@@ -31,5 +36,12 @@ export class StoryDetailsComponent implements OnInit{
   }
   getSliku(x: number) {
     return `${Konfiguracija.adresaServera}/Prica/GetSlikaPrice/${x}`;
+  }
+
+  obrisiPricu(id:number) {
+    this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/ObrisiPricu/' + id).subscribe(x=>{
+        porukaSuccess('uspjesno obrisana priča');
+        this.rut.navigateByUrl('stories');
+    })
   }
 }
