@@ -47,13 +47,13 @@ export class LogInComponent {
     this.httpKlijent.post<LoginInformacije>(Konfiguracija.adresaServera+ "/Autentifikacija/Login/", saljemo)
       .subscribe((x:LoginInformacije) =>{
         if (x.isLogiran) {
-         porukaSuccess("Log in successful!");
+          porukaSuccess("Log in successfull!");
           AutentifikacijaHelper.setLoginInfo(x)
           this.router.navigateByUrl("/stories");
         }
         else
         {
-          AutentifikacijaHelper.setLoginInfo(null)
+          AutentifikacijaHelper.setLoginInfo(null);
          porukaError("Log in unsuccessful!");
         }
       });

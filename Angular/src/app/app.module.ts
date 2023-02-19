@@ -14,6 +14,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { StoryDetailsComponent } from './story-details/story-details.component';
 import { DonationComponent } from './donation/donation.component';
+import { AdministratorComponent } from './administrator/administrator.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { DonationComponent } from './donation/donation.component';
     UserProfileComponent,
     RegistrationComponent,
     StoryDetailsComponent,
-    DonationComponent
+    DonationComponent,
+    AdministratorComponent
   ],
     imports: [
         BrowserModule,

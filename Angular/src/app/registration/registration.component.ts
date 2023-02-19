@@ -4,6 +4,8 @@ import {Konfiguracija} from "../../Config";
 import {Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -97,6 +99,7 @@ export class RegistrationComponent implements OnInit{
       return;
     }*/
     this.httpKlijent.post(`${Konfiguracija.adresaServera}/Korisnik/Add`, this.korisnik, Konfiguracija.http_opcije()).subscribe(x=>{
+      porukaSuccess("Registraion success! Please log in.");
       this.router.navigateByUrl('/logIn');
     });
   }

@@ -3,13 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {Konfiguracija} from "../../Config";
 import {Router} from "@angular/router";
 
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 @Component({
   selector: 'app-stories',
   templateUrl: './stories.component.html',
   styleUrls: ['./stories.component.scss']
 })
 export class StoriesComponent implements OnInit {
-  porukaUspjesno: boolean = true;
   prica_podaci: any;
   valutaPodaci: any;
   kategorijaPodaci: any;
