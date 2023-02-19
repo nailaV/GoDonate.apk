@@ -8,6 +8,7 @@ import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {RegistrationComponent} from "./registration/registration.component";
 import {StoryDetailsComponent} from "./story-details/story-details.component";
 import {DonationComponent} from "./donation/donation.component";
+import {AdministratorComponent} from "./administrator/administrator.component";
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'userProfile', component: UserProfileComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'storyDetails/:storyId', component: StoryDetailsComponent},
-  {path:'donation', component: DonationComponent}
+  {path:'donation', component: DonationComponent},
+  {path:'admin',component:AdministratorComponent}
   ]
 
 @NgModule({

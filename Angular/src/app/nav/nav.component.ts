@@ -27,10 +27,12 @@ export class NavComponent {
   logOut() {
     AutentifikacijaHelper.setLoginInfo(null);
 
-    this.httpKlijent.post(Konfiguracija.adresaServera + "/Autentifikacija/LogOut/", null, Konfiguracija.http_opcije())
+    this.httpKlijent.post(Konfiguracija.adresaServera + "/Autentifikacija/LogOut/", null)
       .subscribe((x: any) => {
         this.router.navigateByUrl("/");
         porukaSuccess("Logout successfull");
       });
   }
+
+
 }

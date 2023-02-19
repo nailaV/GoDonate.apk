@@ -54,6 +54,32 @@ namespace GoDonate.Modul.Controllers
             return Ok();
         }
 
+        [HttpGet("{korisnikID}")]
+        public ActionResult GetKorisnikovePrice(int korisnikID)
+        {
+            var data = _dbContext.Price.Where(p => p.korisnikID == korisnikID).ToList().Select(s => new
+            {
+                id=s.Id,
+                naslov = s.Naslov,
+                opis=s.Opis,
+                novcani_cilj=s.NovcaniCilj
+            });
+            return Ok(data);
+        }
+
+        [HttpGet("{korisnikID}")]
+        public ActionResult GetOstalePrice(int korisnikID)
+        {
+            var data = _dbContext.Price.Where(p => p.korisnikID != korisnikID).ToList().Select(s => new
+            {
+                id=s.Id,
+                naslov = s.Naslov,
+                opis=s.Opis,
+                novcani_cilj=s.NovcaniCilj
+            }).ToList();
+            return Ok(data);
+        }
+
         [HttpGet]
         public List<PricaAddVM> GetSvePrice()
         {

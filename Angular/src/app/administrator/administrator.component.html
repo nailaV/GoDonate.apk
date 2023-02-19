@@ -1,1 +1,43 @@
-<p>administrator works!</p>
+
+<table class="table table-dark" style="width:90%">
+  <thead>
+  <tr>
+    <th>Ime</th>
+    <th>Prezime</th>
+    <th>Email</th>
+    <th>Username</th>
+    <th>Opstina rođenja</th>
+    <th>Opcije</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let x of korisnikPodaci">
+      <td>{{x.ime}}</td>
+      <td>{{x.prezime}}</td>
+      <td>{{x.email}}</td>
+      <td>{{x.username}}</td>
+      <td>{{x.opstina_rodjenja_opis}}</td>
+      <td>
+        <button type="button" class="btn btn-danger" style="margin-right:1%" (click)="odabraniKorisnik=x">Obrisi</button>
+        <button class="btn btn-info">Posalji poruku</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="odabraniKorisnik!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Obrisati korisnika {{odabraniKorisnik.username}}?</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="odabraniKorisnik=null"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="odabraniKorisnik=null">Close</button>
+        <button type="button" class="btn btn-primary"  (click)="izbrisi(odabraniKorisnik.id)">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Konfiguracija} from "../../Config";
 import {Router} from "@angular/router";
+import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -17,6 +18,8 @@ export class StoriesComponent implements OnInit {
   otvoriFormu: boolean = false;
   odabranaPrica: any;
 
+  korisnikID : number;
+
 
   constructor(private httpKlijent: HttpClient, private  router : Router) {
   }
@@ -25,6 +28,7 @@ export class StoriesComponent implements OnInit {
     this.preuzmiPrice();
     this.preuzmiValute();
     this.preuzmiKategorije();
+    this.korisnikID=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id
   }
 
   preuzmiPrice() {
@@ -87,5 +91,19 @@ export class StoriesComponent implements OnInit {
 
   openDetails(x: any) {
     this.router.navigate(['/storyDetails', x.id]);
+  }
+
+  tvojePrice() {
+    this.prica_podaci=null;
+      this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetKorisnikovePrice/' + this.korisnikID).subscribe(x=>{
+          this.prica_podaci=x;
+      })
+  }
+
+  drugePrice() {
+        this.prica_podaci=null;
+        this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetOstalePrice/' +this.korisnikID).subscribe(x=>{
+          this.prica_podaci=x;
+        })
   }
 }

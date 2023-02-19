@@ -42,5 +42,14 @@ namespace GoDonate.Modul.Controllers
             var lista = _dbContext.Administratori.ToList();
             return Ok(lista);
         }
+
+        [HttpPost("{korisnikID}")]
+        public ActionResult ObrisiKorisnika(int korisnikID)
+        {
+            var data = _dbContext.Korisnici.FirstOrDefault(k => k.ID == korisnikID);
+            _dbContext.Remove(data);
+            _dbContext.SaveChanges();
+            return Ok();
+        }
     }
 }

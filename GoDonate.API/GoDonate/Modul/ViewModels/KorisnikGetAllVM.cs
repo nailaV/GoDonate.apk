@@ -11,6 +11,6 @@
         public DateTime datum_rodj { get; set; }
         public string email { get; set; }
         public string brojTelefona { get; set; }
-        public string slikaKorisnika { get; set; }
+        public string username { get; set; }
     }
 }

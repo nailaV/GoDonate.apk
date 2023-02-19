@@ -75,7 +75,8 @@ namespace GoDonate.Modul.Controllers
                     opstina_rodjenja_opis=s.Grad.Naziv,
                     drzava_rodjenja_opis=s.Grad.Drzava.NazivDrzave,
                     email=s.Email,
-                    brojTelefona=s.BrojTelefona
+                    brojTelefona=s.BrojTelefona,
+                    username=s.Username
                 })
                 .ToList();
             return Ok(korisnici);

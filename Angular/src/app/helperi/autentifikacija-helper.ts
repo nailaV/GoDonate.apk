@@ -17,7 +17,7 @@ export class AutentifikacijaHelper{
           return new LoginInformacije();
         return loginInfo;
     }
-    catch (e) 
+    catch (e)
     {
         return new LoginInformacije();
     }
