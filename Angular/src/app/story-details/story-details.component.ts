@@ -13,9 +13,13 @@ declare function porukaSuccess(a: string):any;
 export class StoryDetailsComponent implements OnInit{
   pricaId : number;
   podaciPrica : any;
+  ukupnoPrica:any;
+  zaProgressBar : any;
   informacije():LoginInformacije{
     return AutentifikacijaHelper.getLoginInfo();
   }
+
+
 
   constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router) {
   }
@@ -25,6 +29,7 @@ export class StoryDetailsComponent implements OnInit{
     this.router.params.subscribe(params=>{
       this.pricaId=+params['storyId'];
       this.fetchPricaById();
+      this.getUkupno();
     })
   }
 
@@ -42,6 +47,12 @@ export class StoryDetailsComponent implements OnInit{
     this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/ObrisiPricu/' + id).subscribe(x=>{
         porukaSuccess('uspjesno obrisana priča');
         this.rut.navigateByUrl('stories');
+    })
+  }
+
+  getUkupno() {
+    this.httpKlijent.get(Konfiguracija.adresaServera + '/Donacija/GetUkupnoZaPricu/' + this.pricaId).subscribe(x=>{
+      this.ukupnoPrica=x;
     })
   }
 }

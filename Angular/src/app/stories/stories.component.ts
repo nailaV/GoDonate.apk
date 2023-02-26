@@ -17,8 +17,11 @@ export class StoriesComponent implements OnInit {
   kategorijaPodaci: any;
   otvoriFormu: boolean = false;
   odabranaPrica: any;
-
+  pageNumber : number = 1;
   korisnikID : number;
+  pagingPodaci:any;
+  totalPages:number;
+  trenutnaStranica:number=1;
 
 
   constructor(private httpKlijent: HttpClient, private  router : Router) {
@@ -28,7 +31,10 @@ export class StoriesComponent implements OnInit {
     this.preuzmiPrice();
     this.preuzmiValute();
     this.preuzmiKategorije();
-    this.korisnikID=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id
+    this.paging();
+    this.korisnikID=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id;
+    console.log(this.trenutnaStranica);
+    console.log(this.pageNumber);
   }
 
   preuzmiPrice() {
@@ -105,5 +111,27 @@ export class StoriesComponent implements OnInit {
         this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetOstalePrice/' +this.korisnikID).subscribe(x=>{
           this.prica_podaci=x;
         })
+  }
+
+  paging() {
+      this.httpKlijent.get(Konfiguracija.adresaServera+
+        '/Prica/GetPricePaging?pageNumber=' + this.pageNumber + '&pageSize=5').subscribe(x=>{
+        this.pagingPodaci=x;
+        this.totalPages=this.pagingPodaci.totalPages;
+        console.log(this.totalPages);
+        console.log(this.pagingPodaci);
+      });
+  }
+
+  prethodnaStranica() {
+    this.trenutnaStranica--;
+    this.pageNumber--;
+      this.paging();
+  }
+
+  sljedecaStranica() {
+      this.trenutnaStranica++;
+    this.pageNumber++;
+    this.paging();
   }
 }

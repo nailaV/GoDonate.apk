@@ -3,7 +3,8 @@
 <a (click)="drugePrice()">Other stories</a>
 <div class="kontejner">
 <h1>Stories opened for donations</h1>
-  <div *ngFor="let x of prica_podaci" class="kartica">
+    <button type="button" class="btn btn-dark btn-lg" style="width:30%; height:20%; margin:2%" (click)="novaPrica()" >Add your story</button>
+  <div *ngFor="let x of pagingPodaci.price" class="kartica">
     <img src="{{getSliku(x)}}" style="max-height:10%; max-width:20%; float:left; margin:3%">
     <h3>{{x.naslov}}</h3>
     <h3>{{x.opis}}</h3>
@@ -11,9 +12,19 @@
    <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:90%; margin-bottom: 1%"> Details</a>
     <hr>
   </div>
-  <br> <br> <br>
-  <button type="button" class="btn btn-dark btn-lg" style="margin-left: 80%" (click)="novaPrica()" >Add your story</button>
+  <br> <br>
+  <div style="display:inline-block; width:100%; height:100%">
+      <div style="width:50%">
+       <button type="button" class="btn btn-dark btn-lg"
+          *ngIf="trenutnaStranica > 1" (click)="prethodnaStranica()">Previous</button>
+        <button type="button" class="btn btn-dark btn-lg"
+          *ngIf="trenutnaStranica < totalPages" (click)="sljedecaStranica()">Next</button>
+      </div>
+  </div>
 </div>
+
+
+
 
 
 
@@ -67,3 +78,4 @@
     </div>
   </div>
 </div>
+
