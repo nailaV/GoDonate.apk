@@ -99,6 +99,26 @@ namespace GoDonate.Modul.Controllers
             return price.Take(100).ToList();
         }
 
+        [HttpGet]
+        public ActionResult GetPricePaging(int pageNumber = 1, int pageSize = 5)
+        {
+            var price = _dbContext.Price.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Select(s => new
+            {
+                id = s.Id,
+                naslov = s.Naslov,
+                opis = s.Opis,
+                novcani_cilj = s.NovcaniCilj
+            });
+            var totalItems = _dbContext.Price.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            var odgovor = new
+            {
+                price,
+                totalPages
+            };
+            return Ok(odgovor);
+        }
+
         [HttpGet("{pricaid}")]
         public ActionResult GetSlikaPrice(int pricaid)
         {

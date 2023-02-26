@@ -51,5 +51,12 @@ namespace GoDonate.Modul.Controllers
                 .AsQueryable();
             return donacije.Take(100).ToList();
         }
+
+        [HttpGet("{pricaID}")]
+        public ActionResult GetUkupnoZaPricu (int pricaID)
+        {
+            var ukupno = _dbContext.Donacije.Where(p => p.pricaID == pricaID).Sum(c => c.KolicinaNovca);
+            return Ok(ukupno);
+        }
     }
 }
