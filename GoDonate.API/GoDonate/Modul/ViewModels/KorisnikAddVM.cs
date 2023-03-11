@@ -13,5 +13,6 @@
         public string email { get; set; }
         public string brojTelefona { get; set; }
         public string slikaKorisnika { get; set; }
+
     }
 }

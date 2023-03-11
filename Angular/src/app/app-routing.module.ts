@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'logIn', component:LogInComponent,canActivate:[Aktivacija]},
   {path: 'stories', component: StoriesComponent, canActivate:[ProvjeraAktivacija]},
   {path: 'userProfile', component: UserProfileComponent, canActivate:[ProvjeraAktivacija]},
-  {path: 'registration', component: RegistrationComponent, canActivate:[ProvjeraAktivacija]},
+  {path: 'registration', component: RegistrationComponent},
   {path: 'storyDetails/:storyId', component: StoryDetailsComponent, canActivate:[ProvjeraAktivacija]},
   {path:'donation', component: DonationComponent, canActivate:[ProvjeraAktivacija]},
   {path:'admin',component:AdministratorComponent, canActivate:[AdminAktivacija]}

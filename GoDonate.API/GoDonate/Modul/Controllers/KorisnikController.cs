@@ -40,12 +40,8 @@ namespace GoDonate.Modul.Controllers
             korisnik.Password = x.password;
             korisnik.Email = x.email;
             korisnik.BrojTelefona = x.brojTelefona;
+            korisnik.SlikaKorisnika = x.slikaKorisnika.ParsirajUbase();
 
-            if(x.slikaKorisnika!="")
-            {
-                byte[] slikaBajtovi = x.slikaKorisnika.ParsirajUbase();
-                korisnik.SlikaKorisnika = slikaBajtovi;
-            }
 
             _dbContext.SaveChanges();
             return Ok();
@@ -55,7 +51,8 @@ namespace GoDonate.Modul.Controllers
         [HttpGet("{korisnikid}")]
         public ActionResult GetSlikuKorisnika(int korisnikid)
         {
-            byte[] korisnik = _dbContext.KorisnickiNalozi.Find(korisnikid).SlikaKorisnika;
+            byte[]? korisnik = _dbContext.KorisnickiNalozi.Find(korisnikid).SlikaKorisnika;
+          
 
             return File(korisnik, "image/*");
         }

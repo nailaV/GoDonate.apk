@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Konfiguracija} from "../../Config";
 import {Router} from "@angular/router";
 import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
+import {LoginInformacije} from "../helperi/login-informacije";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -35,6 +36,9 @@ export class StoriesComponent implements OnInit {
     this.korisnikID=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id;
     console.log(this.trenutnaStranica);
     console.log(this.pageNumber);
+  }
+  informacije():LoginInformacije{
+    return AutentifikacijaHelper.getLoginInfo();
   }
 
   preuzmiPrice() {

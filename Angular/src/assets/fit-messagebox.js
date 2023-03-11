@@ -15,12 +15,12 @@ function napraviBox(m, imeKlase)
 		document.body.appendChild(porukeKontejnerDiv);
 	}
 	porukeKontejnerDiv.appendChild(d);
-   
-	setTimeout(function() {        
-	  
+
+	setTimeout(function() {
+
 		d.style.opacity = '0';
-		setTimeout(function() {d.remove();}, 1000);
-	}, 4000);
+		setTimeout(function() {d.remove();}, 2000);
+	}, 2000);
 }
 
 function porukaSuccess(m)
@@ -32,7 +32,7 @@ function porukaWarning(m)
 {
 	napraviBox(m, "porukaWarning");
 }
-      
+
 function porukaError(m)
 {
 	napraviBox(m, "porukaError");
@@ -42,4 +42,4 @@ function porukaInfo(m)
 {
 	napraviBox(m, "porukaInfo");
 }
-      
+

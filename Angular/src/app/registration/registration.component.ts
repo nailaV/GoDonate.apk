@@ -40,37 +40,58 @@ export class RegistrationComponent implements OnInit{
       brojTelefona: new FormControl('',[
         Validators.required,
         Validators.pattern("[0-9]{3}/[0-9]{3}-[0-9]{3,4}")]),
-      slikaKorisnika:new FormControl('',[
-        Validators.required]),
       grad_id:new FormControl('',[
-        Validators.required])
+        Validators.required]),
+      valuta_id:new FormControl('',[
+        Validators.required
+      ]),
+      slikaKorisnika:new FormControl('',[
+        Validators.required
+      ])
     })
   }
-  korisnik: any;
+
   gradoviPodaci:any;
   register:FormGroup;
-  klik=false;
+  valutaPodaci:any;
 
   get ime() : FormControl{
     return this.register.get("ime") as FormControl;
   }
-
-  ngOnInit(): void {
-    this.korisnik={
-      id:0,
-      ime:"",
-      prezime:"",
-      datum_rodjenja:"2022-12-18T20:23:57.848Z",
-      email:"",
-      username:"",
-      password:"",
-      brojTelefona:"",
-      slikaKorisnika:"",
-      grad_id:"",
-      valuta_id:1
+  get prezime() : FormControl{
+    return this.register.get("prezime") as FormControl;
+  }
+  get datum_rodjenja() : FormControl{
+    return this.register.get("datum_rodjenja") as FormControl;
+  }
+  get email() : FormControl{
+    return this.register.get("email") as FormControl;
+  }
+  get username() : FormControl{
+    return this.register.get("username") as FormControl;
+  }
+  get password() : FormControl{
+    return this.register.get("password") as FormControl;
+  }
+  get brojTelefona() : FormControl{
+    return this.register.get("brojTelefona") as FormControl;
+  }
+  get slikaKorisnika() : FormControl{
+    return this.register.get("slikaKorisnika") as FormControl;
+  }
+  get grad_id() : FormControl {
+    return this.register.get("grad_id") as FormControl;
+  }
+  get valuta_id() : FormControl{
+      return this.register.get("valuta_id") as FormControl;
     }
-    this.preuzmiGradove();
 
+
+
+    ngOnInit(): void {
+
+    this.preuzmiGradove();
+    this.preuzmiValute();
   }
 
   preuzmiGradove() {
@@ -79,28 +100,30 @@ export class RegistrationComponent implements OnInit{
     })
   }
 
-  generisiPreview() {
-    // @ts-ignore
-    var file = document.getElementById("formFile").files[0];
-    if (file) {
-      var reader = new FileReader();
-      let this2 = this;
-      reader.onload = function () {
-        this2.korisnik.slikaKorisnika = reader.result.toString();
-      }
-      reader.readAsDataURL(file);
-    }
+  generisiPreview(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload=()=>{
+      this.register.get('slikaKorisnika')?.setValue(reader.result);
+    };
   }
 
   RegisterDugme() {
-/*    this.klik=true;
-    if(this.register.invalid)
-    {
-      return;
-    }*/
-    this.httpKlijent.post(`${Konfiguracija.adresaServera}/Korisnik/Add`, this.korisnik, Konfiguracija.http_opcije()).subscribe(x=>{
-      porukaSuccess("Registraion success! Please log in.");
-      this.router.navigateByUrl('/logIn');
-    });
+    if(this.register.valid){
+      this.httpKlijent.post(Konfiguracija.adresaServera+'/Korisnik/Add',this.register.value).subscribe(x=>{
+        porukaSuccess('Registration confirmed. Please log in.');
+        this.router.navigateByUrl('/logIn');
+      })
+    }
+    else{
+      porukaError('Registration not confirmed. Please try again.');
+    }
+  }
+
+   preuzmiValute() {
+        this.httpKlijent.get(Konfiguracija.adresaServera+'/Valuta/GetSveValute').subscribe(x=>{
+          this.valutaPodaci=x;
+        })
   }
 }

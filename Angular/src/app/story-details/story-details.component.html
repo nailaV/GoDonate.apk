@@ -19,7 +19,7 @@
       <h4>You can find us in <b>{{x.lokacija}}</b></h4>
       <img src="https://joomly.net/frontend/web/images/googlemap/map.png" style="height: 50%; width: 100%">
       <br> <br>
-      <button type="submit" class="dugme" routerLink="/donation"> DONATE NOW!</button> <br><br>
+      <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik" type="submit" class="dugme" routerLink="/donation"> DONATE NOW!</button> <br><br>
       <button type="submit" class="dugme"
               *ngIf="informacije().autentifikacijaToken.korisnickinalog.isAdmin"
               (click)="obrisiPricu(x.id)">Obriši priču</button>

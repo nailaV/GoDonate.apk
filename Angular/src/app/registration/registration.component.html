@@ -1,69 +1,148 @@
 <div class="pozadina">
-  <form [formGroup]="register" class="row g-3" (ngSubmit)="RegisterDugme()" >
+  <form [formGroup]="register" (ngSubmit)="RegisterDugme()" class="row g-3" >
     <h1 style="text-align: center; color: white; font-weight: bold">Registration</h1>
     <br>
     <h4 style="color: white">Enter all of your personal information to became our member and donate!</h4>
 
     <div class="col-md-6">
       <label class="form-label" style="color: white">First Name</label>
-      <input type="text" class="form-control" formControlName="ime"
-             [(ngModel)]="korisnik.ime" placeholder="First name">
-      <div *ngIf="klik && register.controls.ime.errors" class="error">
-      <div *ngIf="ime.errors?.['required'] && (ime.dirty || ime.touched)">
-        First name is required. </div>
-<!--      <div *ngIf="ime.errors?.['minLength'] && (ime.dirty || ime.touched)">-->
-<!--        Minimum two characters. </div>-->
- </div>
+      <input type="text" class="form-control" formControlName="ime" placeholder="First name">
+        <div style="color:darkred; font-weight: bold" *ngIf="register.controls['ime'].invalid && (register.controls['ime'].dirty || register.controls['ime'].touched)">
+          <div *ngIf="register.controls['ime'].errors.required">
+            Name is required.
+          </div>
+          <div *ngIf="register.controls['ime'].errors.minlength">
+            Minimum length is 2 characters.
+          </div>
+          <div *ngIf="register.controls['ime'].errors.pattern">
+            You can only type in letters.
+          </div>
+        </div>
     </div>
 
     <div class="col-md-6">
-      <label for="lNameInput" class="form-label" style="color: white">Last Name</label>
-      <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" id="lNameInput" [(ngModel)]="korisnik.prezime" required>
+      <label class="form-label" style="color: white">Last Name</label>
+      <input type="text" class="form-control" formControlName="prezime" placeholder="Last name">
+      <div style="color:darkred; font-weight: bold" *ngIf="register.controls['prezime'].invalid && (register.controls['prezime'].dirty || register.controls['prezime'].touched)">
+        <div *ngIf="register.controls['prezime'].errors.required">
+          Last name is required.
+        </div>
+        <div *ngIf="register.controls['prezime'].errors.minlength">
+          Minimum length is 2 characters.
+        </div>
+        <div *ngIf="register.controls['prezime'].errors.pattern">
+          You can only type in letters.
+        </div>
+      </div>
     </div>
 
   <div class="col-md-6">
       <label for="dateInput" class="form-label" style="color: white" >Date of birth</label>
-      <input type="datetime-local" [ngModelOptions]="{standalone: true}" class="form-control" id="dateInput" placeholder="02.12.2001" [(ngModel)]="korisnik.datum_rodjenja" required>
+      <input type="datetime-local" class="form-control" id="dateInput" formControlName="datum_rodjenja">
+    <div style="color:darkred; font-weight: bold" *ngIf="register.controls['datum_rodjenja'].invalid && (register.controls['datum_rodjenja'].dirty || register.controls['datum_rodjenja'].touched)">
+      <div *ngIf="register.controls['datum_rodjenja'].errors.required">
+        Date of birth is required.
+      </div>
+    </div>
     </div>
 
     <div class="col-md-6">
-      <label for="emailInput" class="form-label" style="color: white" >Email</label>
-      <input type="email" [ngModelOptions]="{standalone: true}" class="form-control" id="emailInput" placeholder="name.lname@gmail.com" [(ngModel)]="korisnik.email" required>
+      <label class="form-label" style="color: white">Email</label>
+      <input type="text" class="form-control" formControlName="email" placeholder="Email">
+      <div style="color:darkred; font-weight: bold" *ngIf="register.controls['email'].invalid && (register.controls['email'].dirty || register.controls['email'].touched)">
+        <div *ngIf="register.controls['email'].errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="register.controls['email'].errors.email">
+          Email is in format like 'name.lastname@gmail.com'
+        </div>
+      </div>
     </div>
 
     <div class="col-md-6">
-      <label for="username" class="form-label" style="color: white" >Username</label>
-      <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" id="username" [(ngModel)]="korisnik.username" required>
+      <label class="form-label" style="color: white">Username</label>
+      <input type="text" class="form-control" formControlName="username" placeholder="Username">
+      <div style="color:darkred; font-weight: bold" *ngIf="register.controls['username'].invalid && (register.controls['username'].dirty || register.controls['username'].touched)">
+        <div *ngIf="register.controls['username'].errors.required">
+          Last name is required.
+        </div>
+        <div *ngIf="register.controls['username'].errors.minlength">
+          Minimum length is 6 characters.
+        </div>
+        <div *ngIf="register.controls['username'].errors.maxlength">
+          Maximum length is 12 characters.
+        </div>
+        <div *ngIf="register.controls['username'].errors.pattern">
+          You can only type in letters.
+        </div>
+      </div>
     </div>
 
     <div class="col-md-6">
-      <label for="password" class="form-label" style="color: white" >Password</label>
-      <input type="password" [ngModelOptions]="{standalone: true}" class="form-control" id="password" [(ngModel)]="korisnik.password" required>
+      <label class="form-label" style="color: white">Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="Password">
+      <div style="color:darkred; font-weight: bold" *ngIf="register.controls['password'].invalid && (register.controls['password'].dirty || register.controls['password'].touched)">
+        <div *ngIf="register.controls['password'].errors.required">
+          Password is required.
+        </div>
+        <div *ngIf="register.controls['password'].errors.minlength">
+          Minimum length is 6 characters.
+        </div>
+        <div *ngIf="register.controls['password'].errors.maxlength">
+          Maximum length is 15 characters.
+        </div>
+      </div>
     </div>
 
     <div class="col-md-6">
-      <label for="number" class="form-label" style="color: white" >Phone number</label>
-      <input type="text" [ngModelOptions]="{standalone: true}" class="form-control" id="number" placeholder="067890654" [(ngModel)]="korisnik.brojTelefona" required>
+      <label class="form-label" style="color: white">Phone number</label>
+      <input type="text" class="form-control" formControlName="brojTelefona" placeholder="062/662-6222">
+      <div style="color:darkred; font-weight: bold" *ngIf="register.controls['brojTelefona'].invalid && (register.controls['brojTelefona'].dirty || register.controls['brojTelefona'].touched)">
+        <div *ngIf="register.controls['brojTelefona'].errors.required">
+          Phone number is required.
+        </div>
+        <div *ngIf="register.controls['brojTelefona'].errors.pattern">
+          Phone number is in format XXX/XXX-XXX(X)
+        </div>
+      </div>
     </div>
 
     <div class="col-md-6">
       <label class="form-label" style="color: white">City</label>
-      <select class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="korisnik.grad_id" >
+      <select class="form-control" formControlName="grad_id">
         <option *ngFor="let x of gradoviPodaci" [value]="x.id">{{x.naziv + "-" + x.drzava}}</option>
       </select>
+      <div style="color:darkred; font-weight: bold" *ngIf="register.controls['grad_id'].invalid && (register.controls['grad_id'].dirty || register.controls['grad_id'].touched)">
+        <div *ngIf="register.controls['datum_rodjenja'].errors.required">
+          City of birth is required.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label" style="color: white">Currency</label>
+      <select class="form-control" formControlName="valuta_id">
+        <option *ngFor="let x of valutaPodaci" [value]="x.id">{{x.naziv + "-" + x.skracenica}}</option>
+      </select>
+      <div style="color:darkred; font-weight: bold" *ngIf="register.controls['valuta_id'].invalid && (register.controls['valuta_id'].dirty || register.controls['valuta_id'].touched)">
+        <div *ngIf="register.controls['valuta_id'].errors.required">
+          Currency is required.
+        </div>
+      </div>
     </div>
 
     <div class="mb-3">
       <label for="formFile" class="form-label" style="color: white">Upload your picture</label>
-      <input class="form-control" type="file" id="formFile" accept="image/*" (change)="generisiPreview()">
-      <img style="width: 50%; height: 70%; display: block;
-  margin-left: auto;
-  margin-right: auto; margin-top: 10px" src="{{korisnik.slikaKorisnika}}">
+      <input class="form-control" formControlName="slikaKorisnika" type="file" id="formFile" accept="image/*" (change)="generisiPreview($event)">
+      <div style="color:darkred; font-weight: bold" *ngIf="register.controls['slikaKorisnika'].invalid && (register.controls['slikaKorisnika'].dirty || register.controls['slikaKorisnika'].touched)">
+        <div *ngIf="register.controls['slikaKorisnika'].errors.required">
+          Profile picture is required.
+        </div>
+      </div>
     </div>
     <br>
     <br>
     <div class="dugme">
-      <button type="click" style="font-weight: bold; font-size: 20px; color: white; background-color: black; padding: 20px; margin-left: 75%; width:20%;" (click)="RegisterDugme()"> Register </button>
+      <button type="submit" style="font-weight: bold; font-size: 20px; color: white; background-color: black; padding: 20px; margin-left: 75%; width:20%;"  > Register </button>
     </div>
 
   </form>
