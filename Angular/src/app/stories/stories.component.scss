@@ -1,9 +1,9 @@
 .kontejner{
-  background-color: rgba(0,0,0,0.567);
+  background-color: #99C1D9;
   margin:5px;
   padding: 20px;
-  max-height:100%;
-  max-width:100%;
+  height:100%;
+  border-radius: 30px;
 }
 h1{
   color: white;
@@ -14,21 +14,28 @@ h1{
 h3{
   margin-top:5%;
   font-weight: bold;
+  text-align: center;
 }
 h4{
   font-weight: bold;
-  color: green;
+  color: #3D5A80;
+  text-align: center;
 }
 .kartica {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  width:100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  width:80%;
   height:10%;
-  margin: auto;
-  text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
   background-color: white;
   display: inline-block;
+  border-radius: 30px;
+  opacity: 90%
 }
+.kartica:hover{
+  border: #721c24 2px solid;
 
+}
 
 
 

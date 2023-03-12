@@ -55,4 +55,8 @@ export class StoryDetailsComponent implements OnInit{
       this.ukupnoPrica=x;
     })
   }
+
+  openDonation(x: any) {
+    this.rut.navigate(['/donation', x.id]);
+  }
 }

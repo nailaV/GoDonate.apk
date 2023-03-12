@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'userProfile', component: UserProfileComponent, canActivate:[ProvjeraAktivacija]},
   {path: 'registration', component: RegistrationComponent},
   {path: 'storyDetails/:storyId', component: StoryDetailsComponent, canActivate:[ProvjeraAktivacija]},
-  {path:'donation', component: DonationComponent, canActivate:[ProvjeraAktivacija]},
+  {path:'donation/:storyID', component: DonationComponent, canActivate:[ProvjeraAktivacija]},
   {path:'admin',component:AdministratorComponent, canActivate:[AdminAktivacija]}
   ]
 

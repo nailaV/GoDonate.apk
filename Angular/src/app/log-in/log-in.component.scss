@@ -5,7 +5,7 @@ label{
     display: block;
     width:50%;
     margin-bottom: 20px;
-    padding: 1em;
+    padding: 10px;
   }
    .error{
      margin-top: -20px;
@@ -43,4 +43,18 @@ label{
   h1{
     font-family: Montserrat;
   }
+}
+.kontejner{
+  background-color: #99C1D9;
+  margin-left:10%;
+  margin-right: 10%;
+  width: 80%;
+  padding: 20px;
+  height:100%;
+  border-radius: 30px;
+  text-align: center;
+}
+.kontejner a:hover{
+  border: #EE6C4D 1px dotted;
+  border-radius: 30px;
 }

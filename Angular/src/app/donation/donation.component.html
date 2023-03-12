@@ -1,1 +1,64 @@
-<p>donation works!</p>
+
+<div *ngFor="let x of pricaPodaci">
+  <div  class="kontejner">
+    <h3>{{x.naslov}}</h3>
+<div *ngIf="broj==0"class="kartica">
+ <h2 style="color: white">You don't have any loaded cards. Please add yours:</h2>
+  <button (click)="novaKartica()">Add card</button>
+</div>
+
+    <div *ngIf="broj!=0"class="kartica">
+      <h2 style="color: white">Ima kartica</h2>
+      <select >
+        <option *ngFor="let x of karticaPodatak"  [value]="x.id">
+            {{x.brojKartice}}
+        </option>
+      </select>
+      <button (click)="novaKartica()">Add another card</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="broj!=0">
+  ssss
+</div>
+
+<div *ngIf="kartica!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel" style="font-weight: bold">New story</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="kartica=null"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label" style="font-weight: bold">Card number</label>
+          <input type="number" class="form-control" placeholder="Title" [(ngModel)]="kartica.brojKartice" >
+        </div>
+        <div class="mb-3">
+          <label class="form-label" style="font-weight: bold">Card type</label>
+          <input type="text" class="form-control" rows="4" placeholder="Description" [(ngModel)]="kartica.tipKartice">
+        </div>
+        <div class="mb-3">
+          <label class="form-label" style="font-weight: bold">CVV</label>
+          <input type="number" class="form-control" rows="4" placeholder="Description" [(ngModel)]="kartica.cvv">
+
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" style="font-weight: bold">Expiring date</label>
+          <input type="datetime-local" class="form-control" id="dateInput" formControlName="datum_rodjenja" [(ngModel)]="kartica.datumVazenja">
+        </div>
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-lg" (click)="kartica=null">Close</button>
+        <button type="button" class="btn btn-dark btn-lg" (click)="dodajKarticu()">Save </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+

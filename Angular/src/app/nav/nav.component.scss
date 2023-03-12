@@ -1,8 +1,13 @@
 header {
-  background: #080300;
+  background: #99C1D9;
+  border-radius: 30px;
+  margin: 2% 4% 0 4%;
 
   .logo {
     font-weight: bold;
+    color: #E0FBFC;
+    font-size: 25px;
+    text-shadow: 0 0 3px #FF0000;
   }
 
   nav {
@@ -14,6 +19,7 @@ header {
 
       li {
         float: left;
+        font-size: 25px;
 
         a {
           padding: 1.5em;
@@ -21,7 +27,8 @@ header {
           font-size: .8em;
 
           &:hover {
-            border: 1px solid white;
+            font-size: 20px;
+            text-shadow: 0 0 3px #FF0000;
 
           }
         }
