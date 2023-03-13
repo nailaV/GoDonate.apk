@@ -100,18 +100,25 @@ export class RegistrationComponent implements OnInit{
     })
   }
 
+  public slikab64:any;
+
   generisiPreview(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+    let this2=this;
     reader.onload=()=>{
-      this.register.get('slikaKorisnika')?.setValue(reader.result);
+      this2.slikab64 = reader.result;
     };
   }
 
   RegisterDugme() {
     if(this.register.valid){
-      this.httpKlijent.post(Konfiguracija.adresaServera+'/Korisnik/Add',this.register.value).subscribe(x=>{
+      let s={
+        ...this.register.value,
+        slikaKorisnika:this.slikab64
+      };
+      this.httpKlijent.post(Konfiguracija.adresaServera+'/Korisnik/Add',s).subscribe(x=>{
         porukaSuccess('Registration confirmed. Please log in.');
         this.router.navigateByUrl('/logIn');
       })

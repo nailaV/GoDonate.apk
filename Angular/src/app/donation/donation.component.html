@@ -6,22 +6,22 @@
  <h2 style="color: white">You don't have any loaded cards. Please add yours:</h2>
   <button (click)="novaKartica()">Add card</button>
 </div>
-
-    <div *ngIf="broj!=0"class="kartica">
-      <h2 style="color: white">Ima kartica</h2>
-      <select >
+    <div *ngIf="broj!=0" class="kartica">
+      <img src="https://ecommercenews.eu/wp-content/uploads/2013/06/most_common_payment_methods_in_europe.png"
+           alt="Payment" style="width:40%; height:100%; opacity: 80%">
+      <form class="desno">
+        <label style="width:20%">Kartica</label>
+      <select style="width:40%;">
         <option *ngFor="let x of karticaPodatak"  [value]="x.id">
             {{x.brojKartice}}
         </option>
       </select>
-      <button (click)="novaKartica()">Add another card</button>
+        </form>
     </div>
+    <button (click)="novaKartica()">Add another card</button>
   </div>
 </div>
 
-<div *ngIf="broj!=0">
-  ssss
-</div>
 
 <div *ngIf="kartica!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">

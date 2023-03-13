@@ -13,4 +13,19 @@ h3{
   color: white;
 }
 
+.kartica{
+  width:100%;
+  border:2px solid black;
+  height:100%;
+  display:flex;
+  flex-direction:row;
+}
+.desno{
+  height:100%;
+  width:60%;
+  float:right;
+  border:2px solid black;
+}
+
+
 
