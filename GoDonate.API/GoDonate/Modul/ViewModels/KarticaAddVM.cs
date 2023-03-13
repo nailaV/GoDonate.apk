@@ -6,7 +6,8 @@
         public int brojKartice { get; set; }
         public string tipKartice { get; set; }
         public int cvv { get; set; }
-        public DateTime datumVazenja { get; set; }
+        public int mjesecVazenja { get; set; }
         public int korisnikID { get; set; }
+        public int godinaVazenja { get; set; }
     }
 }

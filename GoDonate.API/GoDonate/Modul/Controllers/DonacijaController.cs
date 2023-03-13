@@ -23,7 +23,7 @@ namespace GoDonate.Modul.Controllers
             var novaDonacija = new Donacija
             {
                 KolicinaNovca = x.kolicina_novca,
-                Datum = x.datum,
+                Datum = DateTime.Now,
                 karticaID = x.kartica_id,
                 pricaID=x.prica_id,
                 korisnikID=x.korisnik_id
@@ -43,7 +43,6 @@ namespace GoDonate.Modul.Controllers
                 .Select(s => new DonacijaAddVM()
                 {
                     kolicina_novca = s.KolicinaNovca,
-                    datum = s.Datum,
                     kartica_id = s.karticaID,
                     prica_id=s.pricaID,
                     korisnik_id=s.korisnikID

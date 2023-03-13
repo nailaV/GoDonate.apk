@@ -108,7 +108,7 @@ namespace GoDonate.Modul.Controllers
                 naslov = s.Naslov,
                 opis = s.Opis,
                 novcani_cilj = s.NovcaniCilj
-            });
+            }).OrderByDescending(s=>s.id);
             var totalItems = _dbContext.Price.Count();
             var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
             var odgovor = new

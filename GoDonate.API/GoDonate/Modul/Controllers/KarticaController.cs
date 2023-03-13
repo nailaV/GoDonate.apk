@@ -34,7 +34,8 @@ namespace GoDonate.Modul.Controllers
             kartica.BrojKartice = x.brojKartice;
             kartica.TipKartice = x.tipKartice;
             kartica.CVV_CVC = x.cvv;
-            kartica.DatumVazenja = x.datumVazenja;
+            kartica.MjesecIsteka = x.mjesecVazenja;
+            kartica.GodinaIsteka = x.godinaVazenja;
             kartica.KorisnikID = x.korisnikID;
 
             _dbContext.SaveChanges();

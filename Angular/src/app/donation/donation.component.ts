@@ -16,6 +16,7 @@ export class DonationComponent implements OnInit{
   kartica:any;
   broj:any;
   karticaPodatak:any;
+  donacijaPodaci:any;
 
   constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router) {
   }
@@ -29,9 +30,16 @@ export class DonationComponent implements OnInit{
     })
   }
 
-  private getPodaciPrice() {
+  getPodaciPrice() {
     this.httpKlijent.get(Konfiguracija.adresaServera+"/Prica/GetByPricaId/"+this.storyID).subscribe(x=>{
       this.pricaPodaci=x;
+    })
+  }
+
+
+  doniraj(){
+    this.httpKlijent.post(Konfiguracija.adresaServera+'/Donacija/Add',this.donacijaPodaci).subscribe(x=>{
+      porukaSuccess('Donation successful');
     })
   }
 
