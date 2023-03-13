@@ -20,9 +20,9 @@
       <img src="https://joomly.net/frontend/web/images/googlemap/map.png" style="height: 50%; width: 100%">
       <br> <br>
       <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik" type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF " (click)="openDonation(x)"> DONATE NOW!</button> <br><br>
-      <button type="submit" class="dugme"
+      <button type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF "
               *ngIf="informacije().autentifikacijaToken.korisnickinalog.isAdmin"
-              (click)="obrisiPricu(x.id)">Obriši priču</button>
+              (click)="obrisiPricu(x.id)">Delete story</button>
     </div>
     </div>
   </div>

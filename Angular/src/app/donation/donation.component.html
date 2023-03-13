@@ -7,58 +7,107 @@
   <button (click)="novaKartica()">Add card</button>
 </div>
     <div *ngIf="broj!=0" class="kartica">
-      <img src="https://ecommercenews.eu/wp-content/uploads/2013/06/most_common_payment_methods_in_europe.png"
-           alt="Payment" style="width:40%; height:100%; opacity: 80%">
-      <form class="desno">
-        <label style="width:20%">Kartica</label>
-      <select style="width:40%;">
+      <label>Choose card</label> &nbsp;
+      <select style="width:60%; border-radius: 30px; border: none;">
         <option *ngFor="let x of karticaPodatak"  [value]="x.id">
             {{x.brojKartice}}
         </option>
       </select>
-        </form>
+
+      <label style="margin-top: 2%">Amount of money</label> &nbsp;
+      <input type="number" style="border: none; border-radius: 30px; width: 51%">
     </div>
-    <button (click)="novaKartica()">Add another card</button>
+    <div style="float: right">
+    <button style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF ">Confirm donation</button>
+    </div>
+    <button style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF " (click)="novaKartica()">Add another card</button>
   </div>
 </div>
 
 
 <div *ngIf="kartica!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <form [formGroup]="validiraj" (ngSubmit)="dodajKarticu()" class="row g-3" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel" style="font-weight: bold">New story</h5>
+        <h5 class="modal-title" id="exampleModalLiveLabel" style="font-weight: bold">New card</h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="kartica=null"></button>
       </div>
 
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label" style="font-weight: bold">Card number</label>
-          <input type="number" class="form-control" placeholder="Title" [(ngModel)]="kartica.brojKartice" >
+          <input type="number" class="form-control" placeholder="eg. 555444333" formControlName="brojKartice">
+          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['brojKartice'].invalid && (validiraj.controls['brojKartice'].dirty || validiraj.controls['brojKartice'].touched)">
+            <div *ngIf="validiraj.controls['brojKartice'].errors.required">
+              Card number is required.
+            </div>
+            <div *ngIf="validiraj.controls['brojKartice'].errors.pattern">
+              You can only type in numbers.
+            </div>
+            <div *ngIf="validiraj.controls['brojKartice'].errors.maxLength">
+              You have to enter 6 digits.
+            </div>
+          </div>
         </div>
+
         <div class="mb-3">
           <label class="form-label" style="font-weight: bold">Card type</label>
-          <input type="text" class="form-control" rows="4" placeholder="Description" [(ngModel)]="kartica.tipKartice">
+          <input type="text" class="form-control" rows="4" placeholder="eg. Visa" formControlName="tipKartice">
+          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['tipKartice'].invalid && (validiraj.controls['tipKartice'].dirty || validiraj.controls['tipKartice'].touched)">
+            <div *ngIf="validiraj.controls['tipKartice'].errors.required">
+              Card type is required.
+            </div>
+          </div>
         </div>
+
         <div class="mb-3">
           <label class="form-label" style="font-weight: bold">CVV</label>
-          <input type="number" class="form-control" rows="4" placeholder="Description" [(ngModel)]="kartica.cvv">
-
+          <input type="number" class="form-control" rows="4" placeholder="* * *" formControlName="cvv">
+          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['cvv'].invalid && (validiraj.controls['cvv'].dirty || validiraj.controls['cvv'].touched)">
+            <div *ngIf="validiraj.controls['cvv'].errors.required">
+              CVV is required.
+            </div>
+            <div *ngIf="validiraj.controls['cvv'].errors.pattern">
+              You can only type in numbers.
+            </div>
+            <div *ngIf="validiraj.controls['cvv'].errors.minlength">
+              You have to enter 3 digits.
+            </div>
+            <div *ngIf="validiraj.controls['cvv'].errors.maxLength">
+              You have to enter 3 digits.
+            </div>
+          </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Expiring date</label>
-          <input type="datetime-local" class="form-control" id="dateInput" formControlName="datum_rodjenja" [(ngModel)]="kartica.datumVazenja">
+          <label class="form-label" style="font-weight: bold">Expiring month</label>
+          <input type="number" class="form-control"  formControlName="mjesecVazenja">
+          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['mjesecVazenja'].invalid && (validiraj.controls['mjesecVazenja'].dirty || validiraj.controls['mjesecVazenja'].touched)">
+            <div *ngIf="validiraj.controls['mjesecVazenja'].errors.required">
+              Expiring month is required.
+            </div>
+          </div>
         </div>
 
+        <div class="mb-3">
+          <label class="form-label" style="font-weight: bold">Expiring year</label>
+          <input type="number" class="form-control"  formControlName="godinaVazenja">
+          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['godinaVazenja'].invalid && (validiraj.controls['godinaVazenja'].dirty || validiraj.controls['godinaVazenja'].touched)">
+            <div *ngIf="validiraj.controls['godinaVazenja'].errors.required">
+              Expiring year is required.
+            </div>
+          </div>
+        </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary btn-lg" (click)="kartica=null">Close</button>
-        <button type="button" class="btn btn-dark btn-lg" (click)="dodajKarticu()">Save </button>
+        <button type="submit" class="btn btn-dark btn-lg" >Save </button>
       </div>
 
     </div>
   </div>
 </div>
+  </form>
 </div>
 

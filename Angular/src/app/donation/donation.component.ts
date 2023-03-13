@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Konfiguracija} from "../../Config";
 import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
 @Component({
@@ -17,8 +18,48 @@ export class DonationComponent implements OnInit{
   broj:any;
   karticaPodatak:any;
   donacijaPodaci:any;
+  validiraj:FormGroup;
 
-  constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router) {
+  get brojKartice() : FormControl{
+    return this.validiraj.get("brojKartice") as FormControl;
+  }
+  get tipKartice() : FormControl{
+    return this.validiraj.get("tipKartice") as FormControl;
+  }
+  get cvv() : FormControl{
+    return this.validiraj.get("cvv") as FormControl;
+  }
+  get mjesecVazenja() : FormControl{
+    return this.validiraj.get("mjesecVazenja") as FormControl;
+  }
+  get godinaVazenja() : FormControl{
+    return this.validiraj.get("godinaVazenja") as FormControl;
+  }
+
+
+  constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router,  private formBuilder:FormBuilder) {
+    this.validiraj=this.formBuilder.group({
+      brojKartice:new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]*'),
+        Validators.maxLength(6)
+      ]),
+      tipKartice:new FormControl('',[
+        Validators.required
+      ]),
+      cvv:new FormControl('',[
+        Validators.required,
+        Validators.pattern('[0-9]*'),
+        Validators.minLength(3),
+        Validators.maxLength(3)
+      ]),
+      mjesecVazenja:new FormControl('',[
+        Validators.required
+      ]),
+      godinaVazenja:new FormControl('', [
+        Validators.required
+      ])
+    })
   }
 
   ngOnInit() {
@@ -43,24 +84,34 @@ export class DonationComponent implements OnInit{
     })
   }
 
-
   novaKartica() {
     this.kartica={
       id:0,
       brojKartice:"",
       tipKartice:"",
       cvv:"",
-      datumVazenja:new Date(),
+      mjesecVazenja:1,
+      godinaVazenja:2022,
       korisnikID:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id
     }
   }
 
   dodajKarticu() {
-    this.httpKlijent.post(Konfiguracija.adresaServera+"/Kartica/AddKarticu", this.kartica).subscribe(x=>{
-      porukaSuccess("Successfully added new card.");
-      this.kartica=null;
-      this.rut.navigateByUrl('/donation');
-    })
+    if(this.validiraj.valid){
+      let s={
+        ...this.validiraj.value,
+        id:0,
+        korisnikID: AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id
+      };
+      this.httpKlijent.post(Konfiguracija.adresaServera+"/Kartica/AddKarticu", s).subscribe(x=>{
+        porukaSuccess("Successfully added new card.");
+        this.kartica=null;
+        this.rut.navigateByUrl('/donation');
+      })
+    }
+    else{
+      porukaError('Faild to add new card. Please try again.');
+    }
   }
 
    countKartica() {

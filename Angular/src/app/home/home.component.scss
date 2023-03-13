@@ -1,6 +1,68 @@
 .pozadina{
-  background: rgba(253, 254, 255, 0.8);
+  background-image: url("https://www.wbknes.com/wp-content/uploads/2022/03/v27.jpg");
+  height:100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 
-
+body{
+  display: flex;
+}
+.back{
+  background-color: #99C1D9;
+  margin:5px;
+  padding: 20px;
+  height:100%;
+  border-radius: 30px;
+}
+h1{
+  color: white;
+  font-weight: bold;
+  font-family: Montserrat;
+  text-align: center;
+}
+h3{
+  font-weight: bold;
+  color: white;
+  font-family: Montserrat;
+}
+.opis{
+  color: white;
+  font-family: Montserrat;
+  max-width: 40%;
+  background-color:  rgba(205,205,205,0.5);
+  padding: 2%;
+  border-radius: 30px;
+}
+.opis p{
+  text-align: center;
+}
+.detalji{
+  background-image: url("https://static.vecteezy.com/system/resources/previews/004/588/667/original/heart-in-hand-line-icon-outline-sign-linear-pictogram-isolated-on-white-health-love-and-relationship-symbol-logo-illustration-charity-and-donation-line-icon-concept-free-vector.jpg");
+  max-height:100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 30px;
+  max-width: 60%;
+  margin-left: 3%;
+  padding: 2%;
+  opacity: 40%;
+}
+.detalji h4{
+  color: white;
+  font-family: Montserrat;
+}
+.pomjeri{
+  display: flex;
+  margin-left: 5%;
+}
+.dugme{
+  background-color: black;
+  font-weight: bold;
+  color: white;
+  margin-left: 70%;
+  padding: 2%;
+}
