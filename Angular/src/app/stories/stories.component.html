@@ -1,5 +1,5 @@
 
-<div class="kontejner">
+<div *ngIf="odabranaPrica==null" class="kontejner">
 <h1>Stories opened for donations</h1>
     <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik" type="button" class="btn btn-dark btn-lg" style="width:30%; height:20%; margin:2%; color: white; background-color: #EE6C4D; border: none; border-radius: 30px; margin-left:60% " (click)="novaPrica()" >Add your story</button>
   <div *ngFor="let x of pagingPodaci.price" class="kartica">
@@ -18,56 +18,82 @@
               *ngIf="trenutnaStranica < totalPages" (click)="sljedecaStranica()">Next</button>
     </div>
   </div>
+</div>
 
-<div *ngIf="odabranaPrica!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel" style="font-weight: bold">New story</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="odabranaPrica=null"></button>
-      </div>
-
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Title</label>
-          <input class="form-control" placeholder="Title" [(ngModel)]="odabranaPrica.naslov" >
-        </div>
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Description</label>
-          <textarea class="form-control" rows="4" placeholder="Description" [(ngModel)]="odabranaPrica.opis">
-            </textarea>
-        </div>
-        <div class="mb-3">
-          <label for="formFile" class="form-label" style="font-weight: bold">Upload your picture</label>
-          <input class="form-control" type="file" id="formFile" accept="image/*" (change)="generisiPreview()">
-          <img style="width: 100%; height: 100%" src="{{odabranaPrica.slika}}">
-        </div>
-
-          <div class="mb-3">
-            <label class="form-label" style="font-weight: bold">Money goal</label>
-            <input type="number" class="form-control" placeholder="500" [(ngModel)]="odabranaPrica.novcani_cilj" >
-          </div>
-
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Location</label>
-          <input class="form-control" placeholder="Enter your adress" [(ngModel)]="odabranaPrica.lokacija"  >
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Category</label>
-          <select class="form-control" [(ngModel)]="odabranaPrica.kategorija_id"  >
-            <option *ngFor="let x of kategorijaPodaci" [value]="x.id">{{x.naziv}}</option>
-          </select>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-lg" (click)="odabranaPrica=null">Close</button>
-        <button type="button" class="btn btn-dark btn-lg" (click)="SaveDugme()">Save </button>
-      </div>
-
+  <div *ngIf="odabranaPrica!=null" class="dodavanjePrice">
+    <form [formGroup]="validiraj" (ngSubmit)="SaveDugme()">
+    <div style="display: flex; flex-direction: row; width: 100%">
+    <p style=" font-weight: bold; color: white; font-size: 25px">New story</p>
+    <br> <br>
+    <button style="color: white;margin-left: 80% " type="button" class="btn-close" aria-label="Close" (click)="odabranaPrica=null"></button>
     </div>
+
+    <label>Title</label>
+      <input type="text" formControlName="naslov" placeholder="Title">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['naslov'].invalid && (validiraj.controls['naslov'].dirty || validiraj.controls['naslov'].touched)">
+        <div *ngIf="validiraj.controls['naslov'].errors.required">
+          Title is required.
+        </div>
+        <div *ngIf="validiraj.controls['naslov'].errors.pattern">
+          You can only type in letters.
+        </div>
+      </div>
+     <br>
+
+      <label>Description</label>
+      <input type="text" formControlName="opis" placeholder="Description">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['opis'].invalid && (validiraj.controls['opis'].dirty || validiraj.controls['opis'].touched)">
+        <div *ngIf="validiraj.controls['opis'].errors.required">
+          Description is required.
+        </div>
+        <div *ngIf="validiraj.controls['opis'].errors.pattern">
+          You can only type in letters.
+        </div>
+      </div>
+   <br>
+
+      <label for="formFile" class="form-label" style="font-weight: bold">Upload your picture</label>
+      <input class="form-control" formControlName="slika" type="file" id="formFile" accept="image/*" (change)="generisiPreview($event)">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['slika'].invalid && (validiraj.controls['slika'].dirty || validiraj.controls['slika'].touched)">
+        <div *ngIf="validiraj.controls['slika'].errors.required">
+          Image for story is required.
+        </div>
+      </div>
+      <!--<img style="width: 100%; height: 100%" src="{{odabranaPrica.slika}}">-->
+   <br>
+
+      <label>Money goal</label>
+      <input type="number" formControlName="novcani_cilj" placeholder="eg. 254">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['novcani_cilj'].invalid && (validiraj.controls['novcani_cilj'].dirty || validiraj.controls['novcani_cilj'].touched)">
+        <div *ngIf="validiraj.controls['novcani_cilj'].errors.required">
+          Money goal is required.
+        </div>
+      </div>
+<br>
+
+      <label>Location</label>
+      <input type="text" formControlName="lokacija" placeholder="eg. Mostar">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['lokacija'].invalid && (validiraj.controls['lokacija'].dirty || validiraj.controls['lokacija'].touched)">
+        <div *ngIf="validiraj.controls['lokacija'].errors.required">
+          Location is required.
+        </div>
+        <div *ngIf="validiraj.controls['lokacija'].errors.pattern">
+          You can only type in letters.
+        </div>
+      </div>
+  <br>
+
+      <label>Category</label>
+      <select formControlName="kategorija_id" style="border-radius: 30px; width: 100%; height: 15%" [(ngModel)]="odabranaPrica.kategorija_id"  >
+        <option *ngFor="let x of kategorijaPodaci" [value]="x.id">{{x.naziv}}</option>
+      </select>
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['kategorija_id'].invalid && (validiraj.controls['kategorija_id'].dirty || validiraj.controls['kategorija_id'].touched)">
+        <div *ngIf="validiraj.controls['kategorija_id'].errors.required">
+          Category is required.
+        </div>
+      </div>
+     <br>
+      <button type="submit" class="btn btn-dark btn-lg" style="border-radius: 30px; border: none; color: white; background-color: #EE6C4D; font-size: 20px; margin-left: 40%; margin-right: 40%; width: 20%; margin-top: 2%">Save </button>
+    </form>
   </div>
-</div>
-</div>
 

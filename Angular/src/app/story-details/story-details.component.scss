@@ -3,9 +3,11 @@ body{
   display: flex;
 }
 .back{
-  background-color: rgba(0,0,0,0.567);
+  background-color: #99C1D9;
   margin:5px;
   padding: 20px;
+  height:100%;
+  border-radius: 30px;
 }
 h1{
   color: white;
@@ -22,14 +24,16 @@ h3{
   color: white;
   font-family: Montserrat;
   max-width: 40%;
-  background-color: rgba(0,0,0,0.567);
+  background-color:  rgba(205,205,205,0.5);
   padding: 2%;
+  border-radius: 30px;
 }
 .opis p{
   text-align: center;
 }
 .detalji{
-  background-color: rgba(0,0,0,0.567);
+  background-color: rgba(205,205,205,0.5);
+  border-radius: 30px;
   max-width: 60%;
   margin-left: 3%;
   padding: 2%;
