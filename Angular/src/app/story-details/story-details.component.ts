@@ -33,7 +33,7 @@ export class StoryDetailsComponent implements OnInit{
     })
   }
 
-  private fetchPricaById() {
+  fetchPricaById() {
       this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetByPricaId/'+this.pricaId)
         .subscribe(x=>{
           this.podaciPrica=x;
@@ -59,4 +59,5 @@ export class StoryDetailsComponent implements OnInit{
   openDonation(x: any) {
     this.rut.navigate(['/donation', x.id]);
   }
+
 }

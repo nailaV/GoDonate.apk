@@ -1,5 +1,6 @@
 <div *ngFor="let x of podaciPrica">
   <div class="back">
+    <a href="/stories" class="previous">&#8249;</a>
     <div class="gornjiDio">
       <h1>{{x.naslov}}</h1>
     </div>
@@ -17,13 +18,17 @@
       </div>
       <br>
       <h4>You can find us in <b>{{x.lokacija}}</b></h4>
+      <div *ngIf="informacije().autentifikacijaToken.korisnickinalog.id==x.korisnik_id">
+      <button>NAILA </button>
+      </div>
       <img src="https://joomly.net/frontend/web/images/googlemap/map.png" style="height: 50%; width: 100%">
       <br> <br>
-      <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik" type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF " (click)="openDonation(x)"> DONATE NOW!</button> <br><br>
+      <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik && informacije().autentifikacijaToken.korisnickinalog.id!=x.korisnik_id" type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF " (click)="openDonation(x)"> DONATE NOW!</button> <br><br>
       <button type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF "
               *ngIf="informacije().autentifikacijaToken.korisnickinalog.isAdmin"
               (click)="obrisiPricu(x.id)">Delete story</button>
     </div>
-    </div>
   </div>
 </div>
+</div>
+

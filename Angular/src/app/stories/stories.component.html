@@ -1,14 +1,34 @@
 
 <div *ngIf="odabranaPrica==null" class="kontejner">
 <h1>Stories opened for donations</h1>
-    <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik" type="button" class="btn btn-dark btn-lg" style="width:30%; height:20%; margin:2%; color: white; background-color: #EE6C4D; border: none; border-radius: 30px; margin-left:60% " (click)="novaPrica()" >Add your story</button>
-  <div *ngFor="let x of pagingPodaci.price" class="kartica">
+  <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik" type="button" class="btn btn-dark btn-lg" style="width:30%; height:20%; margin:2%; color: white; background-color: #EE6C4D; border: none; border-radius: 30px; margin-left:60% " (click)="novaPrica()" >Add your story</button>
+<br> <br>
+  <div class="dugmad">
+  <button id="prvi" (click)="preuzmiTudje()" style="border: none; border-radius:30px; color: black; background-color: #99C1D9; font-weight: bold; ">Other stories</button>
+  <button id="drugi" (click)="preuzmiMoje()" style="border: none; border-radius:30px; color: black; background-color: #99C1D9; float: right; font-weight: bold">My stories</button>
+  </div>
+  <div *ngIf="prica_tudja!=null">
+  <div *ngFor="let x of prica_tudja.price" class="kartica">
     <img src="{{getSliku(x)}}" style="max-height:100%; max-width:20%; float:left; margin:3%">
     <h3>{{x.naslov}}</h3>
     <h4>GOAL {{x.novcani_cilj}} $</h4>
    <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:85%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
     <hr>
   </div>
+    </div>
+
+
+  <div *ngIf="prica_moja!=null">
+    <div *ngFor="let x of prica_moja.price" class="kartica">
+      <img src="{{getSliku(x)}}" style="max-height:100%; max-width:20%; float:left; margin:3%">
+      <h3>{{x.naslov}}</h3>
+      <h4>GOAL {{x.novcani_cilj}} $</h4>
+      <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:85%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
+      <hr>
+    </div>
+  </div>
+
+
 <br> <br>
   <div style="display:inline-block; width:100%; height:100%">
     <div style="width:100%">
@@ -23,7 +43,7 @@
   <div *ngIf="odabranaPrica!=null" class="dodavanjePrice">
     <form [formGroup]="validiraj" (ngSubmit)="SaveDugme()">
     <div style="display: flex; flex-direction: row; width: 100%">
-    <p style=" font-weight: bold; color: white; font-size: 25px">New story</p>
+    <p style=" font-weight: bold; color: white; font-size: 20px">New story</p>
     <br> <br>
     <button style="color: white;margin-left: 80% " type="button" class="btn-close" aria-label="Close" (click)="odabranaPrica=null"></button>
     </div>

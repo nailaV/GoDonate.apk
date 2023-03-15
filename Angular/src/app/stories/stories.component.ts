@@ -14,7 +14,8 @@ declare function porukaError(a: string):any;
   styleUrls: ['./stories.component.scss']
 })
 export class StoriesComponent implements OnInit {
-  prica_podaci: any;
+  prica_tudja: any;
+  prica_moja:any;
   valutaPodaci: any;
   kategorijaPodaci: any;
   otvoriFormu: boolean = false;
@@ -66,11 +67,10 @@ export class StoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.preuzmiPrice();
+    this.korisnikID=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id;
+    this.preuzmiTudje();
     this.preuzmiValute();
     this.preuzmiKategorije();
-    this.paging();
-    this.korisnikID=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id;
     console.log(this.trenutnaStranica);
     console.log(this.pageNumber);
   }
@@ -78,9 +78,15 @@ export class StoriesComponent implements OnInit {
     return AutentifikacijaHelper.getLoginInfo();
   }
 
-  preuzmiPrice() {
-    this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetSvePrice').subscribe(x => {
-      this.prica_podaci = x;
+  preuzmiTudje() {
+    this.prica_moja=null;
+    this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetOtherStoriesPaging?korisnikID=' +
+      this.korisnikID + '&pageNumber=' + this.pageNumber + '&pageSize=5').subscribe(x => {
+      this.prica_tudja = x;
+      document.getElementById('prvi').style.color='white';
+      document.getElementById('prvi').style.borderStyle='solid';
+      document.getElementById('drugi').style.color='black';
+      document.getElementById('drugi').style.border='none';
     })
   }
 
@@ -136,7 +142,7 @@ export class StoriesComponent implements OnInit {
       };
       this.httpKlijent.post(`${Konfiguracija.adresaServera}/Prica/Add`, s, Konfiguracija.http_opcije()).subscribe(x=>{
         porukaSuccess("Story successfully added. Good luck with collecting money!")
-        this.preuzmiPrice();
+        this.paging();
         this.odabranaPrica=null;
       })
     }
@@ -150,19 +156,7 @@ export class StoriesComponent implements OnInit {
     this.router.navigate(['/storyDetails', x.id]);
   }
 
-  tvojePrice() {
-    this.prica_podaci=null;
-      this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetKorisnikovePrice/' + this.korisnikID).subscribe(x=>{
-          this.prica_podaci=x;
-      })
-  }
 
-  drugePrice() {
-        this.prica_podaci=null;
-        this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetOstalePrice/' +this.korisnikID).subscribe(x=>{
-          this.prica_podaci=x;
-        })
-  }
 
   paging() {
       this.httpKlijent.get(Konfiguracija.adresaServera+
@@ -184,5 +178,17 @@ export class StoriesComponent implements OnInit {
       this.trenutnaStranica++;
     this.pageNumber++;
     this.paging();
+  }
+
+  preuzmiMoje() {
+    this.prica_tudja=null;
+    this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetMyStoriesPaging?korisnikID=' +
+      this.korisnikID + '&pageNumber=' + this.pageNumber + '&pageSize=5').subscribe(x => {
+      this.prica_moja = x;
+      document.getElementById('prvi').style.color='black';
+      document.getElementById('prvi').style.border='none';
+      document.getElementById('drugi').style.color='white';
+      document.getElementById('drugi').style.border='solid';
+    })
   }
 }

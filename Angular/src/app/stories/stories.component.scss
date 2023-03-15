@@ -5,13 +5,14 @@
   height:100%;
   border-radius: 30px;
 }
+
 h5{
   color: white;
 }
 .dodavanjePrice{
   background-color: #99C1D9;
   margin:5px;
- padding: 20px;
+  padding: 20px;
   padding-left: 10%;
   padding-right: 10%;
   height:100%;
@@ -58,12 +59,26 @@ h4{
   background-color: white;
   display: inline-block;
   border-radius: 30px;
-  opacity: 90%
+  opacity: 90%;
+  transition:1s;
 }
 .kartica:hover{
   border: #721c24 2px solid;
-
 }
+.dugmad{
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 3%;
+  margin-top: 0%;
+}
+#prvi, #drugi {
+ text-transform: uppercase;
+  transition: 1s;
+}
+
+
+
 
 
 

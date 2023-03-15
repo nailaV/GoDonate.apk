@@ -100,15 +100,35 @@ namespace GoDonate.Modul.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetPricePaging(int pageNumber = 1, int pageSize = 5)
+        public ActionResult GetOtherStoriesPaging(int korisnikID, int pageNumber = 1, int pageSize = 5)
         {
-            var price = _dbContext.Price.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Select(s => new
+            var price = _dbContext.Price.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Where(k=>k.korisnikID!=korisnikID).Select(s => new
             {
                 id = s.Id,
                 naslov = s.Naslov,
                 opis = s.Opis,
                 novcani_cilj = s.NovcaniCilj
             }).OrderByDescending(s=>s.id);
+            var totalItems = _dbContext.Price.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            var odgovor = new
+            {
+                price,
+                totalPages
+            };
+            return Ok(odgovor);
+        }
+
+        [HttpGet]
+        public ActionResult GetMyStoriesPaging(int korisnikID, int pageNumber = 1, int pageSize = 5)
+        {
+            var price = _dbContext.Price.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Where(k => k.korisnikID == korisnikID).Select(s => new
+            {
+                id = s.Id,
+                naslov = s.Naslov,
+                opis = s.Opis,
+                novcani_cilj = s.NovcaniCilj
+            }).OrderByDescending(s => s.id);
             var totalItems = _dbContext.Price.Count();
             var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
             var odgovor = new
@@ -128,6 +148,15 @@ namespace GoDonate.Modul.Controllers
                 return BadRequest();
 
             return File(prica, "image/*");
+        }
+
+        [HttpPost("pricaID")]
+        public ActionResult PromijeniSliku([FromBody] PromjenaSlikeVM x)
+        { 
+            var prica = _dbContext.Price.FirstOrDefault(p => p.Id == x.id);
+            prica.Slika = x.slikaKorisnika.ParsirajUbase();
+            _dbContext.SaveChanges();
+            return Ok();
         }
 
         [HttpGet("{pricaid}")]
@@ -152,7 +181,8 @@ namespace GoDonate.Modul.Controllers
                     opis = p.Opis,
                     novcaniCilj = p.NovcaniCilj,
                     kategorija = p.Kategorija.Naziv,
-                    lokacija = p.Lokacija
+                    lokacija = p.Lokacija,
+                    korisnik_id = p.korisnikID
                 }).AsQueryable();
 
             return Ok(prica.ToList());

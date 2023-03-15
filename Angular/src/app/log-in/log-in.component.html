@@ -4,7 +4,7 @@
     <p style="font-weight: bold; font-size: 50px; color: white"> Log in</p>
   <label>
     <p style="font-weight: bold; font-size: 30px; color: white"> Username: </p>
-    <input type="text" [(ngModel)]="this.username " formControlName="username" placeholder="username" style="border-radius: 30px; width: 100%">
+    <input type="text" [(ngModel)]="this.username " formControlName="username" placeholder="username" style="border-radius: 30px; width: 60%; margin-left:20%;margin-right: 20% ">
     <div *ngIf="submitted && LogInForma.controls.username.errors" class="error">
       <div *ngIf="LogInForma.controls.username.errors?.['required']"> You have to enter username! </div>
     </div>
@@ -12,14 +12,14 @@
 
   <label>
     <p style="font-weight: bold; font-size: 30px;color: white"> Password: </p>
-    <input type="password" [(ngModel)]="this.password" formControlName="password" placeholder="*****" style="border-radius: 30px; width: 100%;">
+    <input type="password" [(ngModel)]="this.password" formControlName="password" placeholder="*****" style="border-radius: 30px;width: 60%; margin-left:20%;margin-right: 20% ">
     <div *ngIf="submitted && LogInForma.controls.password.errors" class="error">
       <div *ngIf="LogInForma.controls.password.errors?.['required']"> You have to enter password! </div>
     </div>
   </label>
 
 <hr style="color: white">
-  <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: #EE6C4D; width: 100% ; font-size: 20px">Log in </button>
+  <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: #EE6C4D; width: 80%; margin-left:10%;margin-right: 10% ; font-size: 20px">Log in </button>
   <br><br>
 
   <a style="font-size: 25px; text-decoration:none; color: white" href="/registration">Dont have an account? Register here!</a>
