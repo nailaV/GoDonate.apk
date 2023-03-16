@@ -1,4 +1,5 @@
 ﻿using GoDonate.Data;
+using GoDonate.Migrations;
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -28,19 +29,28 @@ namespace GoDonate.Modul.Controllers
             _dbContext.Add(komentar);
             _dbContext.SaveChanges();
             return Ok(komentar);
-        }
-        [HttpGet("pricaID")]
-        public ActionResult GetKomentareZaPricu(int pricaID)
+        } 
+        [HttpGet]
+        public ActionResult GetKomentareZaPricu(int pricaID, int pageNumber = 1, int pageSize = 5)
         {
-            var data = _dbContext.Komentari.Where(k => k.pricaID == pricaID).Select(s => new
+            var komentari = _dbContext.Komentari.OrderByDescending(p => p.Id).
+                Skip((pageNumber - 1) * pageSize).Take(pageSize).Where(k => k.pricaID == pricaID).Select(s => new
+                {
+                    napisaoIme = s.Korisnik.Ime,
+                    napisaoPrezime = s.Korisnik.Prezime,
+                    sadrzajKomentara = s.Sadrzaj
+                });
+            var totalItems = _dbContext.Komentari.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+            var odgovor = new
             {
-                Napisao = s.Korisnik.Ime + " "+ s.Korisnik.Prezime,
-                Sadrzaj = s.Sadrzaj
-            });
-            return Ok(data);
+                komentari,
+                totalPages
+            };
+            return Ok(odgovor);
         }
 
-        [HttpGet("pricaID")]
+        [HttpGet("{pricaID}")]
         public int GetBrojKomentara(int pricaID)
         {
             var data = _dbContext.Komentari.Where(p => p.pricaID == pricaID).Count();

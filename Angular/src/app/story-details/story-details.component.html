@@ -18,9 +18,9 @@
       </div>
       <br>
       <h4>You can find us in <b>{{x.lokacija}}</b></h4>
-      <div *ngIf="informacije().autentifikacijaToken.korisnickinalog.id==x.korisnik_id">
+      <!--<div *ngIf="informacije().autentifikacijaToken.korisnickinalog.id==x.korisnik_id">
       <button>NAILA </button>
-      </div>
+      </div>-->
       <img src="https://joomly.net/frontend/web/images/googlemap/map.png" style="height: 50%; width: 100%">
       <br> <br>
 
@@ -30,7 +30,7 @@
               (click)="obrisiPricu(x.id)">Delete story</button>
     </div>
   </div>
-    <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: #EE6C4D; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%">View comments </button>
+    <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: #EE6C4D; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%" (click)="otvoriKomentare()">View comments ({{brojKomentara}}) </button>
 </div>
 </div>
 

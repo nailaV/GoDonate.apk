@@ -102,13 +102,15 @@ namespace GoDonate.Modul.Controllers
         [HttpGet]
         public ActionResult GetOtherStoriesPaging(int korisnikID, int pageNumber = 1, int pageSize = 5)
         {
-            var price = _dbContext.Price.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Where(k=>k.korisnikID!=korisnikID).Select(s => new
+            var price = _dbContext.Price.OrderByDescending(p=>p.Id).
+                Skip((pageNumber - 1) * pageSize).Take(pageSize).
+                ToList().Where(k=>k.korisnikID!=korisnikID).Select(s => new
             {
                 id = s.Id,
                 naslov = s.Naslov,
                 opis = s.Opis,
                 novcani_cilj = s.NovcaniCilj
-            }).OrderByDescending(s=>s.id);
+            });
             var totalItems = _dbContext.Price.Count();
             var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
             var odgovor = new

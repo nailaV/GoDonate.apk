@@ -1,1 +1,14 @@
-<p>komentari works!</p>
+<p>
+  Write your own comment
+</p>
+<textarea id="komentar" [(ngModel)]="sadrzajKomentara"></textarea>
+<button (click)="dodajKomentar()">Dodaj komentar</button>
+
+<div *ngFor="let x of komentariPodaci.komentari">
+    <p>{{x.napisaoIme}}</p> <p>{{x.sadrzajKomentara}}</p>
+  <hr>
+</div>
+
+<button *ngIf="trenutnaStranica>1" (click)="prethodna()">PREVIOUS</button> <br>
+<button *ngIf="trenutnaStranica < totalPages" (click)="sljedeca()">NEXT</button>
+
