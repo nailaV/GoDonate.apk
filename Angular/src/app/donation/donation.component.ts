@@ -38,7 +38,7 @@ export class DonationComponent implements OnInit{
 
 
   constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router,  private formBuilder:FormBuilder) {
-    this.validiraj=this.formBuilder.group({
+    /*this.validiraj=this.formBuilder.group({
       brojKartice:new FormControl('', [
         Validators.required,
         Validators.pattern('[0-9]*'),
@@ -59,7 +59,7 @@ export class DonationComponent implements OnInit{
       godinaVazenja:new FormControl('', [
         Validators.required
       ])
-    })
+    })*/
   }
 
   ngOnInit() {
@@ -85,7 +85,7 @@ export class DonationComponent implements OnInit{
   }
 
   novaKartica() {
-    this.kartica={
+    /*this.kartica={
       id:0,
       brojKartice:"",
       tipKartice:"",
@@ -93,7 +93,29 @@ export class DonationComponent implements OnInit{
       mjesecVazenja:1,
       godinaVazenja:2022,
       korisnikID:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id
-    }
+    }*/
+    this.validiraj=this.formBuilder.group({
+      brojKartice:new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]*'),
+        Validators.maxLength(6)
+      ]),
+      tipKartice:new FormControl('',[
+        Validators.required
+      ]),
+      cvv:new FormControl('',[
+        Validators.required,
+        Validators.pattern('[0-9]*'),
+        Validators.minLength(3),
+        Validators.maxLength(3)
+      ]),
+      mjesecVazenja:new FormControl('',[
+        Validators.required
+      ]),
+      godinaVazenja:new FormControl('', [
+        Validators.required
+      ])
+    })
   }
 
   dodajKarticu() {

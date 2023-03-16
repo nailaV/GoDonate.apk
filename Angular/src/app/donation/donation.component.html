@@ -1,113 +1,118 @@
 
 <div *ngFor="let x of pricaPodaci">
   <div  class="kontejner">
+    <div *ngIf="validiraj==null" class="donacija">
+      <div class="slika">
+       <img src="https://tintagel.co.nz/wp-content/uploads/2018/09/visa-and-mastercard-logos-logo-visa-png-logo-visa-mastercard-png-visa-logo-white-png-awesome-logos.png" style="width: 50%; margin-right: 25%; margin-left: 25%">
+      </div>
     <h3>{{x.naslov}}</h3>
+
 <div *ngIf="broj==0"class="kartica">
  <h2 style="color: white">You don't have any loaded cards. Please add yours:</h2>
   <button (click)="novaKartica()">Add card</button>
 </div>
     <div *ngIf="broj!=0" class="kartica">
-      <label>Choose card</label> &nbsp;
-      <select style="width:60%; border-radius: 30px; border: none;">
-        <option *ngFor="let x of karticaPodatak"  [value]="x.id">
+      <div class="odabirKartice">
+        <label style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Choose card</label> &nbsp;
+        <select style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
+          <option *ngFor="let x of karticaPodatak"  [value]="x.id">
             {{x.brojKartice}}
-        </option>
-      </select>
-
-      <label style="margin-top: 2%">Amount of money</label> &nbsp;
-      <input type="number" style="border: none; border-radius: 30px; width: 51%">
+          </option>
+        </select>
+      </div>
+      <br>
+      <div class="odabirKartice">
+        <label style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Amount of money</label> &nbsp;
+        <input type="number" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%" placeholder="eg. 150">
+      </div>
     </div>
+      <br>
     <div style="float: right">
     <button style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF ">Confirm donation</button>
     </div>
     <button style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF " (click)="novaKartica()">Add another card</button>
   </div>
-</div>
-
-
-<div *ngIf="kartica!=null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
-  <form [formGroup]="validiraj" (ngSubmit)="dodajKarticu()" class="row g-3" >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel" style="font-weight: bold">New card</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="kartica=null"></button>
-      </div>
-
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Card number</label>
-          <input type="number" class="form-control" placeholder="eg. 555444333" formControlName="brojKartice">
-          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['brojKartice'].invalid && (validiraj.controls['brojKartice'].dirty || validiraj.controls['brojKartice'].touched)">
-            <div *ngIf="validiraj.controls['brojKartice'].errors.required">
-              Card number is required.
-            </div>
-            <div *ngIf="validiraj.controls['brojKartice'].errors.pattern">
-              You can only type in numbers.
-            </div>
-            <div *ngIf="validiraj.controls['brojKartice'].errors.maxLength">
-              You have to enter 6 digits.
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Card type</label>
-          <input type="text" class="form-control" rows="4" placeholder="eg. Visa" formControlName="tipKartice">
-          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['tipKartice'].invalid && (validiraj.controls['tipKartice'].dirty || validiraj.controls['tipKartice'].touched)">
-            <div *ngIf="validiraj.controls['tipKartice'].errors.required">
-              Card type is required.
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">CVV</label>
-          <input type="number" class="form-control" rows="4" placeholder="* * *" formControlName="cvv">
-          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['cvv'].invalid && (validiraj.controls['cvv'].dirty || validiraj.controls['cvv'].touched)">
-            <div *ngIf="validiraj.controls['cvv'].errors.required">
-              CVV is required.
-            </div>
-            <div *ngIf="validiraj.controls['cvv'].errors.pattern">
-              You can only type in numbers.
-            </div>
-            <div *ngIf="validiraj.controls['cvv'].errors.minlength">
-              You have to enter 3 digits.
-            </div>
-            <div *ngIf="validiraj.controls['cvv'].errors.maxLength">
-              You have to enter 3 digits.
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Expiring month</label>
-          <input type="number" class="form-control"  formControlName="mjesecVazenja">
-          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['mjesecVazenja'].invalid && (validiraj.controls['mjesecVazenja'].dirty || validiraj.controls['mjesecVazenja'].touched)">
-            <div *ngIf="validiraj.controls['mjesecVazenja'].errors.required">
-              Expiring month is required.
-            </div>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label" style="font-weight: bold">Expiring year</label>
-          <input type="number" class="form-control"  formControlName="godinaVazenja">
-          <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['godinaVazenja'].invalid && (validiraj.controls['godinaVazenja'].dirty || validiraj.controls['godinaVazenja'].touched)">
-            <div *ngIf="validiraj.controls['godinaVazenja'].errors.required">
-              Expiring year is required.
-            </div>
-          </div>
-        </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary btn-lg" (click)="kartica=null">Close</button>
-        <button type="submit" class="btn btn-dark btn-lg" >Save </button>
-      </div>
-
-    </div>
   </div>
 </div>
+
+
+
+<div *ngIf="validiraj!=null" class="donacija">
+  <form [formGroup]="validiraj" (ngSubmit)="dodajKarticu()" class="row g-3" >
+
+      <div  style="display: flex; flex-direction: row; width: 100%">
+        <h5 style="font-weight: bold; color: white; font-size: 30px">New card</h5>
+        <button type="button" style="color: white; margin-left: 80%; border: none; background-color:#3D5A80;font-size: 30px " (click)="validiraj=null">X</button>
+      </div>
+
+    <div class="odabirKartice">
+      <label class="form-label" style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Card number</label>
+      <input type="number" class="form-control" placeholder="eg. 555444333" formControlName="brojKartice" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['brojKartice'].invalid && (validiraj.controls['brojKartice'].dirty || validiraj.controls['brojKartice'].touched)">
+        <div *ngIf="validiraj.controls['brojKartice'].errors.required">
+          Card number is required.
+        </div>
+        <div *ngIf="validiraj.controls['brojKartice'].errors.pattern">
+          You can only type in numbers.
+        </div>
+        <div *ngIf="validiraj.controls['brojKartice'].errors.maxLength">
+          You have to enter 6 digits.
+        </div>
+      </div>
+    </div>
+
+    <div class="odabirKartice">
+      <label class="form-label" style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Card type</label>
+      <input type="text" class="form-control" rows="4" placeholder="eg. Visa" formControlName="tipKartice" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['tipKartice'].invalid && (validiraj.controls['tipKartice'].dirty || validiraj.controls['tipKartice'].touched)">
+        <div *ngIf="validiraj.controls['tipKartice'].errors.required">
+          Card type is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="odabirKartice">
+      <label class="form-label" style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">CVV</label>
+      <input type="number" class="form-control" rows="4" placeholder="* * *" formControlName="cvv" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['cvv'].invalid && (validiraj.controls['cvv'].dirty || validiraj.controls['cvv'].touched)">
+        <div *ngIf="validiraj.controls['cvv'].errors.required">
+          CVV is required.
+        </div>
+        <div *ngIf="validiraj.controls['cvv'].errors.pattern">
+          You can only type in numbers.
+        </div>
+        <div *ngIf="validiraj.controls['cvv'].errors.minlength">
+          You have to enter 3 digits.
+        </div>
+        <div *ngIf="validiraj.controls['cvv'].errors.maxLength">
+          You have to enter 3 digits.
+        </div>
+      </div>
+    </div>
+
+    <div class="odabirKartice">
+      <label class="form-label" style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Expiring month</label>
+      <input type="number" class="form-control"  formControlName="mjesecVazenja" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['mjesecVazenja'].invalid && (validiraj.controls['mjesecVazenja'].dirty || validiraj.controls['mjesecVazenja'].touched)">
+        <div *ngIf="validiraj.controls['mjesecVazenja'].errors.required">
+          Expiring month is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="odabirKartice">
+      <label class="form-label" style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Expiring year</label>
+      <input type="number" class="form-control"  formControlName="godinaVazenja" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['godinaVazenja'].invalid && (validiraj.controls['godinaVazenja'].dirty || validiraj.controls['godinaVazenja'].touched)">
+        <div *ngIf="validiraj.controls['godinaVazenja'].errors.required">
+          Expiring year is required.
+        </div>
+      </div>
+    </div>
+
+    <button type="button" style="width:30%; height:20%; margin:2%; color: white; background-color: #FF605C; border: none; border-radius: 30px; margin-left:60% "(click)="validiraj=null">Close</button>
+    <button type="submit" style="width:30%; height:20%; margin:2%; color: white; background-color: #00CA4C; border: none; border-radius: 30px; margin-left:60% " >Save </button>
+
   </form>
 </div>
 
