@@ -15,6 +15,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { StoryDetailsComponent } from './story-details/story-details.component';
 import { DonationComponent } from './donation/donation.component';
 import { AdministratorComponent } from './administrator/administrator.component';
+import { KomentariComponent } from './komentari/komentari.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AdministratorComponent } from './administrator/administrator.component'
     RegistrationComponent,
     StoryDetailsComponent,
     DonationComponent,
-    AdministratorComponent
+    AdministratorComponent,
+    KomentariComponent
   ],
     imports: [
         BrowserModule,

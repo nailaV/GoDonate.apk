@@ -23,12 +23,14 @@
       </div>
       <img src="https://joomly.net/frontend/web/images/googlemap/map.png" style="height: 50%; width: 100%">
       <br> <br>
+
       <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik && informacije().autentifikacijaToken.korisnickinalog.id!=x.korisnik_id" type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF " (click)="openDonation(x)"> DONATE NOW!</button> <br><br>
       <button type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF "
               *ngIf="informacije().autentifikacijaToken.korisnickinalog.isAdmin"
               (click)="obrisiPricu(x.id)">Delete story</button>
     </div>
   </div>
+    <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: #EE6C4D; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%">View comments </button>
 </div>
 </div>
 
