@@ -4,6 +4,7 @@ using GoDonate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoDonate.Migrations
 {
     [DbContext(typeof(GoDonateDbContext))]
-    partial class GoDonateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230317150910_NOVAMIGRACIJA2020202")]
+    partial class NOVAMIGRACIJA2020202
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,12 +229,6 @@ namespace GoDonate.Migrations
                     b.Property<string>("Sadrzaj")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("brojDislajkova")
-                        .HasColumnType("int");
-
-                    b.Property<int>("brojLajkova")
-                        .HasColumnType("int");
 
                     b.Property<int>("korisnikID")
                         .HasColumnType("int");

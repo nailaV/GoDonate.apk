@@ -14,5 +14,7 @@ namespace GoDonate.Modul.Models
         [ForeignKey(nameof(korisnikID))]
         public Korisnik Korisnik { get; set; }
         public int korisnikID { get; set; }
+        public int brojLajkova { get; set; }
+        public int brojDislajkova { get; set; }
     }
 }

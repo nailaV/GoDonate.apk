@@ -69,5 +69,18 @@ export class KomentariComponent implements  OnInit{
       this.pageNumber++;
       this.ucitajKomentare();
   }
+  lajkaj(id:number) {
+    this.httpKlijent.post(Konfiguracija.adresaServera+'/Komentar/Like/' + id,{}).subscribe(x=>{
+      this.ucitajKomentare();
+    })
+  }
+  dislajkaj(id:number) {
+    this.httpKlijent.post(Konfiguracija.adresaServera + '/Komentar/Dislike/' + id, {}).subscribe(x => {
+      this.ucitajKomentare();
+    })
+  }
+    getSlika(korisnikID: number) {
+      return `${Konfiguracija.adresaServera}/Korisnik/GetSlikuKorisnika/${korisnikID}`;
+    }
 
 }

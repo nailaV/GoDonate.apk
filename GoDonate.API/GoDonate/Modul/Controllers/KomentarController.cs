@@ -36,9 +36,13 @@ namespace GoDonate.Modul.Controllers
             var komentari = _dbContext.Komentari.OrderByDescending(p => p.Id).
                 Skip((pageNumber - 1) * pageSize).Take(pageSize).Where(k => k.pricaID == pricaID).Select(s => new
                 {
+                    Id = s.Id,
                     napisaoIme = s.Korisnik.Ime,
                     napisaoPrezime = s.Korisnik.Prezime,
-                    sadrzajKomentara = s.Sadrzaj
+                    sadrzajKomentara = s.Sadrzaj,
+                    brojLajkova = s.brojLajkova,
+                    brojDislajkova = s.brojDislajkova,
+                    korisnikID = s.korisnikID
                 });
             var totalItems = _dbContext.Komentari.Count();
             var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
@@ -57,5 +61,37 @@ namespace GoDonate.Modul.Controllers
             return data;
         }
 
+        [HttpGet("{komentarID}")]
+        public ActionResult<int> GetBrojLajkova(int komentarID)
+        {
+            var data = _dbContext.Komentari.FirstOrDefault(k => k.Id == komentarID);
+
+            return data.brojLajkova;
+        }
+
+        [HttpPost("{komentarID}")]
+        public ActionResult Like(int komentarID)
+        {
+            var prica = _dbContext.Komentari.FirstOrDefault(k => k.Id == komentarID);
+            prica.brojLajkova++;
+            _dbContext.SaveChanges();
+            return Ok();
+        }
+        [HttpGet("{komentarID}")]
+        public ActionResult<int> GetBrojDislajkova(int komentarID)
+        {
+            var data = _dbContext.Komentari.FirstOrDefault(k => k.Id == komentarID);
+
+            return data.brojDislajkova;
+        }
+
+        [HttpPost("{komentarID}")]
+        public ActionResult Dislike(int komentarID)
+        {
+            var prica = _dbContext.Komentari.FirstOrDefault(k => k.Id == komentarID);
+            prica.brojDislajkova++;
+            _dbContext.SaveChanges();
+            return Ok();
+        }
     }
 }
