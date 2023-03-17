@@ -22,14 +22,15 @@
     </nav>
   </div>
 
-  <div class="container" *ngIf="loginInfo().isLogiran && loginInfo().autentifikacijaToken.korisnickinalog.isAdmin">
+  <div class="container" style="width: 100%" *ngIf="loginInfo().isLogiran && loginInfo().autentifikacijaToken.korisnickinalog.isAdmin">
     <a class="logo">GoDonate</a>
     <nav>
       <ul>
         <li><a style="color: white" routerLink="/stories">Stories</a></li>
         <li><a style="color: white" routerLink="/userProfile" >User profile</a></li>
-        <li><a style="color: white" (click)="logOut()">Log Out</a></li>
         <li><a style="color: white" routerLink="/admin">Admin</a></li>
+        <li><a style="color: white" (click)="logOut()">Log Out</a></li>
+
       </ul>
     </nav>
   </div>

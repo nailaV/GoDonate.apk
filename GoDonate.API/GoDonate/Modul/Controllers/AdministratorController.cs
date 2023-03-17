@@ -51,5 +51,19 @@ namespace GoDonate.Modul.Controllers
             _dbContext.SaveChanges();
             return Ok();
         }
+
+        [HttpPost]
+        public ActionResult PromjeniSliku([FromBody] PromjenaSlikeVM x)
+        {
+            var admin = _dbContext.Administratori.Find(x.id);
+            if (admin == null)
+                return BadRequest();
+            else
+            {
+                admin.SlikaKorisnika = x.slikaKorisnika.ParsirajUbase();
+                _dbContext.SaveChanges();
+            }
+            return Ok();
+        }
     }
 }

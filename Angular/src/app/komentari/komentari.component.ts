@@ -69,4 +69,5 @@ export class KomentariComponent implements  OnInit{
       this.pageNumber++;
       this.ucitajKomentare();
   }
+
 }

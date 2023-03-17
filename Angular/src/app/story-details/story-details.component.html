@@ -25,12 +25,12 @@
       <br> <br>
 
       <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik && informacije().autentifikacijaToken.korisnickinalog.id!=x.korisnik_id" type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF " (click)="openDonation(x)"> DONATE NOW!</button> <br><br>
-      <button type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF "
+      <button type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#B53737 "
               *ngIf="informacije().autentifikacijaToken.korisnickinalog.isAdmin"
               (click)="obrisiPricu(x.id)">Delete story</button>
     </div>
   </div>
-    <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: #EE6C4D; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%" (click)="otvoriKomentare()">View comments ({{brojKomentara}}) </button>
+    <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: #B53737; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%" (click)="otvoriKomentare()">View comments ({{brojKomentara}}) </button>
 </div>
 </div>
 
