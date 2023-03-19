@@ -37,6 +37,7 @@ export class UserProfileComponent  implements OnInit{
   SaveDugme() {
   this.httpKlijent.post(`${Konfiguracija.adresaServera}/Korisnik/PromjeniSliku`, this.novaSlika, Konfiguracija.http_opcije()).subscribe(x=>{
       this.otvoriFormu=false;
+      this.getSlikuKorisnika(AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id);
     });
 
   }

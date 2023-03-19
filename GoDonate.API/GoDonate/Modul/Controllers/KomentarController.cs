@@ -61,6 +61,17 @@ namespace GoDonate.Modul.Controllers
             return data;
         }
 
+        [HttpPost("{komentarID}")]
+        public ActionResult Obrisi(int komentarID)
+        {
+            var data = _dbContext.Komentari.Find(komentarID);
+
+            _dbContext.Remove(data);
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
         [HttpGet("{komentarID}")]
         public ActionResult<int> GetBrojLajkova(int komentarID)
         {

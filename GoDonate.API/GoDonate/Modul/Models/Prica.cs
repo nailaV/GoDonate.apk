@@ -20,7 +20,7 @@ namespace GoDonate.Modul.Models
         public Korisnik Korisnik { get; set; }
         public int korisnikID { get; set; }
         public byte[] Slika { get; set; }
-        public bool? Aktivna { get; set; }
+        public bool? Aktivna { get; set; } = true;
 
     }
 }

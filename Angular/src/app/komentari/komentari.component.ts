@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Konfiguracija} from "../../Config";
 import {LoginInformacije} from "../helperi/login-informacije";
 import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
 @Component({
@@ -20,8 +21,17 @@ export class KomentariComponent implements  OnInit{
   pageNumber : number = 1;
   lajkButton : boolean = false;
   dislajkButton : boolean = false;
-  constructor(private httpKlijent : HttpClient, private router : Router, private activated : ActivatedRoute) {
+  validiraj:FormGroup;
 
+  constructor(private httpKlijent : HttpClient, private router : Router, private activated : ActivatedRoute, private formBuilder:FormBuilder) {
+  this.validiraj=this.formBuilder.group({
+    sadrzaj: new FormControl('', [
+      Validators.required])
+  })
+  }
+
+  get sadrzaj() : FormControl{
+    return this.validiraj.get("sadrzaj") as FormControl;
   }
 
   informacije():LoginInformacije{
@@ -47,18 +57,24 @@ export class KomentariComponent implements  OnInit{
   }
 
   dodajKomentar() {
+    if(this.validiraj.valid)
+    {
       let sadrzaj = {
         pricaID : this.pricaID,
         korisnikID : this.informacije().autentifikacijaToken.korisnickinalog.id,
-        sadrzaj : this.sadrzajKomentara
+        ...this.validiraj.value
       }
       this.httpKlijent.post
       (Konfiguracija.adresaServera + '/Komentar/AddKomentar',sadrzaj)
         .subscribe(x=>{
           porukaSuccess('Successfully commented on the story.');
           this.ucitajKomentare();
-          this.sadrzajKomentara="";
-      })
+          this.validiraj.get('sadrzaj').setValue(null);
+        })
+    }
+    else{
+      porukaError('Registration not confirmed. Please try again.');
+    }
   }
 
   prethodna() {
@@ -87,4 +103,9 @@ export class KomentariComponent implements  OnInit{
       return `${Konfiguracija.adresaServera}/Korisnik/GetSlikuKorisnika/${korisnikID}`;
     }
 
+  obrisiKomentar(id:number) {
+      this.httpKlijent.post(Konfiguracija.adresaServera + '/Komentar/Obrisi/' + id,{}).subscribe(s=>{
+        this.ucitajKomentare();
+      })
+  }
 }

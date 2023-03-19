@@ -12,24 +12,37 @@
   <button (click)="novaKartica()">Add card</button>
 </div>
     <div *ngIf="broj!=0" class="kartica">
+      <form [formGroup]="validacijaDonacije" (ngSubmit)="doniraj()" class="row g-3" >
       <div class="odabirKartice">
         <label style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Choose card</label> &nbsp;
-        <select style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
+        <select style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%" formControlName="kartica_id">
           <option *ngFor="let x of karticaPodatak"  [value]="x.id">
             {{x.brojKartice}}
           </option>
         </select>
+        <div style="color:darkred; font-weight: bold" *ngIf="validacijaDonacije.controls['kartica_id'].invalid && (validacijaDonacije.controls['kartica_id'].dirty || validacijaDonacije.controls['kartica_id'].touched)">
+          <div *ngIf="validacijaDonacije.controls['kartica_id'].errors.required">
+            Card is required.
+          </div>
+        </div>
       </div>
       <br>
       <div class="odabirKartice">
         <label style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Amount of money</label> &nbsp;
-        <input type="number" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%" placeholder="eg. 150">
+        <input type="number" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%" placeholder="eg. 150" formControlName="kolicina_novca">
+        <div style="color:darkred; font-weight: bold" *ngIf="validacijaDonacije.controls['kolicina_novca'].invalid && (validacijaDonacije.controls['kolicina_novca'].dirty || validacijaDonacije.controls['kolicina_novca'].touched)">
+          <div *ngIf="validacijaDonacije.controls['kolicina_novca'].errors.required">
+            Amount of money is required.
+          </div>
+        </div>
       </div>
+        <button type="submit" style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF; ">Confirm donation</button>
+      </form>
     </div>
       <br>
-    <div style="float: right">
-    <button style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF ">Confirm donation</button>
-    </div>
+
+
+
     <button style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF " (click)="novaKartica()">Add another card</button>
   </div>
   </div>

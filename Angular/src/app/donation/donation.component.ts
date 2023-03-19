@@ -19,6 +19,7 @@ export class DonationComponent implements OnInit{
   karticaPodatak:any;
   donacijaPodaci:any;
   validiraj:FormGroup;
+  validacijaDonacije:FormGroup;
 
   get brojKartice() : FormControl{
     return this.validiraj.get("brojKartice") as FormControl;
@@ -37,29 +38,23 @@ export class DonationComponent implements OnInit{
   }
 
 
+  get kartica_id() : FormControl{
+    return this.validacijaDonacije.get("kartica_id") as FormControl;
+  }
+  get kolicina_novca() : FormControl{
+    return this.validacijaDonacije.get("kolicina_novca") as FormControl;
+  }
+
+
   constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router,  private formBuilder:FormBuilder) {
-    /*this.validiraj=this.formBuilder.group({
-      brojKartice:new FormControl('', [
-        Validators.required,
-        Validators.pattern('[0-9]*'),
-        Validators.maxLength(6)
-      ]),
-      tipKartice:new FormControl('',[
+    this.validacijaDonacije=this.formBuilder.group({
+      kartica_id:new FormControl('', [
         Validators.required
       ]),
-      cvv:new FormControl('',[
-        Validators.required,
-        Validators.pattern('[0-9]*'),
-        Validators.minLength(3),
-        Validators.maxLength(3)
-      ]),
-      mjesecVazenja:new FormControl('',[
-        Validators.required
-      ]),
-      godinaVazenja:new FormControl('', [
+      kolicina_novca:new FormControl('',[
         Validators.required
       ])
-    })*/
+    })
   }
 
   ngOnInit() {
@@ -79,21 +74,26 @@ export class DonationComponent implements OnInit{
 
 
   doniraj(){
-    this.httpKlijent.post(Konfiguracija.adresaServera+'/Donacija/Add',this.donacijaPodaci).subscribe(x=>{
-      porukaSuccess('Donation successful');
-    })
+    if(this.validacijaDonacije.valid)
+    {
+      let s  ={
+        prica_id:this.storyID,
+        korisnik_id:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id,
+        ...this.validacijaDonacije.value
+      }
+      this.httpKlijent.post(Konfiguracija.adresaServera+'/Donacija/Add',s).subscribe(x=>{
+        porukaSuccess('Donation successful');
+        this.rut.navigateByUrl('/stories');
+      })
+    }
+    else{
+      porukaError("Donation is not confirmed. Please try again.");
+    }
+
+
   }
 
   novaKartica() {
-    /*this.kartica={
-      id:0,
-      brojKartice:"",
-      tipKartice:"",
-      cvv:"",
-      mjesecVazenja:1,
-      godinaVazenja:2022,
-      korisnikID:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id
-    }*/
     this.validiraj=this.formBuilder.group({
       brojKartice:new FormControl('', [
         Validators.required,
