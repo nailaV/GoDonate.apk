@@ -80,6 +80,7 @@ namespace GoDonate.Modul.Controllers
             return Ok(data);
         }
 
+
         [HttpGet]
         public List<PricaAddVM> GetSvePrice()
         {
@@ -104,7 +105,7 @@ namespace GoDonate.Modul.Controllers
         {
             var price = _dbContext.Price.OrderByDescending(p=>p.Id).
                 Skip((pageNumber - 1) * pageSize).Take(pageSize).
-                ToList().Where(k=>k.korisnikID!=korisnikID).Select(s => new
+                ToList().Where(k=>k.korisnikID!=korisnikID && k.Aktivna!=false).Select(s => new
             {
                 id = s.Id,
                 naslov = s.Naslov,
@@ -124,7 +125,7 @@ namespace GoDonate.Modul.Controllers
         [HttpGet]
         public ActionResult GetMyStoriesPaging(int korisnikID, int pageNumber = 1, int pageSize = 5)
         {
-            var price = _dbContext.Price.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Where(k => k.korisnikID == korisnikID).Select(s => new
+            var price = _dbContext.Price.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Where(k => k.korisnikID == korisnikID && k.Aktivna!=false).Select(s => new
             {
                 id = s.Id,
                 naslov = s.Naslov,

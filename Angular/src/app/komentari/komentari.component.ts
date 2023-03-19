@@ -18,6 +18,8 @@ export class KomentariComponent implements  OnInit{
   trenutnaStranica:number = 1;
   totalPages : number;
   pageNumber : number = 1;
+  lajkButton : boolean = false;
+  dislajkButton : boolean = false;
   constructor(private httpKlijent : HttpClient, private router : Router, private activated : ActivatedRoute) {
 
   }
@@ -72,11 +74,13 @@ export class KomentariComponent implements  OnInit{
   lajkaj(id:number) {
     this.httpKlijent.post(Konfiguracija.adresaServera+'/Komentar/Like/' + id,{}).subscribe(x=>{
       this.ucitajKomentare();
+      this.lajkButton=true;
     })
   }
   dislajkaj(id:number) {
     this.httpKlijent.post(Konfiguracija.adresaServera + '/Komentar/Dislike/' + id, {}).subscribe(x => {
       this.ucitajKomentare();
+      this.dislajkButton=true;
     })
   }
     getSlika(korisnikID: number) {
