@@ -80,6 +80,14 @@ namespace GoDonate.Modul.Controllers
             return Ok(data);
         }
 
+        [HttpGet("{pricaID}")]
+        public ActionResult GetMoneyGoal(int pricaID)
+        {
+            var data = _dbContext.Price.FirstOrDefault(p => p.Id == pricaID);
+
+            return Ok(data.NovcaniCilj);
+        }
+
 
         [HttpGet]
         public List<PricaAddVM> GetSvePrice()

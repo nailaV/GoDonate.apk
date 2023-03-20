@@ -16,7 +16,10 @@ export class StoryDetailsComponent implements OnInit{
   ukupnoPrica:any;
   zaProgressBar : any;
   brojKomentara: any;
-  formula : any;
+  moneyGoal: number;
+  currentMoneyDonated: number;
+  percentageComplete: number;
+
   informacije():LoginInformacije{
     return AutentifikacijaHelper.getLoginInfo();
   }
@@ -31,9 +34,9 @@ export class StoryDetailsComponent implements OnInit{
     this.router.params.subscribe(params=>{
       this.pricaId=+params['storyId'];
       this.fetchPricaById();
-      this.getUkupno();
       this.getBrojKomentara();
-      /*this.getFormulu();*/
+      this.getUkupnoDonirano();
+      this.getMoneyGoal();
     })
   }
 
@@ -41,6 +44,7 @@ export class StoryDetailsComponent implements OnInit{
       this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetByPricaId/'+this.pricaId)
         .subscribe(x=>{
           this.podaciPrica=x;
+          this.moneyGoal=this.podaciPrica.novcaniCilj;
         })
   }
   getSliku(x: number) {
@@ -54,11 +58,8 @@ export class StoryDetailsComponent implements OnInit{
     })
   }
 
-  getUkupno() {
-    this.httpKlijent.get(Konfiguracija.adresaServera + '/Donacija/GetUkupnoZaPricu/' + this.pricaId).subscribe(x=>{
-      this.ukupnoPrica=x;
-    })
-  }
+
+
 
   openDonation(x: any) {
     this.rut.navigate(['/donation', x.id]);
@@ -67,7 +68,6 @@ export class StoryDetailsComponent implements OnInit{
    getBrojKomentara() {
       this.httpKlijent.get(Konfiguracija.adresaServera + '/Komentar/GetBrojKomentara/' + this.pricaId).subscribe(x=>{
         this.brojKomentara=x;
-        console.log(this.brojKomentara);
       })
   }
 
@@ -79,7 +79,22 @@ export class StoryDetailsComponent implements OnInit{
     this.rut.navigateByUrl('/stories');
   }
 
-   /*getFormulu() {
-      this.formula =  this.ukupnoPrica./this.podaciPrica.novcani_cilj
-  }*/
+
+  getUkupnoDonirano() {
+      this.httpKlijent.get(Konfiguracija.adresaServera + '/Donacija/GetUkupnoZaFormulu/' + this.pricaId).subscribe((x:any)=>{
+        this.currentMoneyDonated=x;
+        if(this.currentMoneyDonated==0)
+          this.percentageComplete=0;
+      })
+  }
+
+   getMoneyGoal() {
+     this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetMoneyGoal/' + this.pricaId).subscribe((x:any)=>{
+       this.moneyGoal=x;
+       this.percentageComplete= (this.currentMoneyDonated / this.moneyGoal) * 100;
+       console.log(typeof(this.moneyGoal));
+       console.log(typeof(this.currentMoneyDonated));
+       console.log(typeof(this.percentageComplete));
+     })
+  }
 }

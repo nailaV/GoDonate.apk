@@ -12,8 +12,10 @@
     </div>
     <div class="detalji">
       <h4>We will need <b>{{x.novcaniCilj}}$</b>  to make our story happen.</h4>
-      <div>
-
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" [style.width.%]="percentageComplete">
+          {{percentageComplete}}$
+        </div>
       </div>
       <br>
       <h4>You can find us in <b>{{x.lokacija}}</b></h4>
