@@ -103,15 +103,50 @@ namespace GoDonate.Modul.Controllers
         [HttpGet]
         public ActionResult GetOtherStoriesPaging(int korisnikID, int pageNumber = 1, int pageSize = 5)
         {
-            var price = _dbContext.Price.OrderByDescending(p=>p.Id).
-                Skip((pageNumber - 1) * pageSize).Take(pageSize).
-                ToList().Where(k=>k.korisnikID!=korisnikID && k.Aktivna!=false).Select(s => new
+            var price = _dbContext.Price.Where(k => k.korisnikID != korisnikID && k.Aktivna != false).OrderByDescending(p=>p.Id).
+                Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Select(s => new
             {
                 id = s.Id,
                 naslov = s.Naslov,
                 opis = s.Opis,
                 novcani_cilj = s.NovcaniCilj
             });
+            var totalItems = _dbContext.Price.Where(k => k.korisnikID != korisnikID && k.Aktivna != false).Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (decimal)pageSize);
+            var odgovor = new
+            {
+                price,
+                totalPages
+            };
+            return Ok(odgovor);
+        }
+
+        [HttpGet]
+        public ActionResult GetMyActiveStories(int korisnikID)
+        {
+            var price = _dbContext.Price.Where(k => k.korisnikID == korisnikID && k.Aktivna!=false).ToList().Select(s => new
+            {
+                id = s.Id,
+                naslov = s.Naslov,
+                opis = s.Opis,
+                novcani_cilj = s.NovcaniCilj
+            }).OrderByDescending(s => s.id);
+     
+            
+            return Ok(price);
+        }
+
+        [HttpGet]
+        public ActionResult GetSvePriceZaAdmina(int pageNumber = 1, int pageSize = 5)
+        {
+            var price = _dbContext.Price.ToList().OrderByDescending(p => p.Id).
+                Skip((pageNumber - 1) * pageSize).Take(pageSize).Select(s => new
+                {
+                    id = s.Id,
+                    naslov = s.Naslov,
+                    opis = s.Opis,
+                    novcani_cilj = s.NovcaniCilj
+                });
             var totalItems = _dbContext.Price.Count();
             var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
             var odgovor = new
@@ -122,24 +157,29 @@ namespace GoDonate.Modul.Controllers
             return Ok(odgovor);
         }
 
-        [HttpGet]
-        public ActionResult GetMyStoriesPaging(int korisnikID, int pageNumber = 1, int pageSize = 5)
+
+        [HttpGet("{korisnikID}")]
+        public int BrojAktivnih(int korisnikID)
         {
-            var price = _dbContext.Price.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList().Where(k => k.korisnikID == korisnikID && k.Aktivna!=false).Select(s => new
+            var korisnik = _dbContext.Price.Where(k => k.korisnikID == korisnikID && k.Aktivna==true).Count();
+
+            return korisnik;
+        }
+
+
+        [HttpGet]
+        public ActionResult GetMyUnActiveStories(int korisnikID)
+        {
+            var price = _dbContext.Price.Where(k => k.korisnikID == korisnikID && k.Aktivna == false).ToList().Select(s => new
             {
                 id = s.Id,
                 naslov = s.Naslov,
                 opis = s.Opis,
                 novcani_cilj = s.NovcaniCilj
             }).OrderByDescending(s => s.id);
-            var totalItems = _dbContext.Price.Count();
-            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
-            var odgovor = new
-            {
-                price,
-                totalPages
-            };
-            return Ok(odgovor);
+
+
+            return Ok(price);
         }
 
         [HttpGet("{pricaid}")]

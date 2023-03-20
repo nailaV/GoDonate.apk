@@ -5,7 +5,18 @@
   height:100%;
   border-radius: 30px;
 }
-
+.aktivne{
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom:1%;
+}
+.aktivne button{
+  width:49%;
+  border: none;
+  background-color: #99C1D9;
+  font-weight: bold;
+}
 h5{
   color: white;
 }
@@ -60,7 +71,8 @@ h4{
   display: inline-block;
   border-radius: 30px;
   opacity: 90%;
-  transition:1s;
+  transition:transform 1s;
+  animation: ease-in;
 }
 .kartica:hover{
   border: #721c24 2px solid;

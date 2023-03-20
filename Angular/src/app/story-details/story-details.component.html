@@ -1,6 +1,6 @@
 <div *ngFor="let x of podaciPrica">
   <div class="back">
-    <a href="/stories" class="previous">&#8249;</a>
+    <button id="nazad" (click)="vratiNazad()">←</button>
     <div class="gornjiDio">
       <h1>{{x.naslov}}</h1>
     </div>
@@ -12,9 +12,8 @@
     </div>
     <div class="detalji">
       <h4>We will need <b>{{x.novcaniCilj}}$</b>  to make our story happen.</h4>
-      <div class="progress" style="height: 5%">
-        <div class="progress-bar" role="progressbar" style="width:25%; background-color: black" aria-valuemin="0" aria-valuenow="25"
-             aria-valuemax="100">{{ukupnoPrica}}%</div>
+      <div>
+
       </div>
       <br>
       <h4>You can find us in <b>{{x.lokacija}}</b></h4>
@@ -25,12 +24,12 @@
       <br> <br>
 
       <button *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik && informacije().autentifikacijaToken.korisnickinalog.id!=x.korisnik_id" type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#EE6C4DFF " (click)="openDonation(x)"> DONATE NOW!</button> <br><br>
-      <button type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#B53737 "
+      <button type="submit" class="dugme" style="border-radius: 30px; border: none; font-weight:  bold; color: white; background-color:#FF605C "
               *ngIf="informacije().autentifikacijaToken.korisnickinalog.isAdmin"
               (click)="obrisiPricu(x.id)">Delete story</button>
     </div>
   </div>
-    <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: #B53737; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%" (click)="otvoriKomentare()">View comments ({{brojKomentara}}) </button>
+    <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: cornflowerblue; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%" (click)="otvoriKomentare()">View comments ({{brojKomentara}}) </button>
 </div>
 </div>
 

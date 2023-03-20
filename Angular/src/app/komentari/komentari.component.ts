@@ -108,4 +108,8 @@ export class KomentariComponent implements  OnInit{
         this.ucitajKomentare();
       })
   }
+
+  vratiNazad() {
+    this.router.navigate(['storyDetails',this.pricaID]);
+  }
 }

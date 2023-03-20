@@ -70,5 +70,24 @@ namespace GoDonate.Modul.Controllers
 
             return Ok(prica.Aktivna);
         }
+
+        [HttpGet("pricaID")]
+        public ActionResult GetFormulu(int pricaID)
+        {
+            var data = _dbContext.Price.Where(p => p.Id == pricaID).Select(n => n.NovcaniCilj);
+
+
+
+            return Ok(data);
+        }
+
+        [HttpGet("{pricaID}")]
+        public ActionResult GetUkupnoZaFormulu(int pricaID)
+        {
+            var ukupno = _dbContext.Donacije.Where(p => p.pricaID == pricaID).Sum(c => c.KolicinaNovca);
+
+            
+            return Ok(ukupno);
+        }
     }
 }

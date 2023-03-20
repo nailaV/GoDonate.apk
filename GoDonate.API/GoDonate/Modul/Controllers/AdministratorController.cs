@@ -36,6 +36,8 @@ namespace GoDonate.Modul.Controllers
             return Ok();
         }
 
+        
+
         [HttpGet]
         public ActionResult GetSve()
         {

@@ -84,6 +84,7 @@ export class DonationComponent implements OnInit{
       this.httpKlijent.post(Konfiguracija.adresaServera+'/Donacija/Add',s).subscribe(x=>{
         porukaSuccess('Donation successful');
         this.rut.navigateByUrl('/stories');
+        this.httpKlijent.get(Konfiguracija.adresaServera+'/Donacija/GetUkupnoZaPricu/' +this.storyID).subscribe();
       })
     }
     else{
@@ -146,6 +147,10 @@ export class DonationComponent implements OnInit{
     this.httpKlijent.get(Konfiguracija.adresaServera+'/Kartica/GetKorisnikoveKartice/'+AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id).subscribe(x=>{
       this.karticaPodatak=x;
     })
+  }
+
+  vratiNazad() {
+      this.rut.navigate(['storyDetails',this.storyID]);
   }
 }
 

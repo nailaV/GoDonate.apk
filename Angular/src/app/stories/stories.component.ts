@@ -14,8 +14,12 @@ declare function porukaError(a: string):any;
   styleUrls: ['./stories.component.scss']
 })
 export class StoriesComponent implements OnInit {
+  otvoriTudje:boolean=true;
+  otvoriMoje:boolean=false;
   prica_tudja: any;
   prica_moja:any;
+  prica_mojaNeaktivna:any;
+  prica_mojaAktivna:any;
   valutaPodaci: any;
   kategorijaPodaci: any;
   otvoriFormu: boolean = false;
@@ -26,6 +30,9 @@ export class StoriesComponent implements OnInit {
   totalPages:number;
   trenutnaStranica:number=1;
   validiraj:FormGroup;
+  brojAktivnih:any;
+  zaAdmina:any;
+
 
   get naslov() : FormControl{
     return this.validiraj.get("naslov") as FormControl;
@@ -68,21 +75,36 @@ export class StoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.korisnikID=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id;
-    this.preuzmiTudje();
-    this.preuzmiValute();
-    this.preuzmiKategorije();
-    console.log(this.trenutnaStranica);
-    console.log(this.pageNumber);
+
+
+      this.preuzmiTudje();
+
+      this.preuzmiValute();
+      this.preuzmiKategorije();
+      this.preuzmiBroj();
+    /*  if(this.informacije().autentifikacijaToken.korisnickinalog.isAdmin)
+      {
+        this.getSvePrice();
+      }*/
   }
   informacije():LoginInformacije{
     return AutentifikacijaHelper.getLoginInfo();
   }
+  getSvePrice(){
+    this.httpKlijent.get(Konfiguracija.adresaServera+'/Prica/GetSvePrice').subscribe(x=>{
+          this.zaAdmina=x;
+    })
+  }
 
   preuzmiTudje() {
-    this.prica_moja=null;
+    this.prica_mojaNeaktivna=null;
+    this.prica_mojaAktivna=null;
+    this.otvoriTudje=true;
+    this.otvoriMoje=false;
     this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetOtherStoriesPaging?korisnikID=' +
       this.korisnikID + '&pageNumber=' + this.pageNumber + '&pageSize=5').subscribe(x => {
       this.prica_tudja = x;
+      this.totalPages=this.prica_tudja.totalPages;
       document.getElementById('prvi').style.color='white';
       document.getElementById('prvi').style.borderStyle='solid';
       document.getElementById('drugi').style.color='black';
@@ -142,7 +164,7 @@ export class StoriesComponent implements OnInit {
       };
       this.httpKlijent.post(`${Konfiguracija.adresaServera}/Prica/Add`, s, Konfiguracija.http_opcije()).subscribe(x=>{
         porukaSuccess("Story successfully added. Good luck with collecting money!")
-        this.paging();
+        this.preuzmiMojeAktivne();
         this.odabranaPrica=null;
       })
     }
@@ -158,7 +180,7 @@ export class StoriesComponent implements OnInit {
 
 
 
-  paging() {
+  /*paging() {
       this.httpKlijent.get(Konfiguracija.adresaServera+
         '/Prica/GetPricePaging?pageNumber=' + this.pageNumber + '&pageSize=5').subscribe(x=>{
         this.pagingPodaci=x;
@@ -166,29 +188,56 @@ export class StoriesComponent implements OnInit {
         console.log(this.totalPages);
         console.log(this.pagingPodaci);
       });
-  }
+  }*/
 
   prethodnaStranica() {
     this.trenutnaStranica--;
     this.pageNumber--;
-      this.paging();
+      this.preuzmiTudje();
   }
 
   sljedecaStranica() {
       this.trenutnaStranica++;
     this.pageNumber++;
-    this.paging();
+    this.preuzmiTudje();
   }
 
-  preuzmiMoje() {
+  preuzmiMojeAktivne() {
+    this.totalPages=0;
+    this.trenutnaStranica=0;
     this.prica_tudja=null;
-    this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetMyStoriesPaging?korisnikID=' +
-      this.korisnikID + '&pageNumber=' + this.pageNumber + '&pageSize=5').subscribe(x => {
-      this.prica_moja = x;
+    this.otvoriTudje=false;
+    this.otvoriMoje=true;
+    this.prica_mojaNeaktivna=null;
+    this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetMyActiveStories?korisnikID=' +
+      this.korisnikID).subscribe(x => {
+      this.prica_mojaAktivna = x;
       document.getElementById('prvi').style.color='black';
       document.getElementById('prvi').style.border='none';
       document.getElementById('drugi').style.color='white';
       document.getElementById('drugi').style.border='solid';
+      document.getElementById('aktivnePrice').style.color='white';
+      document.getElementById('neaktivnePrice').style.color='black';
     })
   }
+
+  preuzmiMojeNeaktivne() {
+    this.totalPages=0;
+    this.trenutnaStranica=0;
+    this.prica_tudja=null;
+    this.prica_mojaAktivna=null;
+    this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetMyUnActiveStories?korisnikID=' +
+      this.korisnikID ).subscribe(x => {
+      this.prica_mojaNeaktivna = x;
+      document.getElementById('aktivnePrice').style.color='black';
+      document.getElementById('neaktivnePrice').style.color='white';
+    })
+  }
+
+   preuzmiBroj() {
+      this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/BrojAktivnih/' + this.korisnikID).subscribe(x=>{
+        this.brojAktivnih=x;
+      })
+  }
+
 }

@@ -16,6 +16,7 @@ export class StoryDetailsComponent implements OnInit{
   ukupnoPrica:any;
   zaProgressBar : any;
   brojKomentara: any;
+  formula : any;
   informacije():LoginInformacije{
     return AutentifikacijaHelper.getLoginInfo();
   }
@@ -32,6 +33,7 @@ export class StoryDetailsComponent implements OnInit{
       this.fetchPricaById();
       this.getUkupno();
       this.getBrojKomentara();
+      /*this.getFormulu();*/
     })
   }
 
@@ -72,4 +74,12 @@ export class StoryDetailsComponent implements OnInit{
   otvoriKomentare() {
     this.rut.navigate(['komentari',this.pricaId]);
   }
+
+  vratiNazad() {
+    this.rut.navigateByUrl('/stories');
+  }
+
+   /*getFormulu() {
+      this.formula =  this.ukupnoPrica./this.podaciPrica.novcani_cilj
+  }*/
 }
