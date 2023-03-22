@@ -18,11 +18,11 @@ export class RegistrationComponent implements OnInit{
       ime: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
-        Validators.pattern('[a-zA-Z]*')]),
+        Validators.pattern('[a-zA-Z ]*')]),
       prezime: new FormControl('', [
         Validators.required,
         Validators.minLength(2),
-        Validators.pattern('[a-zA-Z]*')]),
+        Validators.pattern('[a-zA-Z ]*')]),
       datum_rodjenja:new FormControl('',[
         Validators.required]),
       email: new FormControl('', [

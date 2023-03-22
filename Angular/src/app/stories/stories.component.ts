@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
 import {LoginInformacije} from "../helperi/login-informacije";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Location} from "@angular/common";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -14,24 +15,29 @@ declare function porukaError(a: string):any;
   styleUrls: ['./stories.component.scss']
 })
 export class StoriesComponent implements OnInit {
-  otvoriTudje:boolean=true;
-  otvoriMoje:boolean=false;
+  otvoriTudje: boolean = true;
+  otvoriMoje: boolean = false;
   prica_tudja: any;
-  prica_moja:any;
-  prica_mojaNeaktivna:any;
-  prica_mojaAktivna:any;
+  prica_moja: any;
+  prica_mojaNeaktivna: any;
+  prica_mojaAktivna: any;
   valutaPodaci: any;
   kategorijaPodaci: any;
   otvoriFormu: boolean = false;
   odabranaPrica: any;
-  pageNumber : number = 1;
-  korisnikID : number;
-  pagingPodaci:any;
-  totalPages:number;
-  trenutnaStranica:number=1;
-  validiraj:FormGroup;
-  brojAktivnih:any;
-  zaAdmina:any;
+  pageNumber: number = 1;
+  korisnikID: number;
+  pagingPodaci: any;
+  totalPages: number;
+  trenutnaStranica: number = 1;
+  validiraj: FormGroup;
+  brojAktivnih: any;
+  zaAdmina: any;
+  TopDonatoriVarijabla: any[];
+  prviDonator: any;
+  drugiDonator: any;
+  treciDonator: any;
+
 
 
   get naslov() : FormControl{
@@ -57,17 +63,17 @@ export class StoriesComponent implements OnInit {
     this.validiraj=this.formBuilder.group({
       naslov:new FormControl('', [
         Validators.required,
-        Validators.pattern('[a-zA-Z]*')]),
+        Validators.pattern('[a-zA-Z ]*')]),
       opis:new FormControl('', [
         Validators.required,
-        Validators.pattern('[a-zA-Z]*')]),
+        Validators.pattern('[a-zA-Z ]*')]),
       slika:new FormControl('', [
         Validators.required]),
       novcani_cilj:new FormControl('', [
         Validators.required]),
       lokacija:new FormControl('', [
         Validators.required,
-        Validators.pattern('[a-zA-Z]*')]),
+        Validators.pattern('[a-zA-Z ]*')]),
       kategorija_id:new FormControl('', [
         Validators.required])
     })
@@ -75,17 +81,13 @@ export class StoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.korisnikID=AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id;
-
-
+      this.getStatus();
       this.preuzmiTudje();
-
+      this.TopDonatori();
       this.preuzmiValute();
       this.preuzmiKategorije();
       this.preuzmiBroj();
-    /*  if(this.informacije().autentifikacijaToken.korisnickinalog.isAdmin)
-      {
-        this.getSvePrice();
-      }*/
+
   }
   informacije():LoginInformacije{
     return AutentifikacijaHelper.getLoginInfo();
@@ -179,17 +181,6 @@ export class StoriesComponent implements OnInit {
   }
 
 
-
-  /*paging() {
-      this.httpKlijent.get(Konfiguracija.adresaServera+
-        '/Prica/GetPricePaging?pageNumber=' + this.pageNumber + '&pageSize=5').subscribe(x=>{
-        this.pagingPodaci=x;
-        this.totalPages=this.pagingPodaci.totalPages;
-        console.log(this.totalPages);
-        console.log(this.pagingPodaci);
-      });
-  }*/
-
   prethodnaStranica() {
     this.trenutnaStranica--;
     this.pageNumber--;
@@ -240,4 +231,19 @@ export class StoriesComponent implements OnInit {
       })
   }
 
+  getStatus() {
+    this.httpKlijent.get(Konfiguracija.adresaServera+'/Donacija/GetUkupnoZaPrice').subscribe();
+  }
+
+  TopDonatori() {
+      this.httpKlijent.get<any[]>(Konfiguracija.adresaServera + '/Donacija/GetTopDonators').subscribe(x=>{
+        this.TopDonatoriVarijabla=x;
+        this.prviDonator=this.TopDonatoriVarijabla[0];
+        this.drugiDonator=this.TopDonatoriVarijabla[1];
+        this.treciDonator=this.TopDonatoriVarijabla[2];
+        console.log(this.prviDonator);
+        console.log(this.drugiDonator);
+        console.log(this.treciDonator);
+      })
+  }
 }

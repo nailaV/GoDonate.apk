@@ -1,4 +1,4 @@
-
+<div class="pomjeri">
 <div *ngIf="odabranaPrica==null" class="kontejner">
 <h1 *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik">Stories opened for donations</h1>
 <h1 *ngIf="informacije().autentifikacijaToken.korisnickinalog.isAdmin">Stories review</h1>
@@ -14,21 +14,10 @@
     <img src="{{getSliku(x)}}" style="max-height:100%; max-width:20%; float:left; margin:3%">
     <h3>{{x.naslov}}</h3>
     <h4>GOAL {{x.novcani_cilj}} $</h4>
-   <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:85%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
+   <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:80%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
     <hr>
   </div>
     </div>
-
-<!--<div *ngIf="informacije().autentifikacijaToken.korisnickinalog.isAdmin">
-    <div *ngFor="let x of prica_tudja.price" class="kartica">
-      <img src="{{getSliku(x)}}" style="max-height:100%; max-width:20%; float:left; margin:3%">
-      <h3>{{x.naslov}}</h3>
-      <h4>GOAL {{x.novcani_cilj}} $</h4>
-      <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:85%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
-      <hr>
-    </div>
-  </div>-->
-
 
   <div *ngIf="otvoriMoje" style="width: 100%">
     <div class="aktivne">
@@ -40,7 +29,7 @@
       <img src="{{getSliku(x)}}" style="max-height:100%; max-width:20%; float:left; margin:3%">
       <h3>{{x.naslov}}</h3>
       <h4>GOAL {{x.novcani_cilj}} $</h4>
-      <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:85%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
+      <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:80%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
       <hr>
     </div>
     </div>
@@ -49,12 +38,12 @@
       <img src="{{getSliku(x)}}" style="max-height:100%; max-width:20%; float:left; margin:3%">
       <h3>{{x.naslov}}</h3>
       <h4>GOAL {{x.novcani_cilj}} $</h4>
-      <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:85%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
+      <a class="btn btn-dark" (click)="openDetails(x)" style="margin-left:80%; margin-bottom: 1%; border-radius: 30px; color: white; background-color: #EE6C4D; border: none;font-size: 20px"> Details</a>
       <hr>
     </div>
       </div>
   </div>
-  
+
 
 <br> <br>
   <div style="display:inline-block; width:100%; height:100%">
@@ -63,6 +52,32 @@
               *ngIf="trenutnaStranica > 1" (click)="prethodnaStranica()">Previous</button>
       <button type="button" class="btn btn-dark btn-lg" style="background-color: #EE6C4D; color: white; border-radius: 30px; border:none; float: right"
               *ngIf="trenutnaStranica < totalPages && totalPages>1" (click)="sljedecaStranica()">Next</button>
+    </div>
+  </div>
+</div>
+
+  <div *ngIf="odabranaPrica==null" class="topDonacije">
+    <h1 style="color: goldenrod; margin-bottom: 5%">Top 3 donators</h1>
+   <hr style="border: 2px solid black; color: black ">
+    <div  *ngIf="prviDonator!=null" class="kartica">
+      <img src="/assets/Slike/zlatna.JPG" style="width: 30%; height: 50%; padding: 3%; margin-right: 35%; margin-left: 35% ">
+      <h3>{{prviDonator.fullName}}</h3>
+      <h4>Donated {{prviDonator.totalDonations}} $</h4>
+      <hr>
+    </div>
+
+    <div *ngIf="drugiDonator!=null" class="kartica">
+      <img src="/assets/Slike/srebrna.JPG" style="width: 30%; height: 50%; padding: 3%; margin-right: 35%; margin-left: 35% ">
+      <h3>{{drugiDonator.fullName}}</h3>
+      <h4>Donated {{drugiDonator.totalDonations}} $</h4>
+      <hr>
+    </div>
+
+    <div *ngIf="treciDonator!=null" class="kartica">
+      <img src="/assets/Slike/bronza.JPG" style="width: 30%; height: 50%; padding: 3%; margin-right: 35%; margin-left: 35% ">
+      <h3>{{treciDonator.fullName}}</h3>
+      <h4>Donated {{treciDonator.totalDonations}} $</h4>
+      <hr>
     </div>
   </div>
 
@@ -107,7 +122,6 @@
           Image for story is required.
         </div>
       </div>
-      <!--<img style="width: 100%; height: 100%" src="{{odabranaPrica.slika}}">-->
    <br>
 
       <label>Money goal</label>

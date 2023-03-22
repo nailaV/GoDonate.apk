@@ -1,10 +1,24 @@
+.topDonacije{
+  background-color: white;
+  width: 35%;
+  height: 100%;
+  border-radius: 30px;
+  padding: 20px;
+  margin: 5px;
+  color: goldenrod;
+}
 .kontejner{
   background-color: #99C1D9;
   margin:5px;
   padding: 20px;
   height:100%;
+  width: 65%;
   border-radius: 30px;
 }
+.pomjeri{
+  display: flex;
+}
+
 .aktivne{
   width: 60%;
   margin-left: 20%;

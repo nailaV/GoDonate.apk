@@ -2,6 +2,7 @@
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoDonate.Modul.Controllers
 {
@@ -53,22 +54,40 @@ namespace GoDonate.Modul.Controllers
 
     
  
-        [HttpGet("{pricaID}")]
-        public ActionResult GetUkupnoZaPricu (int pricaID)
+        [HttpGet]
+        public ActionResult GetUkupnoZaPrice()
         {
-            var ukupno = _dbContext.Donacije.Where(p => p.pricaID == pricaID).Sum(c => c.KolicinaNovca);
+            //var ukupno = _dbContext.Donacije.Where(p => p.pricaID == pricaID).Sum(c => c.KolicinaNovca);
 
-            var prica = _dbContext.Price.FirstOrDefault(s => s.Id == pricaID);
+            //var prica = _dbContext.Price.FirstOrDefault(s => s.Id == pricaID);
 
-            if (ukupno >= prica.NovcaniCilj)
-                prica.Aktivna = false;
+            //if (ukupno >= prica.NovcaniCilj)
+            //    prica.Aktivna = false;
 
-            if (ukupno <= prica.NovcaniCilj)
-                prica.Aktivna = true;
+            ////if (ukupno <= prica.NovcaniCilj)
+            ////    prica.Aktivna = true;
 
-            _dbContext.SaveChanges();
+            //_dbContext.SaveChanges();
 
-            return Ok(prica.Aktivna);
+            //return Ok(prica.Aktivna);
+            using (var dbContext = _dbContext)
+            {
+                var stories = dbContext.Price.ToList();
+                foreach (var story in stories)
+                {
+                    decimal totalDonations = dbContext.Donacije
+                        .Where(d => d.pricaID == story.Id)
+                        .Sum(d => d.KolicinaNovca);
+
+                    if (totalDonations >= story.NovcaniCilj)
+                    {
+                        story.Aktivna = false;
+                    }
+                }
+
+                _dbContext.SaveChanges();
+            }
+            return Ok();
         }
 
         [HttpGet("pricaID")]
@@ -89,5 +108,26 @@ namespace GoDonate.Modul.Controllers
             
             return Ok(ukupno);
         }
+
+        [HttpGet]
+        public List<object> GetTopDonators()
+        {
+            using (var dbContext = _dbContext)
+            {
+                var topDonators = dbContext.Donacije
+                    .GroupBy(d => new { d.Korisnik.Ime, d.Korisnik.Prezime })
+                    .Select(g => new
+                    {
+                        FullName = $"{g.Key.Ime} {g.Key.Prezime}",
+                        TotalDonations = g.Sum(d => d.KolicinaNovca)
+                    })
+                    .OrderByDescending(d => d.TotalDonations)
+                    .Take(3)
+                    .ToList();
+
+                return topDonators.Cast<object>().ToList();
+            }
+        }
+
     }
 }

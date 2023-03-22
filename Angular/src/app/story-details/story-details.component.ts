@@ -24,8 +24,6 @@ export class StoryDetailsComponent implements OnInit{
     return AutentifikacijaHelper.getLoginInfo();
   }
 
-
-
   constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router) {
   }
 
@@ -59,8 +57,6 @@ export class StoryDetailsComponent implements OnInit{
   }
 
 
-
-
   openDonation(x: any) {
     this.rut.navigate(['/donation', x.id]);
   }
@@ -91,7 +87,7 @@ export class StoryDetailsComponent implements OnInit{
    getMoneyGoal() {
      this.httpKlijent.get(Konfiguracija.adresaServera + '/Prica/GetMoneyGoal/' + this.pricaId).subscribe((x:any)=>{
        this.moneyGoal=x;
-       this.percentageComplete= (this.currentMoneyDonated / this.moneyGoal) * 100;
+       this.percentageComplete= Math.round((this.currentMoneyDonated / this.moneyGoal) * 100);
        console.log(typeof(this.moneyGoal));
        console.log(typeof(this.currentMoneyDonated));
        console.log(typeof(this.percentageComplete));

@@ -4,8 +4,9 @@ import {LoginInformacije} from "../helperi/login-informacije";
 import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-
-
+import {Location} from "@angular/common";
+declare function porukaSuccess(a: string):any;
+declare function porukaError(a: string):any;
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -13,7 +14,7 @@ import {Router} from "@angular/router";
 })
 export class UserProfileComponent  implements OnInit{
 
-  constructor(private httpKlijent: HttpClient, private router :Router) {
+  constructor(private httpKlijent: HttpClient, private router :Router, private location : Location) {
   }
   otvoriFormu2:boolean=false;
   otvoriFormu:boolean=false;
@@ -37,7 +38,9 @@ export class UserProfileComponent  implements OnInit{
   SaveDugme() {
   this.httpKlijent.post(`${Konfiguracija.adresaServera}/Korisnik/PromjeniSliku`, this.novaSlika, Konfiguracija.http_opcije()).subscribe(x=>{
       this.otvoriFormu=false;
+      window.location.reload();
       this.getSlikuKorisnika(AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id);
+      porukaSuccess("Profile photo successfully changed.");
     });
 
   }
@@ -61,6 +64,7 @@ export class UserProfileComponent  implements OnInit{
       this.otvoriFormu2=false;
       AutentifikacijaHelper.setLoginInfo(x=null);
       this.router.navigateByUrl("/logIn");
+      porukaSuccess("Password successfully changed. Please log in again.");
     });
   }
 }

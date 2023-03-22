@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Konfiguracija} from "../../Config";
 import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Location} from "@angular/common";
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
 @Component({
@@ -46,7 +47,8 @@ export class DonationComponent implements OnInit{
   }
 
 
-  constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router,  private formBuilder:FormBuilder) {
+  constructor(private httpKlijent : HttpClient, private router : ActivatedRoute, private rut : Router,
+              private formBuilder:FormBuilder, private location : Location) {
     this.validacijaDonacije=this.formBuilder.group({
       kartica_id:new FormControl('', [
         Validators.required
@@ -81,10 +83,11 @@ export class DonationComponent implements OnInit{
         korisnik_id:AutentifikacijaHelper.getLoginInfo().autentifikacijaToken.korisnickinalog.id,
         ...this.validacijaDonacije.value
       }
+
       this.httpKlijent.post(Konfiguracija.adresaServera+'/Donacija/Add',s).subscribe(x=>{
+        this.getStatus();
         porukaSuccess('Donation successful');
         this.rut.navigateByUrl('/stories');
-        this.httpKlijent.get(Konfiguracija.adresaServera+'/Donacija/GetUkupnoZaPricu/' +this.storyID).subscribe();
       })
     }
     else{
@@ -128,8 +131,9 @@ export class DonationComponent implements OnInit{
       };
       this.httpKlijent.post(Konfiguracija.adresaServera+"/Kartica/AddKarticu", s).subscribe(x=>{
         porukaSuccess("Successfully added new card.");
+        this.countKartica();
         this.kartica=null;
-        this.rut.navigateByUrl('/donation');
+        window.location.reload();
       })
     }
     else{
@@ -151,6 +155,10 @@ export class DonationComponent implements OnInit{
 
   vratiNazad() {
       this.rut.navigate(['storyDetails',this.storyID]);
+  }
+
+   getStatus() {
+      this.httpKlijent.get(Konfiguracija.adresaServera+'/Donacija/GetUkupnoZaPrice').subscribe();
   }
 }
 
