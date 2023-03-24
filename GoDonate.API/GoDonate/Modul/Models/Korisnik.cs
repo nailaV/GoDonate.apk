@@ -18,6 +18,8 @@ namespace GoDonate.Modul.Models
         [ForeignKey(nameof(valutaID))]
         public Valuta Valuta { get; set; }
         public int valutaID { get; set; }
+        public bool isAktivan { get; set; } = false;
+        public string? Token { get; set; }
 
     }
 }

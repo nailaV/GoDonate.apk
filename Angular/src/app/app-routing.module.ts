@@ -13,6 +13,7 @@ import {ProvjeraAktivacija} from "./guard/Guard";
 import {AdminAktivacija} from "./guard/AdminGuard";
 import {Aktivacija} from "./guard/HomeAboutLogIn";
 import {KomentariComponent} from "./komentari/komentari.component";
+import {VerifikacijaComponent} from "./verifikacija/verifikacija.component";
 
 const routes: Routes = [
   {path: '', component:HomeComponent,canActivate:[Aktivacija]},
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: 'storyDetails/:storyId', component: StoryDetailsComponent, canActivate:[ProvjeraAktivacija]},
   {path:'donation/:storyID', component: DonationComponent, canActivate:[ProvjeraAktivacija]},
   {path:'admin',component:AdministratorComponent, canActivate:[AdminAktivacija]},
-  {path:'komentari/:storyID',component:KomentariComponent,canActivate:[ProvjeraAktivacija]}
+  {path:'komentari/:storyID',component:KomentariComponent,canActivate:[ProvjeraAktivacija]},
+  {path:'verifikacija/:korisnikID',component:VerifikacijaComponent}
   ]
 
 @NgModule({

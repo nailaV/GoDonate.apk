@@ -4,6 +4,7 @@ using GoDonate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoDonate.Migrations
 {
     [DbContext(typeof(GoDonateDbContext))]
-    partial class GoDonateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230324123445_migracijaprva")]
+    partial class migracijaprva
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -432,14 +435,8 @@ namespace GoDonate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("gradID")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isAktivan")
-                        .HasColumnType("bit");
 
                     b.Property<int>("valutaID")
                         .HasColumnType("int");

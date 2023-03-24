@@ -22,6 +22,7 @@ namespace GoDonate.Modul.Controllers
         [HttpPost]
         public ActionResult Add([FromBody] KorisnikAddVM x)
         {
+            string token = TokenGenerator.Generate(5);
             Korisnik korisnik;
             if (x.id == 0)
             {
@@ -41,12 +42,36 @@ namespace GoDonate.Modul.Controllers
             korisnik.Email = x.email;
             korisnik.BrojTelefona = x.brojTelefona;
             korisnik.SlikaKorisnika = x.slikaKorisnika.ParsirajUbase();
+            korisnik.Token = token;
+
+            
+
+            string poruka = $"Dear {x.ime}, Your verification code is {token}. Please submit it in the input field. Thanks.";
+
+            EmailHelper.Posalji(x.email, "Verification code", poruka);
 
 
             _dbContext.SaveChanges();
-            return Ok();
+            return Ok(korisnik.ID);
 
         }
+
+        [HttpPost]
+        public bool Verifikuj([FromBody] TokenVM x)
+        {
+            var data = _dbContext.Korisnici.Find(x.korisnikID);
+            if (x.verifikacijskiToken == data.Token)
+            {
+                data.isAktivan = true;
+
+                _dbContext.SaveChanges();
+                return true;
+            }
+            else
+                return false;
+          
+        }
+
 
         [HttpGet("{korisnikid}")]
         public ActionResult GetSlikuKorisnika(int korisnikid)

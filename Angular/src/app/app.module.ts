@@ -16,6 +16,7 @@ import { StoryDetailsComponent } from './story-details/story-details.component';
 import { DonationComponent } from './donation/donation.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { KomentariComponent } from './komentari/komentari.component';
+import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { KomentariComponent } from './komentari/komentari.component';
     StoryDetailsComponent,
     DonationComponent,
     AdministratorComponent,
-    KomentariComponent
+    KomentariComponent,
+    VerifikacijaComponent
   ],
     imports: [
         BrowserModule,

@@ -42,6 +42,7 @@ namespace GoDonate.Modul.Controllers
         public ActionResult GetSve()
         {
             var lista = _dbContext.Administratori.ToList();
+            EmailHelper.Posalji("naila.vejo4@gmail.com", "smijesno", "smijesno");
             return Ok(lista);
         }
 

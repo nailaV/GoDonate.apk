@@ -54,6 +54,7 @@ export class RegistrationComponent implements OnInit{
   gradoviPodaci:any;
   register:FormGroup;
   valutaPodaci:any;
+  korisnikID : any;
 
   get ime() : FormControl{
     return this.register.get("ime") as FormControl;
@@ -119,8 +120,9 @@ export class RegistrationComponent implements OnInit{
         slikaKorisnika:this.slikab64
       };
       this.httpKlijent.post(Konfiguracija.adresaServera+'/Korisnik/Add',s).subscribe(x=>{
+        this.korisnikID=x;
         porukaSuccess('Registration confirmed. Please log in.');
-        this.router.navigateByUrl('/logIn');
+        this.router.navigate(['verifikacija',this.korisnikID]);
       })
     }
     else{
