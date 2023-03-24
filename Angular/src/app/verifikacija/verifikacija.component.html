@@ -1,4 +1,13 @@
 
-<label>Verification code</label>
-<input type="text" [(ngModel)]="verifikacijskiToken">
-<button (click)="verifikuj()">Verifikuj</button>
+<div class="donacija">
+
+  <div class="gornjiDio">
+    <h5 style="color:white; font-weight: bold">Verification </h5>
+  </div>
+
+  <div style="margin-left: 20%; margin-right: 20%; width: 60%">
+    <label class="form-label" style="font-weight: bold; color: white">Enter code </label>
+    <input class="form-control" style="border-radius: 30px" [(ngModel)]="verifikacijskiToken">
+  </div>
+  <button type="button" style="width:40%; height:20%; margin:2%; color: white; background-color: #00CA4C; border: none; border-radius: 30px; margin-left:60% " (click)="verifikuj()">Verify </button>
+</div>

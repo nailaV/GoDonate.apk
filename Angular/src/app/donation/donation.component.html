@@ -1,4 +1,4 @@
-<button id="nazad" (click)="vratiNazad()">←</button>
+<button class="button-34" (click)="vratiNazad()" style="font-size: 25px">←</button>
 <div *ngFor="let x of pricaPodaci">
   <div  class="kontejner">
     <div *ngIf="validiraj==null" class="donacija">
@@ -9,7 +9,7 @@
 
 <div *ngIf="broj==0"class="kartica">
  <h2 style="color: white">You don't have any loaded cards. Please add yours:</h2>
-  <button (click)="novaKartica()">Add card</button>
+  <button (click)="novaKartica()" style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF ">Add card</button>
 </div>
     <div *ngIf="broj!=0" class="kartica">
       <form [formGroup]="validacijaDonacije" (ngSubmit)="doniraj()" class="row g-3" >
@@ -36,13 +36,10 @@
           </div>
         </div>
       </div>
-        <button type="submit" style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF; ">Confirm donation</button>
       </form>
-    </div>
       <br>
-
-
-
+      <button type="submit" style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF; width: fit-content; float: right">Confirm donation</button>
+    </div>
     <button style="border-radius: 30px; border: none; color: white; background-color:#EE6C4DFF " (click)="novaKartica()">Add another card</button>
   </div>
   </div>
@@ -85,25 +82,6 @@
     </div>
 
     <div class="col-md-6">
-      <label class="form-label" style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">CVV</label>
-      <input type="number" class="form-control" rows="4" placeholder="* * *" formControlName="cvv" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
-      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['cvv'].invalid && (validiraj.controls['cvv'].dirty || validiraj.controls['cvv'].touched)">
-        <div *ngIf="validiraj.controls['cvv'].errors.required">
-          CVV is required.
-        </div>
-        <div *ngIf="validiraj.controls['cvv'].errors.pattern">
-          You can only type in numbers.
-        </div>
-        <div *ngIf="validiraj.controls['cvv'].errors.minlength">
-          You have to enter 3 digits.
-        </div>
-        <div *ngIf="validiraj.controls['cvv'].errors.maxLength">
-          You have to enter 3 digits.
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-6">
       <label class="form-label" style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">Expiring month</label>
       <input type="number" class="form-control"  formControlName="mjesecVazenja" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
       <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['mjesecVazenja'].invalid && (validiraj.controls['mjesecVazenja'].dirty || validiraj.controls['mjesecVazenja'].touched)">
@@ -119,6 +97,25 @@
       <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['godinaVazenja'].invalid && (validiraj.controls['godinaVazenja'].dirty || validiraj.controls['godinaVazenja'].touched)">
         <div *ngIf="validiraj.controls['godinaVazenja'].errors.required">
           Expiring year is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label" style="color: white; font-weight: bold; margin-left: 2%; margin-bottom: 2%; margin-top: 2%">CVV</label>
+      <input type="number" class="form-control" rows="4" placeholder="* * *" formControlName="cvv" style="width:90%; border-radius: 30px; border: none; margin-left: 2%; margin-bottom: 2%">
+      <div style="color:darkred; font-weight: bold" *ngIf="validiraj.controls['cvv'].invalid && (validiraj.controls['cvv'].dirty || validiraj.controls['cvv'].touched)">
+        <div *ngIf="validiraj.controls['cvv'].errors.required">
+          CVV is required.
+        </div>
+        <div *ngIf="validiraj.controls['cvv'].errors.pattern">
+          You can only type in numbers.
+        </div>
+        <div *ngIf="validiraj.controls['cvv'].errors.minlength">
+          You have to enter 3 digits.
+        </div>
+        <div *ngIf="validiraj.controls['cvv'].errors.maxLength">
+          You have to enter 3 digits.
         </div>
       </div>
     </div>

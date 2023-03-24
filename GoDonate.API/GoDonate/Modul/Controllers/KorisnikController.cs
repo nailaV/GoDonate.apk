@@ -136,6 +136,37 @@ namespace GoDonate.Modul.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public ActionResult NoviPassword([FromBody] NoviPasswordVM x)
+        {
+            var korisnik = _dbContext.Korisnici.Find(x.id);
+            korisnik.Password = x.noviPassword;
+            _dbContext.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPost]
+        public ActionResult posaljiKod([FromBody] KodVM x)
+        {
+            var token = TokenGenerator.Generate(5);
+            var poruka = $"Your new verification code is {token}. Enter it so you can proceed with the password recovery.";
+            var provjera = _dbContext.Korisnici.FirstOrDefault(s => s.Email == x.mail);
+            EmailHelper.Posalji(provjera.Email, "Password recovery", poruka);
+            provjera.Token = token;
+            _dbContext.SaveChanges();
+            return Ok(provjera.ID);
+        }
+
+        [HttpPost]
+        public bool PorvjeriValidnost([FromBody] TokenVM x)
+        {
+            var korisnik = _dbContext.Korisnici.Find(x.korisnikID);
+            if (korisnik.Token == x.verifikacijskiToken)
+                return true;
+            else
+                return false;
+        }
+
 
     }
 }

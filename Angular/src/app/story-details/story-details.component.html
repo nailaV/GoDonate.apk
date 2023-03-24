@@ -1,6 +1,6 @@
 <div *ngFor="let x of podaciPrica">
   <div class="back">
-    <button id="nazad" (click)="vratiNazad()">←</button>
+    <button class="button-34" style="font-size: 25px" (click)="vratiNazad()">←</button>
     <div class="gornjiDio">
       <h1>{{x.naslov}}</h1>
     </div>
@@ -28,7 +28,9 @@
               (click)="obrisiPricu(x.id)">Delete story</button>
     </div>
   </div>
-    <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: cornflowerblue; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%" (click)="otvoriKomentare()">View comments ({{brojKomentara}}) </button>
+    <div class="komentar">
+      <button type="click" class="cta" style="border-radius: 30px; border: none; color: white; background-color: cornflowerblue; width: 60%; margin-left:20%;margin-right: 20% ; font-size: 20px; margin-bottom: 5%" (click)="otvoriKomentare()"> 💬 View comments ({{brojKomentara}}) </button>
+    </div>
 </div>
 </div>
 

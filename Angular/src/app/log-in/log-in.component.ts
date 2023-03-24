@@ -20,8 +20,13 @@ export class LogInComponent {
   success=false;
   username:any;
   password:any;
-
-
+  otvoriModal:boolean=false;
+  unesiKod:boolean=false;
+  promjena:boolean=false;
+  mail:string;
+  korisnikID:any;
+  verifikacija:string;
+  noviPassword:string;
 
   constructor(private formBuilder:FormBuilder, private router : Router, private httpKlijent:HttpClient) {
 
@@ -64,4 +69,43 @@ export class LogInComponent {
 
   }
 
+  posaljiKod() {
+    let s={
+      mail:this.mail
+    }
+    this.httpKlijent.post(Konfiguracija.adresaServera+"/Korisnik/posaljiKod", s).subscribe(x=>{
+      this.korisnikID=x;
+      porukaSuccess("Code has been sent to an email.");
+      this.otvoriModal=false;
+      this.unesiKod=true;
+    })
+  }
+
+  provjeriValidnost(){
+    let s={
+      korisnikID:this.korisnikID,
+      verifikacijskiToken: this.verifikacija
+    }
+    this.httpKlijent.post(Konfiguracija.adresaServera+"/Korisnik/PorvjeriValidnost", s).subscribe(x=>{
+      if(x==true){
+        porukaSuccess("Code matched. Enter new password.");
+        this.unesiKod=false;
+        this.promjena=true;
+      }
+      else
+        porukaError("Code didn't matched. Check again.")
+    })
+  }
+
+  NoviPassword() {
+    let s={
+      id:this.korisnikID,
+      noviPassword:this.noviPassword
+    }
+    this.httpKlijent.post(Konfiguracija.adresaServera+"/Korisnik/NoviPassword", s).subscribe(x=>{
+      porukaSuccess("Password successfully changed. Now log in.");
+      this.promjena=false;
+      this.router.navigateByUrl('/logIn');
+    })
+  }
 }

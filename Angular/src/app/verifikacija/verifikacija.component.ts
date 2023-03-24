@@ -35,4 +35,8 @@ export class VerifikacijaComponent implements OnInit{
             porukaError('Verification code not matching. Please check again and enter valid code.')
     })
   }
+
+  zatvoriFormu() {
+    this.router.navigateByUrl('/registration');
+  }
 }
