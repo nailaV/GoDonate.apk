@@ -1,4 +1,5 @@
 ﻿using GoDonate.Data;
+using GoDonate.Helpers;
 using GoDonate.Modul.Models;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -19,8 +20,11 @@ namespace GoDonate.Modul.Controllers
 
 
         [HttpPost]
-        public Donacija Add([FromBody] DonacijaAddVM x)
+        public ActionResult Add([FromBody] DonacijaAddVM x)
         {
+            if (!HttpContext.GetLoginInfo().isLogiran)
+                return BadRequest("Not logged in");
+
             var novaDonacija = new Donacija
             {
                 KolicinaNovca = x.kolicina_novca,
@@ -30,9 +34,9 @@ namespace GoDonate.Modul.Controllers
                 korisnikID=x.korisnik_id
             };
 
-            _dbContext.Add(novaDonacija);
+            _dbContext.Donacije.Add(novaDonacija);
             _dbContext.SaveChanges();
-            return novaDonacija;
+            return Ok(novaDonacija);
 
         }
 

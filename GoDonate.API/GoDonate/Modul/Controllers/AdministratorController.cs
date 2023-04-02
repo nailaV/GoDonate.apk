@@ -49,6 +49,8 @@ namespace GoDonate.Modul.Controllers
         [HttpPost("{korisnikID}")]
         public ActionResult ObrisiKorisnika(int korisnikID)
         {
+            if (!HttpContext.GetLoginInfo().korisnickiNalog.isAdmin)
+                return BadRequest("Permission denied");
             var data = _dbContext.Korisnici.FirstOrDefault(k => k.ID == korisnikID);
             _dbContext.Remove(data);
             _dbContext.SaveChanges();

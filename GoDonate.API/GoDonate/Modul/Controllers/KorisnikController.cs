@@ -85,6 +85,9 @@ namespace GoDonate.Modul.Controllers
         [HttpGet]
         public ActionResult GetSveKorisnike()
         {
+            if (!HttpContext.GetLoginInfo().korisnickiNalog.isAdmin)
+                return BadRequest("Permission denied");
+
             var korisnici = _dbContext.Korisnici
                 .OrderBy(s =>s.ID)
                 .Select(s => new KorisnikGetAllVM()

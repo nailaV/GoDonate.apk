@@ -17,6 +17,7 @@ import { DonationComponent } from './donation/donation.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { KomentariComponent } from './komentari/komentari.component';
 import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
+import { NotifikacijeComponent } from './notifikacije/notifikacije.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
     DonationComponent,
     AdministratorComponent,
     KomentariComponent,
-    VerifikacijaComponent
+    VerifikacijaComponent,
+    NotifikacijeComponent
   ],
     imports: [
         BrowserModule,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {SignalRServis} from "./SignalR/SignalRService";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -10,4 +11,7 @@ declare function porukaError(a: string):any;
 })
 export class AppComponent {
   title = 'Angular';
+  constructor(signalRservis : SignalRServis) {
+    signalRservis.pokreniKonekciju();
+  }
 }

@@ -77,6 +77,7 @@ export class StoriesComponent implements OnInit {
       kategorija_id:new FormControl('', [
         Validators.required])
     })
+
   }
 
   ngOnInit(): void {
@@ -87,7 +88,6 @@ export class StoriesComponent implements OnInit {
       this.preuzmiValute();
       this.preuzmiKategorije();
       this.preuzmiBroj();
-
   }
   informacije():LoginInformacije{
     return AutentifikacijaHelper.getLoginInfo();
@@ -165,7 +165,7 @@ export class StoriesComponent implements OnInit {
         slika:this.slikab64
       };
       this.httpKlijent.post(`${Konfiguracija.adresaServera}/Prica/Add`, s, Konfiguracija.http_opcije()).subscribe(x=>{
-        porukaSuccess("Story successfully added. Good luck with collecting money!")
+        porukaSuccess("Story successfully added. Good luck with collecting money!");
         this.preuzmiMojeAktivne();
         this.odabranaPrica=null;
       })

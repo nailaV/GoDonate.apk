@@ -1,8 +1,10 @@
 ﻿using GoDonate.Data;
 using GoDonate.Helpers;
 using GoDonate.Modul.Models;
+using GoDonate.Modul.SignalRHelper;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoDonate.Modul.Controllers
@@ -12,16 +14,21 @@ namespace GoDonate.Modul.Controllers
     public class PricaController : ControllerBase
     {
         private readonly GoDonateDbContext _dbContext;
+        private readonly IHubContext<NotifikacijeHub> notifikacijeHub;
 
-        public PricaController(GoDonateDbContext dbContext)
+        public PricaController(GoDonateDbContext dbContext, IHubContext<NotifikacijeHub> notifikacijeHub)
         {
             this._dbContext = dbContext;
+            this.notifikacijeHub = notifikacijeHub;
         }
 
 
         [HttpPost]
-        public ActionResult Add([FromBody] PricaAddVM x)
+        public async Task<ActionResult> Add([FromBody] PricaAddVM x)
         {
+
+            if (HttpContext.GetLoginInfo().korisnickiNalog.isAdmin)
+                return BadRequest("Admins can not add stories");
 
             int? id_logirani_korisnik = HttpContext.GetAuthToken()?.korisnickinalogID;
 
@@ -49,8 +56,10 @@ namespace GoDonate.Modul.Controllers
             prica.Lokacija = x.lokacija;
             prica.kategorijaID = x.kategorija_id;
 
-
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+            string poruka = $"New story has been added. {x.naslov} is available for donations - the goal is {x.novcani_cilj}.";
+            string korisnikovID = x.korisnik_id.ToString();
+            await notifikacijeHub.Clients.AllExcept(korisnikovID).SendAsync("PosaljiPoruke", poruka);
             return Ok();
         }
 
@@ -213,6 +222,8 @@ namespace GoDonate.Modul.Controllers
         [HttpGet("{pricaid}")]
         public ActionResult ObrisiPricu(int pricaid)
         {
+            if (!HttpContext.GetLoginInfo().korisnickiNalog.isAdmin)
+                return BadRequest("Permission denied");
             var prica = _dbContext.Price.FirstOrDefault(p=>p.Id== pricaid);
             _dbContext.Remove(prica);
             _dbContext.SaveChanges();
