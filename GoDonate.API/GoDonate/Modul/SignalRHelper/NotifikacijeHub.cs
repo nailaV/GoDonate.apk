@@ -6,7 +6,7 @@ namespace GoDonate.Modul.SignalRHelper
     {
         public async Task PosaljiPoruke (string poruka)
         {
-            await Clients.AllExcept(Context.ConnectionId).SendAsync("PosaljiPoruke", poruka);
+            await Clients.Others.SendAsync("PosaljiPoruke", poruka);
         }
     }
 }

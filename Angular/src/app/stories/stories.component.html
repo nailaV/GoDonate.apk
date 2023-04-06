@@ -1,3 +1,6 @@
+<div *ngIf="!signal" class="obavijest">
+
+</div>
 <div class="pomjeri">
 <div *ngIf="odabranaPrica==null" class="kontejner">
 <h1 *ngIf="informacije().autentifikacijaToken.korisnickinalog.isKorisnik">Stories opened for donations</h1>
@@ -57,7 +60,7 @@
 </div>
 
   <div *ngIf="odabranaPrica==null" class="topDonacije">
-    <h1 style="color: goldenrod; margin-bottom: 5%">Top 3 donators</h1>
+    <h1 style="color: goldenrod; margin-bottom: 5%">Top donators</h1>
    <hr style="border: 2px solid black; color: black ">
     <div  *ngIf="prviDonator!=null" class="kartica">
       <img src="/assets/Slike/zlatna.JPG" style="width: 30%; height: 50%; padding: 3%; margin-right: 35%; margin-left: 35% ">
@@ -160,4 +163,4 @@
   </div>
 
 
-<div *ngIf="brojAktivnih==5" style="color:red;background-color:whitesmoke;width:100%; border:1px solid black; border-radius: 30px; font-weight: bold; font-size:18px; padding:2%">You can not add another story because you already have 5 active ones. Give the others opportunity to participate.</div>
+<div *ngIf="brojAktivnih>=5" style="color:red;background-color:whitesmoke;width:100%; border:1px solid black; border-radius: 30px; font-weight: bold; font-size:18px; padding:2%">You can not add another story because you already have 5 active ones. Give the others opportunity to participate.</div>

@@ -6,6 +6,7 @@ import {AutentifikacijaHelper} from "../helperi/autentifikacija-helper";
 import {LoginInformacije} from "../helperi/login-informacije";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Location} from "@angular/common";
+import {SignalRServis} from "../SignalR/SignalRService";
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;
@@ -59,7 +60,7 @@ export class StoriesComponent implements OnInit {
     return this.validiraj.get("kategorija_id") as FormControl;
   }
 
-  constructor(private httpKlijent: HttpClient, private  router : Router,private formBuilder:FormBuilder) {
+  constructor(private httpKlijent: HttpClient, private  router : Router,private formBuilder:FormBuilder, signalR : SignalRServis) {
     this.validiraj=this.formBuilder.group({
       naslov:new FormControl('', [
         Validators.required,
@@ -77,7 +78,7 @@ export class StoriesComponent implements OnInit {
       kategorija_id:new FormControl('', [
         Validators.required])
     })
-
+    signalR.pokreniKonekciju();
   }
 
   ngOnInit(): void {
@@ -144,6 +145,7 @@ export class StoriesComponent implements OnInit {
   }
 
   public slikab64:any;
+  signal: boolean=false;
 
   generisiPreview(event:any) {
     const file = event.target.files[0];
@@ -165,7 +167,6 @@ export class StoriesComponent implements OnInit {
         slika:this.slikab64
       };
       this.httpKlijent.post(`${Konfiguracija.adresaServera}/Prica/Add`, s, Konfiguracija.http_opcije()).subscribe(x=>{
-        porukaSuccess("Story successfully added. Good luck with collecting money!");
         this.preuzmiMojeAktivne();
         this.odabranaPrica=null;
       })

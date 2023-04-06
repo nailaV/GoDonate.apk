@@ -32,6 +32,7 @@ namespace GoDonate.Modul.Controllers
 
             int? id_logirani_korisnik = HttpContext.GetAuthToken()?.korisnickinalogID;
 
+
             if (id_logirani_korisnik == null)
                 return BadRequest();
             Prica prica;
@@ -57,9 +58,9 @@ namespace GoDonate.Modul.Controllers
             prica.kategorijaID = x.kategorija_id;
 
             await _dbContext.SaveChangesAsync();
-            string poruka = $"New story has been added. {x.naslov} is available for donations - the goal is {x.novcani_cilj}.";
+            string poruka = $"New story has been added. {x.naslov} is available for donations - the goal is {x.novcani_cilj}$.";
             string korisnikovID = x.korisnik_id.ToString();
-            await notifikacijeHub.Clients.AllExcept(korisnikovID).SendAsync("PosaljiPoruke", poruka);
+            await notifikacijeHub.Clients.AllExcept(new[] { korisnikovID }).SendAsync("PosaljiPoruke", poruka);
             return Ok();
         }
 
@@ -222,8 +223,7 @@ namespace GoDonate.Modul.Controllers
         [HttpGet("{pricaid}")]
         public ActionResult ObrisiPricu(int pricaid)
         {
-            if (!HttpContext.GetLoginInfo().korisnickiNalog.isAdmin)
-                return BadRequest("Permission denied");
+          
             var prica = _dbContext.Price.FirstOrDefault(p=>p.Id== pricaid);
             _dbContext.Remove(prica);
             _dbContext.SaveChanges();
@@ -244,7 +244,8 @@ namespace GoDonate.Modul.Controllers
                     novcaniCilj = p.NovcaniCilj,
                     kategorija = p.Kategorija.Naziv,
                     lokacija = p.Lokacija,
-                    korisnik_id = p.korisnikID
+                    korisnik_id = p.korisnikID,
+                    imePrezime = p.Korisnik.Ime + " " + p.Korisnik.Prezime
                 }).AsQueryable();
 
             return Ok(prica.ToList());

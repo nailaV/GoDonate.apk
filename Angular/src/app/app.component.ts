@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {SignalRServis} from "./SignalR/SignalRService";
+declare function porukaInfo(a: string):any;
 
 declare function porukaSuccess(a: string):any;
 declare function porukaError(a: string):any;

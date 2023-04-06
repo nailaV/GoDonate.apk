@@ -7,8 +7,9 @@
     <h3> Read our full story </h3>
     <div class="pomjeri">
     <div class="opis">
-      <img src="{{getSliku(x.id)}}" style="height: 50%; width: 100%">
-      <h4 style="text-align: center; margin-top:2%; font-weight: bold">Description:</h4>
+      <p style="width: 100%; text-transform: uppercase;">Created by <b>{{x.imePrezime}}</b></p><hr style="border: 2px solid white; color:white">
+      <img src="{{getSliku(x.id)}}" style="height: 50%; width: 100%"><br><br>
+      <h4 style="text-align: center; margin-top:2%; text-transform: uppercase;  font-weight: bold">Description:</h4>
       <p style="width: 100%">{{x.opis}}</p>
     </div>
     <div class="detalji">

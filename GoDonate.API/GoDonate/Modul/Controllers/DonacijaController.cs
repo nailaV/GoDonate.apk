@@ -22,8 +22,7 @@ namespace GoDonate.Modul.Controllers
         [HttpPost]
         public ActionResult Add([FromBody] DonacijaAddVM x)
         {
-            if (!HttpContext.GetLoginInfo().isLogiran)
-                return BadRequest("Not logged in");
+         
 
             var novaDonacija = new Donacija
             {
