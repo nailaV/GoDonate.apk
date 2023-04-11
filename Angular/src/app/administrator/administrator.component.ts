@@ -30,7 +30,7 @@ export class AdministratorComponent implements OnInit{
 
   izbrisi(id:number) {
       this.httpKlijent.post(Konfiguracija.adresaServera+'/Administrator/ObrisiKorisnika/' + id,null).subscribe(x=>{
-        porukaSuccess('uspjesno obrisan korisnik');
+        porukaSuccess('Successfully deleted user!');
         this.fetchSveKorisnike();
         this.odabraniKorisnik=null;
       })

@@ -1,8 +1,10 @@
 ﻿using GoDonate.Data;
 using GoDonate.Helpers;
 using GoDonate.Modul.Models;
+using GoDonate.Modul.SignalRHelper;
 using GoDonate.Modul.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoDonate.Modul.Controllers
@@ -12,15 +14,17 @@ namespace GoDonate.Modul.Controllers
     public class DonacijaController:ControllerBase
     {
         private readonly GoDonateDbContext _dbContext;
+        private readonly IHubContext<NotifikacijeHub> notifikacijeHub;
 
-        public DonacijaController(GoDonateDbContext dbContext)
+        public DonacijaController(GoDonateDbContext dbContext, IHubContext<NotifikacijeHub> notifikacijeHub)
         {
             this._dbContext = dbContext;
+            this.notifikacijeHub = notifikacijeHub;
         }
 
 
         [HttpPost]
-        public ActionResult Add([FromBody] DonacijaAddVM x)
+        public async Task<ActionResult> Add([FromBody] DonacijaAddVM x)
         {
          
 
@@ -34,8 +38,11 @@ namespace GoDonate.Modul.Controllers
             };
 
             _dbContext.Donacije.Add(novaDonacija);
-            _dbContext.SaveChanges();
-            return Ok(novaDonacija);
+            await _dbContext.SaveChangesAsync();
+            string poruka = $"New donation just happened. {x.kolicina_novca}$ is donated.";
+            string korisnikovID = x.korisnik_id.ToString();
+            await notifikacijeHub.Clients.AllExcept(new[] { korisnikovID }).SendAsync("PosaljiPoruke", poruka);
+            return Ok();
 
         }
 

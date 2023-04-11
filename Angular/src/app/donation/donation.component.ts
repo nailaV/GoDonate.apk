@@ -86,7 +86,7 @@ export class DonationComponent implements OnInit{
 
       this.httpKlijent.post(Konfiguracija.adresaServera+'/Donacija/Add',s).subscribe(x=>{
         this.getStatus();
-        porukaSuccess('Donation successful');
+       porukaSuccess('Donation successful');
         this.rut.navigateByUrl('/stories');
       })
     }
